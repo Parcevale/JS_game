@@ -47,10 +47,10 @@ aObjects.push(this.mainObj);
 
 document.addEventListener('keydown', function(event) {
 	console.log('key pressed', event.code); 
-	if (event.code == 'KeyW') this.mainObj.y = this.mainObj.y - 3;
-	if (event.code == 'KeyS') this.mainObj.y = this.mainObj.y + 3;
-	if (event.code == 'KeyA') this.mainObj.x = this.mainObj.x - 3;
-	if (event.code == 'KeyD') this.mainObj.x = this.mainObj.x + 3;
+	if (event.code == 'KeyW' && this.mainObj.y >= 2) this.mainObj.y = this.mainObj.y - 3;
+	if (event.code == 'KeyS' && this.mainObj.y <= 460) this.mainObj.y = this.mainObj.y + 3;
+	if (event.code == 'KeyA' && this.mainObj.x >= 2) this.mainObj.x = this.mainObj.x - 3;
+	if (event.code == 'KeyD' && this.mainObj.x <= 466) this.mainObj.x = this.mainObj.x + 3;
 }.bind(this));
 
 setInterval(mainLoop,1000/60);
