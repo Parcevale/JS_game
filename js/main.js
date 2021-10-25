@@ -40,6 +40,7 @@ this.mainObj = {
 	y: 20,
 	w: 30,
 	h: 40,
+	
 	color :"#0979db"
 };
 aObjects.push(this.mainObj);
