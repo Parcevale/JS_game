@@ -12,10 +12,8 @@ var bounce;
 console.log('json data', DATA);
 
 var canvas = document.getElementById('canvas');
-canvas.width = 1000;
-canvas.height = 600;
-canvas.setAttribute('width', canvas.width);
-canvas.setAttribute('height', canvas.height);
+canvas.setAttribute('width', DATA.windowWidth);
+canvas.setAttribute('height', DATA.windowHeight);
 
 var clear = function() {
 	ctx.fillStyle = "#E3E3E3";
