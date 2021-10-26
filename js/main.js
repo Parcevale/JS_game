@@ -37,6 +37,10 @@ function getCam() {
 	var y = DATA.mainHero.y - DATA.windowHeight/2 > 1 ? DATA.mainHero.y - DATA.windowHeight/2 : 1;
 	return {x : x, y: y}
 }
+function drawUI(){
+	ctx.fillStyle = "#000000";
+	ctx.strokeText(DATA.mainHero.points,  DATA.windowWidth - 20, 20);
+}
 var mainLoop = function() {
 	clear();
 	ctx.drawImage(enemy, 150 - getCam().x, 745 - getCam().y, enemy.width, enemy.height);
