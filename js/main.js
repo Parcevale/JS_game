@@ -37,18 +37,21 @@ function getCam() {
 }
 function drawUI(){
 	ctx.fillStyle = "#000000";
-	ctx.strokeText(DATA.mainHero.points,  DATA.windowWidth - 20, 20);
+	ctx.font = "30px serif";
+	ctx.fillText(DATA.mainHero.points,  DATA.windowWidth - 40, 30);
 }
 var mainLoop = function() {
 	clear();
+	// drawUI():
 	ctx.drawImage(enemy, 150 - getCam().x, 745 - getCam().y, enemy.width, enemy.height);//enemy
 	aObjects.forEach(calcObjects);
 	aObjects.forEach(function(obj){
 		draw(obj.x - getCam().x,obj.y - getCam().y, obj.w,obj.h,obj.color);
 	})
 	DATA.roomOne.obstacles.forEach(function (obj) {
-		draw(obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h, obj.color);
+		if (!obj.destroy) draw(obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h, obj.color);
 	})
+	drawUI();
 }
 aObjects.push(DATA.mainHero);
 
@@ -60,7 +63,6 @@ document.addEventListener('keydown', function (event) {
 	let action = actions.filter(action => action.key === event.code);
 	if (action[0]){
 		hero.actions[action[0].name] = true;
-		console.log('action',action);
 	}
 }.bind(this));
 
@@ -70,7 +72,6 @@ document.addEventListener('keyup', function (event) {
 	let action = actions.filter(action => action.key === event.code);
 	if (action[0]){
 		hero.actions[action[0].name] = false;
-		console.log('action',action);
 	}
 }.bind(this));
 
@@ -95,7 +96,6 @@ function calcObjects(Obj){
 
 	if (actions.moveUp) {
 		if (checkJump(Obj)) {
-			console.log('moveUp');
 			actions.jump = true;
 			actions.jumpTime = Obj.jumpHeight;
 		}
@@ -118,14 +118,16 @@ function checkJump(Obj){
 }
 function checkMoveRight(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
-	var nMove = DATA.gravity, temp;
+	var nMove = Obj.speed, temp;
 
 	var bResult =  aObs.every(function (oObs){
 		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h && Obj.x < oObs.x) {// проверка по высоте, и, я слева
 			temp = Math.abs((Obj.x + Obj.w) - oObs.x); 
 			nMove = oObs.block ? Math.min(nMove,temp) : nMove;
-			if (!nMove && oObs.action) {
-				oObs.action(Obj);
+			console.log(nMove);
+			if (!nMove && oObs.action && !oObs.destroy) {
+				console.log('123');
+				pickCoin(Obj,oObs);
 			}
 			return  nMove
 		} else return true
@@ -139,10 +141,9 @@ function checkMoveLeft(Obj){
 	var bResult =  aObs.every(function (oObs){
 		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h && Obj.x > oObs.x) {// проверка по y
 			temp = Math.abs((oObs.x + oObs.w) - Obj.x);
-			console.log(temp);
 			nMove = oObs.block ? Math.min(nMove,temp) : nMove;
-			if (!nMove && oObs.action) {
-				oObs.action(Obj);
+			if (!nMove && oObs.action && !oObs.destroy) {
+				pickCoin(Obj,oObs);
 			}
 			return  nMove
 		} else return true
@@ -167,8 +168,8 @@ function checkMoveUp(Obj) {
 		if (Obj.x + Obj.w > oObs.x && Obj.x < oObs.x + oObs.w && Obj.y > oObs.y) {// проверка по x
 			temp = Math.abs((oObs.y + oObs.h) - Obj.y);
 			nMove = oObs.block ? Math.min(nMove,temp) : nMove;
-			if (!nMove && oObs.action) {
-				oObs.action(Obj);
+			if (!nMove && oObs.action && !oObs.destroy) {
+				pickCoin(Obj,oObs);
 			}
 			return  nMove
 		} else return true
@@ -193,8 +194,10 @@ function checkMoveDown(Obj){
 		if (Obj.x + Obj.w > oObs.x && Obj.x < oObs.x + oObs.w && Obj.y < oObs.y) {// проверка по x
 			temp = Math.abs((Obj.y + Obj.h) - oObs.y);
 			nMove = oObs.block ? Math.min(nMove,temp) : nMove;
-			if (!nMove && oObs.action) {
-				oObs.action(Obj);
+			if (!nMove && oObs.action && !oObs.destroy) {
+				console.log('123');
+				pickCoin(Obj,oObs);
+				// oObs.action(Obj);
 			}
 			return  nMove
 		} else return true
@@ -215,3 +218,12 @@ document.addEventListener('mousedown', function (event) {
 setInterval(mainLoop,1000/60);
 // mainLoop();
 
+function pickCoin(hero, obj) {
+	hero.points = hero.points + 1;
+	obj.destroy = true;
+	obj.block = false;
+}
+
+function getInfo() {
+	console.log(DATA.mainHero);
+}

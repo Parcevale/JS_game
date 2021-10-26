@@ -3,14 +3,14 @@ var DATA = {
 	windowWidth: 2000,
 	windowHeight: 800,
 	mainHero: {
-		points: 2,
+		points: 0,
 		x: 20,
 		y: 745,
 		w: 30,
 		h: 40,
-		jumpHeight: 17,
+		jumpHeight: 18,
 		jumpSpeed: 10,
-		speed: 8,
+		speed: 7,
 		color :"#0979db",
 		actions: {}
 	},
@@ -24,6 +24,7 @@ var DATA = {
 			{
 				type: "exit",
 				block: true,
+				destroy: false,
 				x: 2,
 				y: 745,
 				w: 7,
@@ -33,6 +34,7 @@ var DATA = {
 			{
 				type: "platform1",
 				block: true,
+				destroy: false,
 				x: 0,
 				y: 685,
 				w: 150,
@@ -42,6 +44,7 @@ var DATA = {
 			{
 				type: "platform2",
 				block: true,
+				destroy: false,
 				x: 0,
 				y: 620,
 				w: 100,
@@ -51,6 +54,7 @@ var DATA = {
 			{
 				type: "platform3",
 				block: true,
+				destroy: false,
 				x: 585,
 				y: 650,
 				w: 495,
@@ -60,6 +64,7 @@ var DATA = {
 			{
 				type: "platform4",
 				block: true,
+				destroy: false,
 				x: 750,
 				y: 550,
 				w: 200,
@@ -69,6 +74,7 @@ var DATA = {
 			{
 				type: "platform5",
 				block: true,
+				destroy: false,
 				x: 1180,
 				y: 450,
 				w: 100,
@@ -78,6 +84,7 @@ var DATA = {
 			{
 				type: "platform6",
 				block: true,
+				destroy: false,
 				x: 555,
 				y: 450,
 				w: 50,
@@ -87,6 +94,7 @@ var DATA = {
 			{
 				type: "platform7",
 				block: true,
+				destroy: false,
 				x: 300,
 				y: 150,
 				w: 250,
@@ -96,6 +104,7 @@ var DATA = {
 			{
 				type: "partition1",
 				block: true,
+				destroy: false,
 				x: 550,
 				y: 0,
 				w: 5,
@@ -105,6 +114,7 @@ var DATA = {
 			{
 				type: "teleport1",
 				block: true,
+				destroy: false,
 				x: 2,
 				y: 585,
 				w: 30,
@@ -115,6 +125,7 @@ var DATA = {
 			{
 				type: "teleport2",
 				block: true,
+				destroy: false,
 				x: 330,
 				y: 120,
 				w: 30,
@@ -124,6 +135,7 @@ var DATA = {
 			{
 				type: "box1",
 				block: true,
+				destroy: false,
 				x: 350,
 				y: 715,
 				w: 150,
@@ -133,6 +145,7 @@ var DATA = {
 			{
 				type: "box2",
 				block: true,
+				destroy: false,
 				x: 950,
 				y: 500,
 				w: 150,
@@ -142,6 +155,7 @@ var DATA = {
 			{
 				type: "floor",
 				block: true,
+				destroy: false,
 				x: 0,
 				y: 795,
 				w: 2000,
@@ -151,6 +165,7 @@ var DATA = {
 			{
 				type: "wall",
 				block: true,
+				destroy: false,
 				x: 0,
 				y: 0,
 				w: 5,
@@ -159,13 +174,49 @@ var DATA = {
 			},
 			{
 				type: "coin",
-				block: false,
+				block: true,
+				destroy: false,
 				x: 70,
 				y: 745,
 				w: 20,
 				h: 20,
-				color: "#ffff00"
+				color: "#ffff00",
+				action: "pickCoin"
+			},
+			{
+				type: "coin2",
+				block: true,
+				destroy: false,
+				x: 55,
+				y: 505,
+				w: 20,
+				h: 20,
+				color: "#ffff00",
+				action: "pickCoin"
+			},
+			{
+				type: "coin3",
+				block: true,
+				destroy: false,
+				x: 570,
+				y: 410,
+				w: 20,
+				h: 20,
+				color: "#ffff00",
+				action: "pickCoin"
+			},
+			{
+				type: "coin4",
+				block: true,
+				destroy: false,
+				x: 1214,
+				y: 410,
+				w: 20,
+				h: 20,
+				color: "#ffff00",
+				action: "pickCoin"
 			}
+
 		]
 	}
 }
