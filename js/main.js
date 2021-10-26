@@ -9,9 +9,17 @@ var gravity;
 var bounce;
 console.log('json data', DATA);
 
-var canvas = document.getElementById('canvas');
-canvas.setAttribute('width', DATA.windowWidth);
-canvas.setAttribute('height', DATA.windowHeight);
+cnv.setAttribute('width', DATA.windowWidth);
+cnv.setAttribute('height', DATA.windowHeight);
+
+///////////////////////
+var enemy = new Image(30, 30);
+enemy.onload = drawImageActualSize;
+enemy.src = './img/pixel-goust.gif';
+function drawImageActualSize() {
+	ctx.drawImage(this, 80, 745, this.width, this.height);
+}
+//////////////////////
 
 var clear = function() {
 	ctx.fillStyle = "#E3E3E3";
@@ -148,6 +156,7 @@ function checkMoveDown(Obj){
 // 			return Obj.x + Obj.w + Obj.speed < oObs.x
 // 		} else return true
 // }
+
 
 document.addEventListener('mousedown', function (event) {
 }.bind(this));
