@@ -14,11 +14,9 @@ cnv.setAttribute('height', DATA.windowHeight);
 
 ///////////////////////
 var enemy = new Image(30, 30);
-enemy.onload = drawImageActualSize;
-enemy.src = './img/pixel-goust.gif';
-function drawImageActualSize() {
-	ctx.drawImage(this, 80, 745, this.width, this.height);
-}
+enemy.onload = mainLoop;
+enemy.src = './img/goust.png';
+
 //////////////////////
 
 var clear = function() {
@@ -45,7 +43,7 @@ function drawUI(){
 }
 var mainLoop = function() {
 	clear();
-	drawUI();
+	ctx.drawImage(enemy, 150 - getCam().x, 745 - getCam().y, enemy.width, enemy.height);
 	aObjects.forEach(calcObjects);
 	aObjects.forEach(function(obj){
 		draw(obj.x - getCam().x,obj.y - getCam().y, obj.w,obj.h,obj.color);
