@@ -70,10 +70,8 @@ var mainLoop = function() {
 	// console.log('refresh');
 }
 aObjects.push(DATA.mainHero);
-// aUnderfoot.push(this.underfootOne);
-// aUnderfoot.push(this.underfootTwo);
 
-// aUnderfoot.push(this.underfoot);
+
 //скомпоновать keyup и keydown
 document.addEventListener('keydown', function (event) {
 	let hero = DATA.mainHero;
@@ -144,8 +142,6 @@ function checkJump(Obj){
 }
 function checkMoveRight(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
-	// x + width, y + width + height сравниваем с x, x+ height
-	//upRight = a, botRight = b;
 	var bResult =  aObs.every(function (oObs){
 		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h) {// проверка по высоте
 			return Obj.x + Obj.w + Obj.speed < oObs.x || Obj.x + Obj.speed > oObs.x
@@ -155,15 +151,11 @@ function checkMoveRight(Obj){
 }
 function checkMoveLeft(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
-	// x + width, y + width + height сравниваем с x, x+ height
-	//upRight = a, botRight = b;
 	var bResult =  aObs.every(function (oObs){
 		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h) {// проверка по y
-			// console.log("check left");
 			return Obj.x - Obj.speed > oObs.x + oObs.w || Obj.x - Obj.speed < oObs.x
 		} else return true
 	})
-	// console.log("check left",bResult,Obj );
 	return bResult;
 }
 function checkMoveUp(Obj) {
@@ -187,16 +179,12 @@ function checkMoveDown(Obj){
 }
 //Попытка универсальной функции, но что то пошло не так
 // function checkMove(a1x,a1y,a2x,a2y,b1x,b1y,b2x,b2y, speed) {
-
-
-
 // 	if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h) {
 // 			return Obj.x + Obj.w + Obj.speed < oObs.x
 // 		} else return true
 // }
 
 document.addEventListener('mousedown', function (event) {
-
 }.bind(this));
 
 setInterval(mainLoop,1000/60);
