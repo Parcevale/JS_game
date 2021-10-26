@@ -13,7 +13,7 @@ console.log('json data', DATA);
 
 var clear = function() {
 	ctx.fillStyle = "#E3E3E3";
-	ctx.fillRect(0,0,500,500);
+	ctx.fillRect(0,0,DATA.windowWidth,DATA.windowHeight);
 }
 var draw = function(x,y,w,h,color) {
 	ctx.fillStyle = color;
@@ -57,15 +57,20 @@ function onStartGame() {
 // 	drawMain(20,20,10,10,'#DD5656');
 // }
 clear();
-draw(20,20,10,10,'#DD5656');
+// draw(20,20,10,10,'#DD5656');
+function getCam() {
+	var x = DATA.mainHero.x - DATA.windowWidth/2 > 1 ? DATA.mainHero.x - DATA.windowWidth/2 : 1;
+	var y = DATA.mainHero.y - DATA.windowHeight/2 > 1 ? DATA.mainHero.y - DATA.windowHeight/2 : 1;
+	return {x : x, y: y}
+}
 var mainLoop = function() {
 	clear();
 	aObjects.forEach(calcObjects);
 	aObjects.forEach(function(obj){
-		draw(obj.x,obj.y,obj.w,obj.h,obj.color);
+		draw(obj.x - getCam().x,obj.y - getCam().y, obj.w,obj.h,obj.color);
 	})
 	DATA.roomOne.obstacles.forEach(function (obj) {
-		draw(obj.x, obj.y, obj.w, obj.h, obj.color);
+		draw(obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h, obj.color);
 	})
 	// console.log('refresh');
 }
@@ -134,11 +139,7 @@ function calcObjects(Obj){
 	// return
 }
 function checkJump(Obj){
-	// console.log('check move up')
 	return !checkMoveDown(Obj)
-	// if (!checkMoveDown(Obj)){
-
-	
 }
 function checkMoveRight(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
