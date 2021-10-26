@@ -171,7 +171,7 @@ function checkMoveUp(Obj) {
 	var bResult =  aObs.every(function (oObs){
 		if (Obj.x + Obj.w > oObs.x && Obj.x < oObs.x + oObs.w) {// проверка по x
 			console.log('chek up', Obj, oObs);
-			return Obj.y - Obj.jumpSpeed < oObs.y + oObs.h || Obj.y - Obj.jumpSpeed  > oObs.y + oObs.h
+			return Obj.y < oObs.y || Obj.y - Obj.jumpSpeed  > oObs.y + oObs.h
 		} else return true
 	})
 	return bResult;

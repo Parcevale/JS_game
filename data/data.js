@@ -1,5 +1,5 @@
 var DATA = {
-	gravity: 4,
+	gravity: 10,
 	mainHero: {
 		x: 100,
 		y: 230,
