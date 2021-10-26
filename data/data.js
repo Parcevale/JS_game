@@ -1,5 +1,7 @@
 var DATA = {
 	gravity: 10,
+	windowWidth: 1000,
+	windowHeight: 1000,
 	mainHero: {
 		x: 100,
 		y: 230,
@@ -38,7 +40,23 @@ var DATA = {
 				type: "platform3",
 				x: 0,
 				y: 495,
-				w: 495,
+				w: 700,
+				h: 5,
+				color: "#964b00"
+			},
+			{
+				type: "platform4",
+				x: 800,
+				y: 600,
+				w: 700,
+				h: 5,
+				color: "#964b00"
+			},
+			{
+				type: "platform5",
+				x: 0,
+				y: 1000,
+				w: 1500,
 				h: 5,
 				color: "#964b00"
 			},
