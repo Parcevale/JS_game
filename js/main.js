@@ -7,17 +7,15 @@ var aUnderfoot = [];
 var keyUp = false, keyDown = false, keyLeft = false, keyRight = false;
 var gravity;
 var bounce;
+var enemy = new Image(30, 30);
 console.log('json data', DATA);
 
 cnv.setAttribute('width', DATA.windowWidth);
 cnv.setAttribute('height', DATA.windowHeight);
 
-///////////////////////
-var enemy = new Image(30, 30);
 enemy.onload = mainLoop;
-enemy.src = './img/goust.png';
+enemy.src = './img/pixel-goust.gif';
 
-//////////////////////
 
 var clear = function() {
 	ctx.fillStyle = "#E3E3E3";
@@ -43,7 +41,7 @@ function drawUI(){
 }
 var mainLoop = function() {
 	clear();
-	ctx.drawImage(enemy, 150 - getCam().x, 745 - getCam().y, enemy.width, enemy.height);
+	ctx.drawImage(enemy, 150 - getCam().x, 745 - getCam().y, enemy.width, enemy.height);//enemy
 	aObjects.forEach(calcObjects);
 	aObjects.forEach(function(obj){
 		draw(obj.x - getCam().x,obj.y - getCam().y, obj.w,obj.h,obj.color);

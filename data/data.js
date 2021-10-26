@@ -139,7 +139,7 @@ var DATA = {
 				x: 0,
 				y: 0,
 				w: 5,
-				h: 300,
+				h: 800,
 				color: "#7fffd4"
 			}
 		]
