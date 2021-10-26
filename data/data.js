@@ -43,6 +43,14 @@ var DATA = {
 				color: "#964b00"
 			},
 			{
+				type: "platform3",
+				x: 555,
+				y: 495,
+				w: 495,
+				h: 5,
+				color: "#964b00"
+			},
+			{
 				type: "box",
 				x: 250,
 				y: 230,
