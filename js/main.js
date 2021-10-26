@@ -90,7 +90,7 @@ function calcObjects(Obj){
 
 	if (!actions.jump) {
 		if (checkMoveDown(Obj))
-		Obj.y = Obj.y + DATA.gravity;
+		Obj.y = Obj.y + checkMoveDown(Obj);
 	}
 
 	if (actions.moveUp) {
@@ -105,7 +105,8 @@ function calcObjects(Obj){
 		if (actions.jumpTime) {
 			actions.jumpTime = actions.jumpTime - 1
 			if (checkMoveUp(Obj) && actions.jumpTime > 5) {
-				Obj.y = Obj.y - Obj.jumpSpeed;
+
+				Obj.y = Obj.y - checkMoveUp(Obj);
 			}
 		} else {
 			actions.jump = false;
@@ -117,7 +118,7 @@ function checkJump(Obj){
 }
 function checkMoveRight(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
-	var nMove = Obj.speed, temp;
+	var nMove = DATA.gravity, temp;
 
 	var bResult =  aObs.every(function (oObs){
 		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h && Obj.x < oObs.x) {// проверка по высоте, и, я слева
@@ -131,15 +132,6 @@ function checkMoveRight(Obj){
 	})
 	return nMove;
 }
-// function checkMoveLeft(Obj){ 
-// 	var aObs = DATA.roomOne.obstacles;
-// 	var bResult =  aObs.every(function (oObs){
-// 		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h) {// проверка по y
-// 			return Obj.x - Obj.speed > oObs.x + oObs.w || Obj.x - Obj.speed < oObs.x
-// 		} else return true
-// 	})
-// 	return bResult;
-// }
 
 function checkMoveLeft(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
@@ -152,31 +144,62 @@ function checkMoveLeft(Obj){
 			if (!nMove && oObs.action) {
 				oObs.action(Obj);
 			}
-			console.log('moe',nMove);
 			return  nMove
 		} else return true
 	})
 	return nMove;
 }
 
+// function checkMoveUp(Obj) {
+// 	var aObs = DATA.roomOne.obstacles;
+// 	var bResult =  aObs.every(function (oObs){
+// 		if (Obj.x + Obj.w > oObs.x && Obj.x < oObs.x + oObs.w) {// проверка по x
+// 			console.log('chek up', Obj, oObs);
+// 			return Obj.y < oObs.y || Obj.y - Obj.jumpSpeed  > oObs.y + oObs.h
+// 		} else return true
+// 	})
+// 	return bResult;
+// }
 function checkMoveUp(Obj) {
 	var aObs = DATA.roomOne.obstacles;
+	var nMove = Obj.jumpSpeed, temp;
 	var bResult =  aObs.every(function (oObs){
-		if (Obj.x + Obj.w > oObs.x && Obj.x < oObs.x + oObs.w) {// проверка по x
-			console.log('chek up', Obj, oObs);
-			return Obj.y < oObs.y || Obj.y - Obj.jumpSpeed  > oObs.y + oObs.h
+		if (Obj.x + Obj.w > oObs.x && Obj.x < oObs.x + oObs.w && Obj.y > oObs.y) {// проверка по x
+			temp = Math.abs((oObs.y + oObs.h) - Obj.y);
+			nMove = oObs.block ? Math.min(nMove,temp) : nMove;
+			if (!nMove && oObs.action) {
+				oObs.action(Obj);
+			}
+			return  nMove
 		} else return true
 	})
-	return bResult;
+	return nMove;
 }
+
+// function checkMoveDown(Obj){ 
+// 	var aObs = DATA.roomOne.obstacles;
+// 	var bResult =  aObs.every(function (oObs){
+// 		if (Obj.x + Obj.w > oObs.x && Obj.x < oObs.x + oObs.w) {// проверка по x
+// 			return Obj.y + Obj.h + DATA.gravity < oObs.y  || Obj.y > oObs.y + oObs.h
+// 		} else return true
+// 	})
+// 	return bResult;
+// }
+
 function checkMoveDown(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
+	var nMove = Obj.jumpSpeed, temp;
 	var bResult =  aObs.every(function (oObs){
-		if (Obj.x + Obj.w > oObs.x && Obj.x < oObs.x + oObs.w) {// проверка по x
-			return Obj.y + Obj.h + DATA.gravity < oObs.y  || Obj.y > oObs.y + oObs.h
+		if (Obj.x + Obj.w > oObs.x && Obj.x < oObs.x + oObs.w && Obj.y < oObs.y) {// проверка по x
+			temp = Math.abs((Obj.y + Obj.h) - oObs.y);
+			nMove = oObs.block ? Math.min(nMove,temp) : nMove;
+			if (!nMove && oObs.action) {
+				oObs.action(Obj);
+			}
+			return  nMove
 		} else return true
 	})
-	return bResult;
+	return nMove;
 }
 //Попытка универсальной функции, но что то пошло не так
 // function checkMove(a1x,a1y,a2x,a2y,b1x,b1y,b2x,b2y, speed) {
