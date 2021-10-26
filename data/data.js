@@ -10,7 +10,7 @@ var DATA = {
 		h: 40,
 		jumpHeight: 17,
 		jumpSpeed: 10,
-		speed: 5,
+		speed: 8,
 		color :"#0979db",
 		actions: {}
 	},
@@ -23,6 +23,7 @@ var DATA = {
 		obstacles: [
 			{
 				type: "exit",
+				block: true,
 				x: 2,
 				y: 745,
 				w: 7,
@@ -31,6 +32,7 @@ var DATA = {
 			},
 			{
 				type: "platform1",
+				block: true,
 				x: 0,
 				y: 685,
 				w: 150,
@@ -39,6 +41,7 @@ var DATA = {
 			},
 			{
 				type: "platform2",
+				block: true,
 				x: 0,
 				y: 620,
 				w: 100,
@@ -47,6 +50,7 @@ var DATA = {
 			},
 			{
 				type: "platform3",
+				block: true,
 				x: 585,
 				y: 650,
 				w: 495,
@@ -55,6 +59,7 @@ var DATA = {
 			},
 			{
 				type: "platform4",
+				block: true,
 				x: 750,
 				y: 550,
 				w: 200,
@@ -63,6 +68,7 @@ var DATA = {
 			},
 			{
 				type: "platform5",
+				block: true,
 				x: 1180,
 				y: 450,
 				w: 100,
@@ -71,6 +77,7 @@ var DATA = {
 			},
 			{
 				type: "platform6",
+				block: true,
 				x: 555,
 				y: 450,
 				w: 50,
@@ -79,6 +86,7 @@ var DATA = {
 			},
 			{
 				type: "platform7",
+				block: true,
 				x: 300,
 				y: 150,
 				w: 250,
@@ -87,6 +95,7 @@ var DATA = {
 			},
 			{
 				type: "partition1",
+				block: true,
 				x: 550,
 				y: 0,
 				w: 5,
@@ -95,6 +104,7 @@ var DATA = {
 			},
 			{
 				type: "teleport1",
+				block: true,
 				x: 2,
 				y: 585,
 				w: 30,
@@ -104,6 +114,7 @@ var DATA = {
 			},
 			{
 				type: "teleport2",
+				block: true,
 				x: 330,
 				y: 120,
 				w: 30,
@@ -112,6 +123,7 @@ var DATA = {
 			},
 			{
 				type: "box1",
+				block: true,
 				x: 350,
 				y: 715,
 				w: 150,
@@ -120,6 +132,7 @@ var DATA = {
 			},
 			{
 				type: "box2",
+				block: true,
 				x: 950,
 				y: 500,
 				w: 150,
@@ -128,6 +141,7 @@ var DATA = {
 			},
 			{
 				type: "floor",
+				block: true,
 				x: 0,
 				y: 795,
 				w: 2000,
@@ -136,11 +150,21 @@ var DATA = {
 			},
 			{
 				type: "wall",
+				block: true,
 				x: 0,
 				y: 0,
 				w: 5,
 				h: 300,
 				color: "#7fffd4"
+			},
+			{
+				type: "coin",
+				block: false,
+				x: 70,
+				y: 745,
+				w: 20,
+				h: 20,
+				color: "#ffff00"
 			}
 		]
 	}

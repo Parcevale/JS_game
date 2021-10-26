@@ -78,18 +78,23 @@ document.addEventListener('keyup', function (event) {
 
 function calcObjects(Obj){
 	var actions = Obj.actions;
+
 	if (actions.moveRight) {
 		if (checkMoveRight(Obj))
-		Obj.x = Obj.x + Obj.speed;
+		// Obj.x = Obj.x + Obj.speed;
+		Obj.x = Obj.x + checkMoveRight(Obj);
 	}
+
 	if (actions.moveLeft) {
 		if (checkMoveLeft(Obj))
-		Obj.x = Obj.x - Obj.speed;
+		Obj.x = Obj.x - checkMoveLeft(Obj);
 	}
+
 	if (!actions.jump) {
 		if (checkMoveDown(Obj))
 		Obj.y = Obj.y + DATA.gravity;
 	}
+
 	if (actions.moveUp) {
 		if (checkJump(Obj)) {
 			console.log('moveUp');
@@ -97,6 +102,7 @@ function calcObjects(Obj){
 			actions.jumpTime = Obj.jumpHeight;
 		}
 	}
+
 	if (actions.jump) {
 		if (actions.jumpTime) {
 			actions.jumpTime = actions.jumpTime - 1
@@ -105,7 +111,7 @@ function calcObjects(Obj){
 			}
 		} else {
 			actions.jump = false;
-		}
+		} 
 	}
 }
 function checkJump(Obj){
@@ -113,22 +119,48 @@ function checkJump(Obj){
 }
 function checkMoveRight(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
+	var nMove = Obj.speed, temp;
+
 	var bResult =  aObs.every(function (oObs){
-		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h) {// проверка по высоте
-			return Obj.x + Obj.w + Obj.speed < oObs.x || Obj.x + Obj.speed > oObs.x
+		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h && Obj.x < oObs.x) {// проверка по высоте, и, я слева
+			temp = Math.abs((Obj.x + Obj.w) - oObs.x); 
+			nMove = oObs.block ? Math.min(nMove,temp) : nMove;
+			if (!nMove && oObs.action) {
+				oObs.action(Obj);
+			}
+			return  nMove
 		} else return true
 	})
-	return bResult;
+	return nMove;
 }
+// function checkMoveLeft(Obj){ 
+// 	var aObs = DATA.roomOne.obstacles;
+// 	var bResult =  aObs.every(function (oObs){
+// 		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h) {// проверка по y
+// 			return Obj.x - Obj.speed > oObs.x + oObs.w || Obj.x - Obj.speed < oObs.x
+// 		} else return true
+// 	})
+// 	return bResult;
+// }
+
 function checkMoveLeft(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
+	var nMove = Obj.speed, temp;
 	var bResult =  aObs.every(function (oObs){
-		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h) {// проверка по y
-			return Obj.x - Obj.speed > oObs.x + oObs.w || Obj.x - Obj.speed < oObs.x
+		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h && Obj.x > oObs.x) {// проверка по y
+			temp = Math.abs((oObs.x + oObs.w) - Obj.x);
+			console.log(temp);
+			nMove = oObs.block ? Math.min(nMove,temp) : nMove;
+			if (!nMove && oObs.action) {
+				oObs.action(Obj);
+			}
+			console.log('moe',nMove);
+			return  nMove
 		} else return true
 	})
-	return bResult;
+	return nMove;
 }
+
 function checkMoveUp(Obj) {
 	var aObs = DATA.roomOne.obstacles;
 	var bResult =  aObs.every(function (oObs){
