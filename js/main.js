@@ -102,7 +102,7 @@ function calcObjects(Obj){
 	if (actions.jump) {
 		if (actions.jumpTime) {
 			actions.jumpTime = actions.jumpTime - 1
-			if (checkMoveUp(Obj)) {
+			if (checkMoveUp(Obj) && actions.jumpTime > 5) {
 				Obj.y = Obj.y - Obj.jumpSpeed;
 			}
 		} else {

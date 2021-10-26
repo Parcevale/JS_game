@@ -8,7 +8,7 @@ var DATA = {
 		y: 745,
 		w: 30,
 		h: 40,
-		jumpHeight: 10,
+		jumpHeight: 17,
 		jumpSpeed: 10,
 		speed: 5,
 		color :"#0979db",
