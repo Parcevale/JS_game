@@ -31,8 +31,13 @@ function getCam() {
 	var y = DATA.mainHero.y - DATA.windowHeight/2 > 1 ? DATA.mainHero.y - DATA.windowHeight/2 : 1;
 	return {x : x, y: y}
 }
+function drawUI(){
+	ctx.fillStyle = "#000000";
+	ctx.strokeText(DATA.mainHero.points,  DATA.windowWidth - 20, 20);
+}
 var mainLoop = function() {
 	clear();
+	drawUI();
 	aObjects.forEach(calcObjects);
 	aObjects.forEach(function(obj){
 		draw(obj.x - getCam().x,obj.y - getCam().y, obj.w,obj.h,obj.color);

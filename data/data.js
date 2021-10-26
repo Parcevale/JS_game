@@ -3,6 +3,7 @@ var DATA = {
 	windowWidth: 1000,
 	windowHeight: 1000,
 	mainHero: {
+		points: 2,
 		x: 100,
 		y: 230,
 		w: 30,
