@@ -7,8 +7,6 @@ var aUnderfoot = [];
 var keyUp = false, keyDown = false, keyLeft = false, keyRight = false;
 var gravity;
 var bounce;
-// var mydata = require('./data/data.json')
-// require('./data.json')
 console.log('json data', DATA);
 
 var canvas = document.getElementById('canvas');
@@ -25,43 +23,9 @@ var draw = function(x,y,w,h,color) {
 } 
 
 function onStartGame() {
-	// gravity = setInterval(fGravity, 1000 / 60);
 }
 
-// function fBounce() {
-	
-// 	DATA.mainHero.y = DATA.mainHero.y - 120;
-// 	this.onStartGame();
-// }
-
-// function fGravity(e) {
-// 	if (aUnderfoot[0].y - 40 == DATA.mainHero.y && DATA.mainHero.x <= aUnderfoot[0].w || DATA.mainHero.y >= 455) {
-// 		clearInterval(gravity);
-// 	} else {
-// 		DATA.mainHero.y = DATA.mainHero.y + 4;
-// 	}
-// 	if (aUnderfoot[1].y - 40 == DATA.mainHero.y && DATA.mainHero.x >= aUnderfoot[1].x || DATA.mainHero.y >= 455) {
-// 		clearInterval(gravity);
-// 	}
-// 	if (aUnderfoot[0].w -2 == DATA.mainHero.x) {
-// 		this.onStartGame();
-//     }
-// }
-
-// function onButton() {
-// 	aObjects.push({
-// 	x: 10,
-// 	y: 20,
-// 	w: 30,
-// 	h: 40,
-// 	color :"#ff7f50"
-// });
-// }
-// var drawEl = function() {
-// 	drawMain(20,20,10,10,'#DD5656');
-// }
 clear();
-// draw(20,20,10,10,'#DD5656');
 function getCam() {
 	var x = DATA.mainHero.x - DATA.windowWidth/2 > 1 ? DATA.mainHero.x - DATA.windowWidth/2 : 1;
 	var y = DATA.mainHero.y - DATA.windowHeight/2 > 1 ? DATA.mainHero.y - DATA.windowHeight/2 : 1;
@@ -76,7 +40,6 @@ var mainLoop = function() {
 	DATA.roomOne.obstacles.forEach(function (obj) {
 		draw(obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h, obj.color);
 	})
-	// console.log('refresh');
 }
 aObjects.push(DATA.mainHero);
 
@@ -122,8 +85,6 @@ function calcObjects(Obj){
 			actions.jump = true;
 			actions.jumpTime = Obj.jumpHeight;
 		}
-		// if (checkMoveUp(Obj))
-		// Obj.y = Obj.y - DATA.gravity;
 	}
 	if (actions.jump) {
 		if (actions.jumpTime) {
@@ -131,16 +92,10 @@ function calcObjects(Obj){
 			if (checkMoveUp(Obj)) {
 				Obj.y = Obj.y - Obj.jumpSpeed;
 			}
-			// console.log("Obj",Obj);
 		} else {
 			actions.jump = false;
 		}
 	}
-	// if (actions.moveLeft) {
-	// 	if (checkMoveLeft(Obj))
-	// 	Obj.x = Obj.x - Obj.speed;
-	// }
-	// return
 }
 function checkJump(Obj){
 	return !checkMoveDown(Obj)
