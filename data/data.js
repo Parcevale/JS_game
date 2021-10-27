@@ -195,7 +195,7 @@ var DATA = {
 				action: "pickCoin"
 			},
 			{
-				type: "coin3",
+				type: "mob3",
 				block: true,
 				destroy: false,
 				x: 570,
@@ -211,6 +211,40 @@ var DATA = {
 				destroy: false,
 				x: 1214,
 				y: 410,
+				w: 20,
+				h: 20,
+				color: "#ffff00",
+				action: "pickCoin"
+			},
+			{
+				type: "mob1",
+				block: true,
+				destroy: false,
+				x: 395,
+				y: 675,
+				w: 20,
+				h: 20,
+				color: "#ffff00",
+				action: "pickCoin"
+			},
+			{
+				type: "mob2",
+				block: true,
+				destroy: false,
+				x: 682,
+				y: 610,
+				w: 20,
+				h: 20,
+				color: "#ffff00",
+				action: "pickCoin"
+			},
+			{
+				type: "test1",
+				tst:true,
+				block: true,
+				destroy: false,
+				x: 682,
+				y: 610,
 				w: 20,
 				h: 20,
 				color: "#ffff00",

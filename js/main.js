@@ -1,20 +1,38 @@
-console.log('hello 2world');
-
 var cnv = document.getElementById('canvas');
 var ctx = cnv.getContext('2d');
+
 var aObjects = [];
-var aUnderfoot = [];
-var keyUp = false, keyDown = false, keyLeft = false, keyRight = false;
-var gravity;
-var bounce;
-var enemy = new Image(30, 30);
-console.log('json data', DATA);
 
 cnv.setAttribute('width', DATA.windowWidth);
 cnv.setAttribute('height', DATA.windowHeight);
 
-enemy.onload = mainLoop;
-enemy.src = './img/pixel-goust.gif';
+// пора утилз заводить и туда вынести
+function loadResources(sources,db, callback) {
+	    var images = {};
+        var loadedImages = 0;
+        var numImages = 0;
+        // get num of sources
+        for(var src in sources) {
+          numImages++;
+        }
+        for(var src in sources) {
+          images[src] = new Image();
+          images[src].onload = function() {
+            if(++loadedImages >= numImages) {
+              callback(images);
+            }
+          };
+          images[src].src = sources[src];
+          db.roomOne.obstacles.filter(x => x.type == src)[0].img = images[src];
+        }
+}
+// список вынести
+var sources = {
+	 mob1: './img/pixel-goust.gif',
+     mob2: './img/goust.png',
+     mob3: './img/slime.jpg',
+     test1: './img/sprite.png'
+}
 
 
 var clear = function() {
@@ -26,10 +44,6 @@ var draw = function(x,y,w,h,color) {
 	ctx.fillRect(x,y,w,h,color);
 } 
 
-function onStartGame() {
-}
-
-clear();
 function getCam() {
 	var x = DATA.mainHero.x - DATA.windowWidth/2 > 1 ? DATA.mainHero.x - DATA.windowWidth/2 : 1;
 	var y = DATA.mainHero.y - DATA.windowHeight/2 > 1 ? DATA.mainHero.y - DATA.windowHeight/2 : 1;
@@ -40,17 +54,30 @@ function drawUI(){
 	ctx.font = "30px serif";
 	ctx.fillText(DATA.mainHero.points,  DATA.windowWidth - 40, 30);
 }
+
 var mainLoop = function() {
 	clear();
-	// drawUI():
-	ctx.drawImage(enemy, 150 - getCam().x, 745 - getCam().y, enemy.width, enemy.height);//enemy
 	aObjects.forEach(calcObjects);
 	aObjects.forEach(function(obj){
 		draw(obj.x - getCam().x,obj.y - getCam().y, obj.w,obj.h,obj.color);
 	})
 	DATA.roomOne.obstacles.forEach(function (obj) {
-		if (!obj.destroy) draw(obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h, obj.color);
+		if (obj.img && !obj.tst) ctx.drawImage(obj.img, obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h);
+		if (!obj.destroy && !obj.img) draw(obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h, obj.color);
+		// image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight
+		if (obj.img && obj.tst) ctx.drawImage(
+			obj.img,				//img
+			120,		//позиция начала по x
+			0,		//позиция начала по y
+			100,					//длина отрезка по x
+			140, 					//высота отрезка
+			obj.x - getCam().x,						//позиция изображения (где в мире) по x
+			obj.y - getCam().y,						//позиция изображения (где в мире) по y
+			60,						// ширина изображения, сжимает до указанных размеров
+			80						// высота изображения
+			);
 	})
+
 	drawUI();
 }
 aObjects.push(DATA.mainHero);
@@ -80,7 +107,6 @@ function calcObjects(Obj){
 
 	if (actions.moveRight) {
 		if (checkMoveRight(Obj))
-		// Obj.x = Obj.x + Obj.speed;
 		Obj.x = Obj.x + checkMoveRight(Obj);
 	}
 
@@ -113,6 +139,7 @@ function calcObjects(Obj){
 		} 
 	}
 }
+
 function checkJump(Obj){
 	return !checkMoveDown(Obj)
 }
@@ -122,14 +149,16 @@ function checkMoveRight(Obj){
 
 	var bResult =  aObs.every(function (oObs){
 		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h && Obj.x < oObs.x) {// проверка по высоте, и, я слева
+			// отсюда и ниже можно вынести
 			temp = Math.abs((Obj.x + Obj.w) - oObs.x); 
 			nMove = oObs.block ? Math.min(nMove,temp) : nMove;
 			console.log(nMove);
 			if (!nMove && oObs.action && !oObs.destroy) {
 				console.log('123');
-				pickCoin(Obj,oObs);
+				pickCoin(Obj,oObs);//придумать нормальную обработку событий
 			}
 			return  nMove
+			//до сюда
 		} else return true
 	})
 	return nMove;
@@ -151,16 +180,7 @@ function checkMoveLeft(Obj){
 	return nMove;
 }
 
-// function checkMoveUp(Obj) {
-// 	var aObs = DATA.roomOne.obstacles;
-// 	var bResult =  aObs.every(function (oObs){
-// 		if (Obj.x + Obj.w > oObs.x && Obj.x < oObs.x + oObs.w) {// проверка по x
-// 			console.log('chek up', Obj, oObs);
-// 			return Obj.y < oObs.y || Obj.y - Obj.jumpSpeed  > oObs.y + oObs.h
-// 		} else return true
-// 	})
-// 	return bResult;
-// }
+
 function checkMoveUp(Obj) {
 	var aObs = DATA.roomOne.obstacles;
 	var nMove = Obj.jumpSpeed, temp;
@@ -177,16 +197,6 @@ function checkMoveUp(Obj) {
 	return nMove;
 }
 
-// function checkMoveDown(Obj){ 
-// 	var aObs = DATA.roomOne.obstacles;
-// 	var bResult =  aObs.every(function (oObs){
-// 		if (Obj.x + Obj.w > oObs.x && Obj.x < oObs.x + oObs.w) {// проверка по x
-// 			return Obj.y + Obj.h + DATA.gravity < oObs.y  || Obj.y > oObs.y + oObs.h
-// 		} else return true
-// 	})
-// 	return bResult;
-// }
-
 function checkMoveDown(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
 	var nMove = Obj.jumpSpeed, temp;
@@ -197,27 +207,16 @@ function checkMoveDown(Obj){
 			if (!nMove && oObs.action && !oObs.destroy) {
 				console.log('123');
 				pickCoin(Obj,oObs);
-				// oObs.action(Obj);
 			}
 			return  nMove
 		} else return true
 	})
 	return nMove;
 }
-//Попытка универсальной функции, но что то пошло не так
-// function checkMove(a1x,a1y,a2x,a2y,b1x,b1y,b2x,b2y, speed) {
-// 	if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h) {
-// 			return Obj.x + Obj.w + Obj.speed < oObs.x
-// 		} else return true
-// }
 
-
-document.addEventListener('mousedown', function (event) {
-}.bind(this));
-
-setInterval(mainLoop,1000/60);
 // mainLoop();
 
+//может события в отдельный файлик? 
 function pickCoin(hero, obj) {
 	hero.points = hero.points + 1;
 	obj.destroy = true;
@@ -226,4 +225,10 @@ function pickCoin(hero, obj) {
 
 function getInfo() {
 	console.log(DATA.mainHero);
+}
+
+loadResources(sources,DATA, startGame);
+
+function startGame () {
+	setInterval(mainLoop,1000/60);
 }
