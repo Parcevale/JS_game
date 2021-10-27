@@ -1,5 +1,5 @@
 
-
+var a = [{ src: './img/backgraund.jpg' }];
 
 $.when(
 	$.getScript("./data/objects.js"),
@@ -10,7 +10,13 @@ $.when(
 	})
 ).done(function () {
 	console.log("sources.lenght");
-	loadResources(createSources(objectsDb), DATA, startGame);
+	loadResources(createSources(objectsDb), DATA, loadBackground);
+	
+	function loadBackground() {
+		loadResources(a, null, startGame)
+	}
+	
+	//([{ src: './img/backgraund.jpg' }])
 });
 
 var cnv = document.getElementById('canvas');
@@ -33,7 +39,7 @@ var draw = function(x,y,w,h,color) {
 function getCam() {
 	var x = DATA.mainHero.x - DATA.windowWidth/2 > 1 ? DATA.mainHero.x - DATA.windowWidth/2 : 1;
 	var y = DATA.mainHero.y - DATA.windowHeight/2 > 1 ? DATA.mainHero.y - DATA.windowHeight/2 : 1;
-	return {x : x, y: y}
+	return {x, y: 0}
 }
 function drawUI(){
 	ctx.fillStyle = "#000000";
@@ -43,6 +49,8 @@ function drawUI(){
 
 var mainLoop = function() {
 	clear();
+	console.log(a);
+	ctx.drawImage(a[0].img, 0,0);
 	aObjects.forEach(calcObjects);
 	aObjects.forEach(function(obj){
 		//draw(obj.x - getCam().x,obj.y - getCam().y, obj.w,obj.h,obj.color);
@@ -62,26 +70,12 @@ var mainLoop = function() {
 	DATA.roomOne.obstacles.forEach(function (obj) {
 		if (obj.img && !obj.tst) ctx.drawImage(obj.img, obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h);
 		if (!obj.destroy && !obj.img) draw(obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h, obj.color);
-		// image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight
-
-		// if (obj.img && obj.tst) drawAnimation(obj); //ctx.drawImage(
-		// 	obj.img,				//img
-		// 	120,		//позиция начала по x
-		// 	0,		//позиция начала по y
-		// 	100,					//длина отрезка по x
-		// 	140, 					//высота отрезка
-		// 	obj.x - getCam().x,						//позиция изображения (где в мире) по x
-		// 	obj.y - getCam().y,						//позиция изображения (где в мире) по y
-		// 	60,						// ширина изображения, сжимает до указанных размеров
-		// 	80						// высота изображения
-		// 	);
 	})
 
 	drawUI();
 }
 
 function drawAnimation(obj) {
-// <<<<<<< HEAD
 	var oAnim = obj.props.anim.filter(x => x.name === obj.state)[0];
 
 	var framePxls = oAnim.img.width/oAnim.frames;//количество пикселей в кадре
@@ -100,24 +94,7 @@ function drawAnimation(obj) {
 			obj.props.w,// * obj.scale,						// ширина изображения, сжимает до указанных размеров
 			obj.props.h						// высота изображения
 			);
-	// ctx.restore();
-// =======
-// 	var framePxls = obj.img.width / obj.moveFrames;
-// 	obj.frame = obj.frame || 1;
-// 	obj.frame = obj.frame == obj.moveFrames * 5 ? 1 : obj.frame + 1;
-// 	ctx.drawImage(
-// 		obj.img,				//img
-// 		Math.floor(obj.frame / 5) * framePxls,		//позиция начала по x
-// 		0,		//позиция начала по y
-// 		framePxls,					//длина отрезка по x
-// 		140, 					//высота отрезка
-// 		obj.x - getCam().x,						//позиция изображения (где в мире) по x
-// 		obj.y - getCam().y,						//позиция изображения (где в мире) по y
-// 		obj.w,// * obj.scale,						// ширина изображения, сжимает до указанных размеров
-// 		obj.h						// высота изображения
-// 	);
-// 	ctx.restore();
-// >>>>>>> 8840dbf0c25ed7968f5210e6c77c2f51aaeb7748
+
 }
 
 //скомпоновать keyup и keydown
@@ -125,6 +102,15 @@ function drawAnimation(obj) {
 
 function calcObjects(Obj){
 	var actions = Obj.actions;
+
+	if (!actions.jump) {
+		if (checkMoveDown(Obj)) {
+			Obj.y = Obj.y + checkMoveDown(Obj);
+		} else {
+			Obj.state = "idle" + Obj.direction;
+        }
+			
+	}
 
 	if (actions.moveRight) {
 		if (checkMoveRight(Obj))
@@ -134,11 +120,6 @@ function calcObjects(Obj){
 	if (actions.moveLeft) {
 		if (checkMoveLeft(Obj))
 		Obj.x = Obj.x - checkMoveLeft(Obj);
-	}
-
-	if (!actions.jump) {
-		if (checkMoveDown(Obj))
-		Obj.y = Obj.y + checkMoveDown(Obj);
 	}
 
 	if (actions.moveUp) {
@@ -199,6 +180,7 @@ function checkMoveUp(Obj) {
 	var aObs = DATA.roomOne.obstacles;
 	var nMove = Obj.props.jumpSpeed;
 	// console.log(nMove);
+	Obj.state = "up" + Obj.direction;
 	aObs.every(function (oObs){
 		if (Obj.x + Obj.props.w > oObs.x && Obj.x < oObs.x + oObs.w && Obj.y > oObs.y) {// проверка по x
 			nMove = checkCollision(oObs.y,oObs.h,Obj.y, Obj,oObs, nMove);
@@ -211,7 +193,7 @@ function checkMoveUp(Obj) {
 function checkMoveDown(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
 	var nMove = DATA.gravity;
-
+	Obj.state = "down" + Obj.direction;
 	aObs.every(function (oObs){
 		if (Obj.x + Obj.props.w > oObs.x && Obj.x < oObs.x + oObs.w && Obj.y < oObs.y) {// проверка по x
 			nMove = checkCollision(Obj.y,Obj.props.h,oObs.y, Obj,oObs, nMove);
