@@ -19,15 +19,6 @@ var ctx = cnv.getContext('2d');
 var aObjects = [];
 
 // список вынести
-<<<<<<< HEAD
-// var sources = {
-// 	 mob1: './img/pixel-goust.gif',
-//      mob2: './img/goust.png',
-//      mob3: './img/slime.jpg',
-// 	test1: './img/sprite.png',
-// 	hero: './img/sprite.png'
-// }
-=======
 var sources = {
 	mob1: './img/pixel-goust.gif',
     mob2: './img/goust.png',
@@ -35,7 +26,6 @@ var sources = {
 	heroL: './img/sprite-revers.png',
 	hero: './img/sprite.png'
 }
->>>>>>> 8840dbf0c25ed7968f5210e6c77c2f51aaeb7748
 
 
 var clear = function() {
