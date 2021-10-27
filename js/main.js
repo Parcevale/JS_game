@@ -1,8 +1,8 @@
 
 
-/*$.getScript("./data/data.js", function () {
-	alert("test");
-});*/
+$.getScript("./data/data.js", function () {
+	console.log("asd");
+});
 
 var cnv = document.getElementById('canvas');
 var ctx = cnv.getContext('2d');
