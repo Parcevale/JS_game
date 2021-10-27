@@ -1,16 +1,20 @@
 
 
-$.getScript("./data/data.js", function () {
-	console.log("asd");
+
+$.when(
+	$.getScript("./data/data.js"),
+	$.getScript("./data/utils.js"),
+	$.Deferred(function (deferred) {
+		$(deferred.resolve);
+	})
+).done(function () {
+	loadResources(sources, DATA, startGame);
 });
 
 var cnv = document.getElementById('canvas');
 var ctx = cnv.getContext('2d');
 
 var aObjects = [];
-
-cnv.setAttribute('width', DATA.windowWidth);
-cnv.setAttribute('height', DATA.windowHeight);
 
 // пора утилз заводить и туда вынести
 function loadResources(sources,db, callback) {
@@ -100,7 +104,7 @@ var mainLoop = function() {
 
 	drawUI();
 }
-aObjects.push(DATA.mainHero);
+
 function drawAnimation(obj) {
 	console.log(obj.img.height);
 	// var frameX = 
@@ -180,7 +184,7 @@ function checkJump(Obj){
 function checkMoveRight(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
 	var nMove = Obj.speed;
-	var bResult =  aObs.every(function (oObs){
+	aObs.every(function (oObs){
 		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h && Obj.x < oObs.x) {// проверка по высоте, и, я слева
 			nMove = checkCollision(Obj.x,Obj.w,oObs.x, Obj,oObs, nMove);
 			return nMove;
@@ -240,17 +244,19 @@ function getInfo() {
 	console.log(DATA.mainHero);
 }
 
-loadResources(sources,DATA, startGame);
 
-function startGame () {
+function startGame() {
+	aObjects.push(DATA.mainHero);
+	cnv.setAttribute('width', DATA.windowWidth);
+	cnv.setAttribute('height', DATA.windowHeight);
 	setInterval(mainLoop,1000/60);
 }
 
 function obsActions(sName) {
 	var a = {
-		pickCoin: pickCoin,
-		tp1:tp1,
-		tp2:tp2
+		pickCoin,
+		tp1,
+		tp2
 	}
 	console.log('action', sName);
 	return a[sName]
