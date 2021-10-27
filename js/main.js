@@ -21,7 +21,7 @@ var sources = {
 	 mob1: './img/pixel-goust.gif',
      mob2: './img/goust.png',
      mob3: './img/slime.jpg',
-	test1: './img/sprite.png',
+	heroL: './img/sprite-revers.png',
 	hero: './img/sprite.png'
 }
 
