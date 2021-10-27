@@ -120,7 +120,8 @@ var DATA = {
 				w: 30,
 				h: 30,
 				img:"",
-				color: "#AFEEEE"
+				color: "#AFEEEE",
+				action: "tp1"
 			},
 			{
 				type: "teleport2",
@@ -130,7 +131,8 @@ var DATA = {
 				y: 120,
 				w: 30,
 				h: 30,
-				color: "#AFEEEE"
+				color: "#AFEEEE",
+				action: "tp2"
 			},
 			{
 				type: "box1",
@@ -249,8 +251,21 @@ var DATA = {
 				h: 20,
 				color: "#ffff00",
 				action: "pickCoin"
+			},
+			{
+				type: "dead zone",
+				block: true,
+				destroy: false,
+				x: 1100,
+				y: 745,
+				w: 300,
+				h: 50,
+				color: "#ff0000",
+				action: "tp2"
 			}
 
 		]
 	}
 }
+
+// 1100, y: 755

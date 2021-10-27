@@ -11,7 +11,6 @@ function loadResources(sources,db, callback) {
 	    var images = {};
         var loadedImages = 0;
         var numImages = 0;
-        // get num of sources
         for(var src in sources) {
           numImages++;
         }
@@ -145,20 +144,11 @@ function checkJump(Obj){
 }
 function checkMoveRight(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
-	var nMove = Obj.speed, temp;
-
+	var nMove = Obj.speed;
 	var bResult =  aObs.every(function (oObs){
 		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h && Obj.x < oObs.x) {// проверка по высоте, и, я слева
-			// отсюда и ниже можно вынести
-			temp = Math.abs((Obj.x + Obj.w) - oObs.x); 
-			nMove = oObs.block ? Math.min(nMove,temp) : nMove;
-			console.log(nMove);
-			if (!nMove && oObs.action && !oObs.destroy) {
-				console.log('123');
-				pickCoin(Obj,oObs);//придумать нормальную обработку событий
-			}
-			return  nMove
-			//до сюда
+			nMove = checkCollision(Obj.x,Obj.w,oObs.x, Obj,oObs, nMove);
+			return nMove;
 		} else return true
 	})
 	return nMove;
@@ -166,15 +156,11 @@ function checkMoveRight(Obj){
 
 function checkMoveLeft(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
-	var nMove = Obj.speed, temp;
-	var bResult =  aObs.every(function (oObs){
+	var nMove = Obj.speed;
+	aObs.every(function (oObs){
 		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h && Obj.x > oObs.x) {// проверка по y
-			temp = Math.abs((oObs.x + oObs.w) - Obj.x);
-			nMove = oObs.block ? Math.min(nMove,temp) : nMove;
-			if (!nMove && oObs.action && !oObs.destroy) {
-				pickCoin(Obj,oObs);
-			}
-			return  nMove
+			nMove = checkCollision(oObs.x,oObs.w,Obj.x, Obj,oObs, nMove);
+			return nMove;
 		} else return true
 	})
 	return nMove;
@@ -183,15 +169,11 @@ function checkMoveLeft(Obj){
 
 function checkMoveUp(Obj) {
 	var aObs = DATA.roomOne.obstacles;
-	var nMove = Obj.jumpSpeed, temp;
-	var bResult =  aObs.every(function (oObs){
+	var nMove = Obj.jumpSpeed;
+	aObs.every(function (oObs){
 		if (Obj.x + Obj.w > oObs.x && Obj.x < oObs.x + oObs.w && Obj.y > oObs.y) {// проверка по x
-			temp = Math.abs((oObs.y + oObs.h) - Obj.y);
-			nMove = oObs.block ? Math.min(nMove,temp) : nMove;
-			if (!nMove && oObs.action && !oObs.destroy) {
-				pickCoin(Obj,oObs);
-			}
-			return  nMove
+			nMove = checkCollision(oObs.y,oObs.h,Obj.y, Obj,oObs, nMove);
+			return nMove;
 		} else return true
 	})
 	return nMove;
@@ -199,29 +181,25 @@ function checkMoveUp(Obj) {
 
 function checkMoveDown(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
-	var nMove = Obj.jumpSpeed, temp;
-	var bResult =  aObs.every(function (oObs){
+	var nMove = Obj.jumpSpeed;
+	aObs.every(function (oObs){
 		if (Obj.x + Obj.w > oObs.x && Obj.x < oObs.x + oObs.w && Obj.y < oObs.y) {// проверка по x
-			temp = Math.abs((Obj.y + Obj.h) - oObs.y);
-			nMove = oObs.block ? Math.min(nMove,temp) : nMove;
-			if (!nMove && oObs.action && !oObs.destroy) {
-				console.log('123');
-				pickCoin(Obj,oObs);
-			}
-			return  nMove
+			nMove = checkCollision(Obj.y,Obj.h,oObs.y, Obj,oObs, nMove);
+			return nMove;
 		} else return true
 	})
 	return nMove;
 }
 
-// mainLoop();
-
-//может события в отдельный файлик? 
-function pickCoin(hero, obj) {
-	hero.points = hero.points + 1;
-	obj.destroy = true;
-	obj.block = false;
+function checkCollision(a1,a2,b1, obj,obs, nMove) {
+	temp = Math.abs((a1 + a2) - b1); 
+	nMove = obs.block ? Math.min(nMove,temp) : nMove;
+	if (!nMove && obs.action && !obs.destroy) {
+		obsActions(obs.action)(obj,obs);
+	}
+	return  nMove
 }
+
 
 function getInfo() {
 	console.log(DATA.mainHero);
@@ -231,4 +209,30 @@ loadResources(sources,DATA, startGame);
 
 function startGame () {
 	setInterval(mainLoop,1000/60);
+}
+
+function obsActions(sName) {
+	var a = {
+		pickCoin: pickCoin,
+		tp1:tp1,
+		tp2:tp2
+	}
+	console.log('action', sName);
+	return a[sName]
+}
+
+// mainLoop();
+//может события в отдельный файлик? 
+function pickCoin(hero, obj) {
+	hero.points = hero.points + 1;
+	obj.destroy = true;
+	obj.block = false;
+}
+function tp1(hero) {
+	hero.x = 530;
+	hero.y = 110;
+}
+function tp2(hero) {
+	hero.x = 20;
+	hero.y = 745;
 }
