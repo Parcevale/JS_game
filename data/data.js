@@ -1,7 +1,7 @@
 var DATA = {
 	gravity: 10,
-	windowWidth: 2000,
-	windowHeight: 800,
+	windowWidth: 1800,
+	windowHeight: 600,
 	mainHero: {
 		points: 0,
 		x: 20,
