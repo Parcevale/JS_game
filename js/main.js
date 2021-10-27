@@ -2,13 +2,15 @@
 
 
 $.when(
+	$.getScript("./data/objects.js"),
 	$.getScript("./data/data.js"),
 	$.getScript("./data/utils.js"),
 	$.Deferred(function (deferred) {
 		$(deferred.resolve);
 	})
 ).done(function () {
-	loadResources(sources, DATA, startGame);
+	console.log("sources.lenght");
+	loadResources(createSources(objectsDb), DATA, startGame);
 });
 
 var cnv = document.getElementById('canvas');
@@ -17,6 +19,15 @@ var ctx = cnv.getContext('2d');
 var aObjects = [];
 
 // список вынести
+<<<<<<< HEAD
+// var sources = {
+// 	 mob1: './img/pixel-goust.gif',
+//      mob2: './img/goust.png',
+//      mob3: './img/slime.jpg',
+// 	test1: './img/sprite.png',
+// 	hero: './img/sprite.png'
+// }
+=======
 var sources = {
 	mob1: './img/pixel-goust.gif',
     mob2: './img/goust.png',
@@ -24,6 +35,7 @@ var sources = {
 	heroL: './img/sprite-revers.png',
 	hero: './img/sprite.png'
 }
+>>>>>>> 8840dbf0c25ed7968f5210e6c77c2f51aaeb7748
 
 
 var clear = function() {
@@ -86,41 +98,47 @@ var mainLoop = function() {
 }
 
 function drawAnimation(obj) {
-	var framePxls = obj.img.width / obj.moveFrames;
-	obj.frame = obj.frame || 1;
-	obj.frame = obj.frame == obj.moveFrames * 5 ? 1 : obj.frame + 1;
+// <<<<<<< HEAD
+	var oAnim = obj.props.anim.filter(x => x.name === obj.state)[0];
+
+	var framePxls = oAnim.img.width/oAnim.frames;//количество пикселей в кадре
+	obj.frame = obj.frame || 1;//текущий кадр, если нет то первый.
+	obj.frame = obj.frame >= oAnim.frames*5 ? 1 : obj.frame + 1;// 
+
+	console.log('anim',framePxls, obj.frame);
 	ctx.drawImage(
-		obj.img,				//img
-		Math.floor(obj.frame / 6) * framePxls,		//позиция начала по x
-		0,		//позиция начала по y
-		framePxls,					//длина отрезка по x
-		140, 					//высота отрезка
-		obj.x - getCam().x,						//позиция изображения (где в мире) по x
-		obj.y - getCam().y,						//позиция изображения (где в мире) по y
-		obj.w,// * obj.scale,						// ширина изображения, сжимает до указанных размеров
-		obj.h						// высота изображения
-	);
-	ctx.restore();
+			oAnim.img,				//img
+			(Math.floor(obj.frame/5)-1) * framePxls,		//позиция начала по x
+			0,		//позиция начала по y
+			framePxls,					//длина отрезка по x
+			oAnim.img.height, 					//высота отрезка
+			obj.x - getCam().x ,						//позиция изображения (где в мире) по x
+			obj.y - getCam().y,						//позиция изображения (где в мире) по y
+			obj.props.w,// * obj.scale,						// ширина изображения, сжимает до указанных размеров
+			obj.props.h						// высота изображения
+			);
+	// ctx.restore();
+// =======
+// 	var framePxls = obj.img.width / obj.moveFrames;
+// 	obj.frame = obj.frame || 1;
+// 	obj.frame = obj.frame == obj.moveFrames * 5 ? 1 : obj.frame + 1;
+// 	ctx.drawImage(
+// 		obj.img,				//img
+// 		Math.floor(obj.frame / 5) * framePxls,		//позиция начала по x
+// 		0,		//позиция начала по y
+// 		framePxls,					//длина отрезка по x
+// 		140, 					//высота отрезка
+// 		obj.x - getCam().x,						//позиция изображения (где в мире) по x
+// 		obj.y - getCam().y,						//позиция изображения (где в мире) по y
+// 		obj.w,// * obj.scale,						// ширина изображения, сжимает до указанных размеров
+// 		obj.h						// высота изображения
+// 	);
+// 	ctx.restore();
+// >>>>>>> 8840dbf0c25ed7968f5210e6c77c2f51aaeb7748
 }
 
 //скомпоновать keyup и keydown
-document.addEventListener('keydown', function (event) {
-	let hero = DATA.mainHero;
-	let actions = DATA.actions;
-	let action = actions.filter(action => action.key === event.code);
-	if (action[0]){
-		hero.actions[action[0].name] = true;
-	}
-}.bind(this));
 
-document.addEventListener('keyup', function (event) {
-	let hero = DATA.mainHero;
-	let actions = DATA.actions;
-	let action = actions.filter(action => action.key === event.code);
-	if (action[0]){
-		hero.actions[action[0].name] = false;
-	}
-}.bind(this));
 
 function calcObjects(Obj){
 	var actions = Obj.actions;
@@ -143,7 +161,7 @@ function calcObjects(Obj){
 	if (actions.moveUp) {
 		if (checkJump(Obj)) {
 			actions.jump = true;
-			actions.jumpTime = Obj.jumpHeight;
+			actions.jumpTime = Obj.props.jumpHeight;
 		}
 	}
 
@@ -165,11 +183,13 @@ function checkJump(Obj){
 }
 function checkMoveRight(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
-	var nMove = Obj.speed;
+	var nMove = Obj.props.speed;
 	Obj.scale = 1;
+	Obj.state = "runR";
+	Obj.direction = "R";
 	aObs.every(function (oObs){
-		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h && Obj.x < oObs.x) {// проверка по высоте, и, я слева
-			nMove = checkCollision(Obj.x,Obj.w,oObs.x, Obj,oObs, nMove);
+		if (Obj.y + Obj.props.h > oObs.y && Obj.y < oObs.y + oObs.h && Obj.x < oObs.x) {// проверка по высоте, и, я слева
+			nMove = checkCollision(Obj.x,Obj.props.w,oObs.x, Obj,oObs, nMove);
 			return nMove;
 		} else return true
 	})
@@ -178,10 +198,12 @@ function checkMoveRight(Obj){
 
 function checkMoveLeft(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
-	var nMove = Obj.speed;
-	Obj.scale = -1;
+	var nMove = Obj.props.speed;
+	// Obj.scale = -1;
+	Obj.state = "runL";
+	Obj.direction = "L";
 	aObs.every(function (oObs){
-		if (Obj.y + Obj.h > oObs.y && Obj.y < oObs.y + oObs.h && Obj.x > oObs.x) {// проверка по y
+		if (Obj.y + Obj.props.h > oObs.y && Obj.y < oObs.y + oObs.h && Obj.x > oObs.x) {// проверка по y
 			nMove = checkCollision(oObs.x,oObs.w,Obj.x, Obj,oObs, nMove);
 			return nMove;
 		} else return true
@@ -192,9 +214,10 @@ function checkMoveLeft(Obj){
 
 function checkMoveUp(Obj) {
 	var aObs = DATA.roomOne.obstacles;
-	var nMove = Obj.jumpSpeed;
+	var nMove = Obj.props.jumpSpeed;
+	// console.log(nMove);
 	aObs.every(function (oObs){
-		if (Obj.x + Obj.w > oObs.x && Obj.x < oObs.x + oObs.w && Obj.y > oObs.y) {// проверка по x
+		if (Obj.x + Obj.props.w > oObs.x && Obj.x < oObs.x + oObs.w && Obj.y > oObs.y) {// проверка по x
 			nMove = checkCollision(oObs.y,oObs.h,Obj.y, Obj,oObs, nMove);
 			return nMove;
 		} else return true
@@ -204,10 +227,12 @@ function checkMoveUp(Obj) {
 
 function checkMoveDown(Obj){ 
 	var aObs = DATA.roomOne.obstacles;
-	var nMove = Obj.jumpSpeed;
+	var nMove = DATA.gravity;
+
 	aObs.every(function (oObs){
-		if (Obj.x + Obj.w > oObs.x && Obj.x < oObs.x + oObs.w && Obj.y < oObs.y) {// проверка по x
-			nMove = checkCollision(Obj.y,Obj.h,oObs.y, Obj,oObs, nMove);
+		if (Obj.x + Obj.props.w > oObs.x && Obj.x < oObs.x + oObs.w && Obj.y < oObs.y) {// проверка по x
+			nMove = checkCollision(Obj.y,Obj.props.h,oObs.y, Obj,oObs, nMove);
+			// console.log(nMove);
 			return nMove;
 		} else return true
 	})
@@ -227,9 +252,29 @@ function checkCollision(a1,a2,b1, obj,obs, nMove) {
 function getInfo() {
 	console.log(DATA.mainHero);
 }
+document.addEventListener('keydown', function (event) {
+	let hero = DATA.mainHero;
+	let actions = DATA.actions;
+	let action = actions.filter(action => action.key === event.code);
+	if (action[0]){
+		hero.actions[action[0].name] = true;
+	}
+}.bind(this));
 
+document.addEventListener('keyup', function (event) {
+	let hero = DATA.mainHero;
+	let actions = DATA.actions;
+	let action = actions.filter(action => action.key === event.code);
+	if (action[0]){
+		hero.actions[action[0].name] = false;
+		hero.state = "idle" + hero.direction;
+	}
+}.bind(this));
 
 function startGame() {
+	console.log("sources.2");
+
+
 	aObjects.push(DATA.mainHero);
 	cnv.setAttribute('width', DATA.windowWidth);
 	cnv.setAttribute('height', DATA.windowHeight);
