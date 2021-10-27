@@ -86,32 +86,20 @@ var mainLoop = function() {
 }
 
 function drawAnimation(obj) {
-	// console.log(obj.img.width);
-	var framePxls = obj.img.width/obj.moveFrames;
+	var framePxls = obj.img.width / obj.moveFrames;
 	obj.frame = obj.frame || 1;
-	obj.frame = obj.frame == obj.moveFrames ? 1 : obj.frame + 1;
-	// console.log(framePxls * obj.frame);
-	// var frameX = 
-	// context.scale(-1, 1);
-	// ctx.scale(1, 1);
-
-	// ctx.save();
-	// ctx.translate(obj.width, 0);
-	// ctx.scale(obj.scale, 1);
-	// ctx.drawImage(img, 0, 0);
-
-
+	obj.frame = obj.frame == obj.moveFrames * 5 ? 1 : obj.frame + 1;
 	ctx.drawImage(
-			obj.img,				//img
-			framePxls * obj.frame,		//позиция начала по x
-			0,		//позиция начала по y
-			100,					//длина отрезка по x
-			140, 					//высота отрезка
-			obj.x - getCam().x ,						//позиция изображения (где в мире) по x
-			obj.y - getCam().y,						//позиция изображения (где в мире) по y
-			obj.w,// * obj.scale,						// ширина изображения, сжимает до указанных размеров
-			obj.h						// высота изображения
-			);
+		obj.img,				//img
+		Math.floor(obj.frame / 5) * framePxls,		//позиция начала по x
+		0,		//позиция начала по y
+		framePxls,					//длина отрезка по x
+		140, 					//высота отрезка
+		obj.x - getCam().x,						//позиция изображения (где в мире) по x
+		obj.y - getCam().y,						//позиция изображения (где в мире) по y
+		obj.w,// * obj.scale,						// ширина изображения, сжимает до указанных размеров
+		obj.h						// высота изображения
+	);
 	ctx.restore();
 }
 
