@@ -87,20 +87,37 @@ var mainLoop = function() {
 		if (obj.img && !obj.tst) ctx.drawImage(obj.img, obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h);
 		if (!obj.destroy && !obj.img) draw(obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h, obj.color);
 		// image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight
-		if (obj.img && obj.tst) ctx.drawImage(
-			obj.img,				//img
-			120,		//позиция начала по x
-			0,		//позиция начала по y
-			100,					//длина отрезка по x
-			140, 					//высота отрезка
-			obj.x - getCam().x,						//позиция изображения (где в мире) по x
-			obj.y - getCam().y,						//позиция изображения (где в мире) по y
-			60,						// ширина изображения, сжимает до указанных размеров
-			80						// высота изображения
-			);
+
+		if (obj.img && obj.tst) drawAnimation(obj); //ctx.drawImage(
+		// 	obj.img,				//img
+		// 	120,		//позиция начала по x
+		// 	0,		//позиция начала по y
+		// 	100,					//длина отрезка по x
+		// 	140, 					//высота отрезка
+		// 	obj.x - getCam().x,						//позиция изображения (где в мире) по x
+		// 	obj.y - getCam().y,						//позиция изображения (где в мире) по y
+		// 	60,						// ширина изображения, сжимает до указанных размеров
+		// 	80						// высота изображения
+		// 	);
 	})
 
 	drawUI();
+}
+aObjects.push(DATA.mainHero);
+function drawAnimation(obj) {
+	console.log(obj.img.height);
+	// var frameX = 
+	// ctx.drawImage(
+	// 		obj.img,				//img
+	// 		120,		//позиция начала по x
+	// 		0,		//позиция начала по y
+	// 		100,					//длина отрезка по x
+	// 		140, 					//высота отрезка
+	// 		obj.x - getCam().x,						//позиция изображения (где в мире) по x
+	// 		obj.y - getCam().y,						//позиция изображения (где в мире) по y
+	// 		60,						// ширина изображения, сжимает до указанных размеров
+	// 		80						// высота изображения
+	// 		);
 }
 
 //скомпоновать keyup и keydown
