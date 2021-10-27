@@ -18,9 +18,9 @@ var aObjects = [];
 
 // список вынести
 var sources = {
-	 mob1: './img/pixel-goust.gif',
-     mob2: './img/goust.png',
-     mob3: './img/slime.jpg',
+	mob1: './img/pixel-goust.gif',
+    mob2: './img/goust.png',
+    mob3: './img/slime.jpg',
 	heroL: './img/sprite-revers.png',
 	hero: './img/sprite.png'
 }
