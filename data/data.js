@@ -8,9 +8,11 @@ var DATA = {
 		y: 745,
 		w: 30,
 		h: 40,
+		scale:1,
 		jumpHeight: 18,
 		jumpSpeed: 10,
 		speed: 7,
+		moveFrames: 8,
 		color :"#0979db",
 		actions: {}
 	},
@@ -249,6 +251,7 @@ var DATA = {
 				y: 610,
 				w: 20,
 				h: 20,
+				moveFrames: 8,
 				color: "#ffff00",
 				action: "pickCoin"
 			},
