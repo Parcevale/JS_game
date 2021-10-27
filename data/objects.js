@@ -30,7 +30,24 @@ var objectsDb = {
 				{ name: "idleR", src: "./img/sprite-costs.png", frames: 1 },
 				{ name: "idleL", src: "./img/sprite-costs-revers.png", frames: 1 }
 			]
+	},
+	coin: {
+		w:20,
+		h:20,
+		anim: 
+			[
+				{name: "idle", src: "./img/coin_4.png", frames: 5}
+			]
+	},
+	chest: {
+		w:50,
+		h:50,
+		anim: 
+			[
+				{name: "idle", src: "./img/chest_1.png", frames: 1}
+			]
 	}
+
 }
 
 
