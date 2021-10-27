@@ -246,7 +246,7 @@ var DATA = {
 				action: "pickCoin"
 			},
 			{
-				type: "test1",
+				type: "heroL",
 				tst:true,
 				block: true,
 				destroy: false,

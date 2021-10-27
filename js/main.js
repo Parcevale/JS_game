@@ -19,6 +19,7 @@ var ctx = cnv.getContext('2d');
 var aObjects = [];
 
 // список вынести
+<<<<<<< HEAD
 // var sources = {
 // 	 mob1: './img/pixel-goust.gif',
 //      mob2: './img/goust.png',
@@ -26,6 +27,15 @@ var aObjects = [];
 // 	test1: './img/sprite.png',
 // 	hero: './img/sprite.png'
 // }
+=======
+var sources = {
+	mob1: './img/pixel-goust.gif',
+    mob2: './img/goust.png',
+    mob3: './img/slime.jpg',
+	heroL: './img/sprite-revers.png',
+	hero: './img/sprite.png'
+}
+>>>>>>> 8840dbf0c25ed7968f5210e6c77c2f51aaeb7748
 
 
 var clear = function() {
@@ -88,6 +98,7 @@ var mainLoop = function() {
 }
 
 function drawAnimation(obj) {
+// <<<<<<< HEAD
 	var oAnim = obj.props.anim.filter(x => x.name === obj.state)[0];
 
 	var framePxls = oAnim.img.width/oAnim.frames;//количество пикселей в кадре
@@ -107,6 +118,23 @@ function drawAnimation(obj) {
 			obj.props.h						// высота изображения
 			);
 	// ctx.restore();
+// =======
+// 	var framePxls = obj.img.width / obj.moveFrames;
+// 	obj.frame = obj.frame || 1;
+// 	obj.frame = obj.frame == obj.moveFrames * 5 ? 1 : obj.frame + 1;
+// 	ctx.drawImage(
+// 		obj.img,				//img
+// 		Math.floor(obj.frame / 5) * framePxls,		//позиция начала по x
+// 		0,		//позиция начала по y
+// 		framePxls,					//длина отрезка по x
+// 		140, 					//высота отрезка
+// 		obj.x - getCam().x,						//позиция изображения (где в мире) по x
+// 		obj.y - getCam().y,						//позиция изображения (где в мире) по y
+// 		obj.w,// * obj.scale,						// ширина изображения, сжимает до указанных размеров
+// 		obj.h						// высота изображения
+// 	);
+// 	ctx.restore();
+// >>>>>>> 8840dbf0c25ed7968f5210e6c77c2f51aaeb7748
 }
 
 //скомпоновать keyup и keydown
