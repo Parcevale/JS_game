@@ -19,23 +19,7 @@ var ctx = cnv.getContext('2d');
 var aObjects = [];
 
 // список вынести
-<<<<<<< HEAD
-// var sources = {
-// 	 mob1: './img/pixel-goust.gif',
-//      mob2: './img/goust.png',
-//      mob3: './img/slime.jpg',
-// 	test1: './img/sprite.png',
-// 	hero: './img/sprite.png'
-// }
-=======
-var sources = {
-	mob1: './img/pixel-goust.gif',
-    mob2: './img/goust.png',
-    mob3: './img/slime.jpg',
-	heroL: './img/sprite-revers.png',
-	hero: './img/sprite.png'
-}
->>>>>>> 8840dbf0c25ed7968f5210e6c77c2f51aaeb7748
+
 
 
 var clear = function() {
@@ -103,12 +87,12 @@ function drawAnimation(obj) {
 
 	var framePxls = oAnim.img.width/oAnim.frames;//количество пикселей в кадре
 	obj.frame = obj.frame || 1;//текущий кадр, если нет то первый.
-	obj.frame = obj.frame >= oAnim.frames*5 ? 1 : obj.frame + 1;// 
+	obj.frame = obj.frame >= (oAnim.frames-1)*5 ? 1 : obj.frame + 1;//
 
 	console.log('anim',framePxls, obj.frame);
 	ctx.drawImage(
 			oAnim.img,				//img
-			(Math.floor(obj.frame/5)-1) * framePxls,		//позиция начала по x
+			Math.floor(obj.frame/5) * framePxls,		//позиция начала по x
 			0,		//позиция начала по y
 			framePxls,					//длина отрезка по x
 			oAnim.img.height, 					//высота отрезка
