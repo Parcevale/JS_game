@@ -88,7 +88,7 @@ function drawAnimation(obj) {
 	obj.frame = obj.frame || 1;//текущий кадр, если нет то первый.
 	obj.frame = obj.frame >= (oAnim.frames-1)*5 ? 1 : obj.frame + 1;//
 
-	console.log('anim',framePxls, obj.frame);
+	// console.log('anim',framePxls, obj.frame);
 	ctx.drawImage(
 			oAnim.img,				//img
 			Math.floor(obj.frame/5) * framePxls,		//позиция начала по x

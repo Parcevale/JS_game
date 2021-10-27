@@ -5,7 +5,7 @@ var DATA = {
 	mainHero: {
 		points: 0,
 		x: 20,
-		y: 745,
+		y: 705,
 		// w: 30,
 		// h: 40,
 		state: "idleR",
