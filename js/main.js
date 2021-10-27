@@ -21,7 +21,6 @@ var aObjects = [];
 // список вынести
 
 
-
 var clear = function() {
 	ctx.fillStyle = "#E3E3E3";
 	ctx.fillRect(0,0,DATA.windowWidth,DATA.windowHeight);
