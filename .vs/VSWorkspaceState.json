@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\data",
+    "\\jQuery",
     "\\js"
   ],
-  "SelectedNode": "\\data\\data.js",
+  "SelectedNode": "\\js\\main.js",
   "PreviewInSolutionExplorer": false
 }

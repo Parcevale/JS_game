@@ -91,7 +91,7 @@ function drawAnimation(obj) {
 	obj.frame = obj.frame == obj.moveFrames * 5 ? 1 : obj.frame + 1;
 	ctx.drawImage(
 		obj.img,				//img
-		Math.floor(obj.frame / 5) * framePxls,		//позиция начала по x
+		Math.floor(obj.frame / 6) * framePxls,		//позиция начала по x
 		0,		//позиция начала по y
 		framePxls,					//длина отрезка по x
 		140, 					//высота отрезка
