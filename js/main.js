@@ -1,3 +1,9 @@
+
+
+/*$.getScript("./data/data.js", function () {
+	alert("test");
+});*/
+
 var cnv = document.getElementById('canvas');
 var ctx = cnv.getContext('2d');
 
@@ -21,8 +27,10 @@ function loadResources(sources,db, callback) {
               callback(images);
             }
           };
-          images[src].src = sources[src];
-          db.roomOne.obstacles.filter(x => x.type == src)[0].img = images[src];
+			images[src].src = sources[src];
+			if (src === "hero") {
+				DATA.mainHero.img = images[src]
+			} else db.roomOne.obstacles.filter(x => x.type == src)[0].img = images[src];
         }
 }
 // список вынести
@@ -30,7 +38,8 @@ var sources = {
 	 mob1: './img/pixel-goust.gif',
      mob2: './img/goust.png',
      mob3: './img/slime.jpg',
-     test1: './img/sprite.png'
+	test1: './img/sprite.png',
+	hero: './img/sprite.png'
 }
 
 
@@ -58,7 +67,18 @@ var mainLoop = function() {
 	clear();
 	aObjects.forEach(calcObjects);
 	aObjects.forEach(function(obj){
-		draw(obj.x - getCam().x,obj.y - getCam().y, obj.w,obj.h,obj.color);
+		//draw(obj.x - getCam().x,obj.y - getCam().y, obj.w,obj.h,obj.color);
+		ctx.drawImage(
+			obj.img,				//img
+			120,		//позиция начала по x
+			0,		//позиция начала по y
+			100,					//длина отрезка по x
+			140, 					//высота отрезка
+			obj.x - getCam().x,						//позиция изображения (где в мире) по x
+			obj.y - getCam().y,						//позиция изображения (где в мире) по y
+			60,						// ширина изображения, сжимает до указанных размеров
+			80						// высота изображения
+		);
 	})
 	DATA.roomOne.obstacles.forEach(function (obj) {
 		if (obj.img && !obj.tst) ctx.drawImage(obj.img, obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h);
