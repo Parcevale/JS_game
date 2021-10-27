@@ -103,7 +103,7 @@ var mainLoop = function() {
 
 	drawUI();
 }
-
+aObjects.push(DATA.mainHero);
 function drawAnimation(obj) {
 	console.log(obj.img.height);
 	// var frameX = 
