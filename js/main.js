@@ -29,6 +29,7 @@ var aObjects = [];
 
 function startGame() {
 	aObjects.push(DATA.mainHero);
+	//DATA.currentLocation = "home_loc";
 	DATA.currentLocation = "level_1";
 	cnv.setAttribute('width', DATA.windowWidth);
 	cnv.setAttribute('height', DATA.windowHeight);
@@ -309,12 +310,12 @@ function pickCoin(hero, obj) {
 	obj.block = false;
 }
 function tp1(hero) {
-	hero.x = 530;
+	hero.x = 1030;
 	hero.y = 110;
 }
 function tp2(hero) {
-	hero.x = 20;
-	hero.y = 745;
+	hero.x = 25;
+	hero.y = 85;
 }
 
 function tp_home(hero){

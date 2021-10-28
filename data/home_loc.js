@@ -3,23 +3,73 @@ var home_loc = {
 		enemy: [],
 		obstacles: [
 			{
-				type: "platform1",
+				type: "home_platform",
 				block: true,
 				destroy: false,
 				x: 0,
-				y: 200,
-				w: 1500,
-				h: 5,
+				y: 500,
+				w: 1200,
+				h: 15,
+				color: "#964b00"
+			},
+			{
+				type: "home_wall",
+				block: true,
+				destroy: false,
+				x: 2,
+				y: 0,
+				w: 5,
+				h: 500,
+				color: "#964b00"
+			},
+			{
+				type: "home_door",
+				block: true,
+				destroy: false,
+				x: 800,
+				y: 0,
+				w: 15,
+				h: 230,
+				color: "#964b00"
+			},
+			{
+				type: "home_roof",
+				block: true,
+				destroy: false,
+				x: 0,
+				y: 0,
+				w: 800,
+				h: 15,
+				color: "#964b00"
+			},
+			{
+				type: "safe_territory_block1",
+				block: true,
+				destroy: false,
+				x: 0,
+				y: 1000,
+				w: 2000,
+				h: 25,
+				color: "#964b00"
+			},
+			{
+				type: "safe_territory_block2",
+				block: true,
+				destroy: false,
+				x: 2300,
+				y: 1000,
+				w: 2000,
+				h: 25,
 				color: "#964b00"
 			},
 			{
 				type: "tp_level_1",
 				block: true,
 				destroy: false,
-				x: 630,
-				y: 120,
-				w: 30,
-				h: 30,
+				x: 50,
+				y: 800,
+				w: 150,
+				h: 150,
 				color: "#AFEEEE",
 				action: "tp_level_1"
 			},
@@ -46,11 +96,11 @@ var home_loc = {
 			},
 			{
 				type: "chest",
-				block: true,
+				block: false,
 				state: "idle",
 				destroy: false,
-				x: 400,
-				y: 150,
+				x: 50,
+				y: 375,
 				props: objectsDb.chest
 				// action: "pickCoin"
 			}

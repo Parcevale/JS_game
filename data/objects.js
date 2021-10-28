@@ -1,8 +1,8 @@
 var objectsDb = {
 	hero : {
-		w: 60,
-		h: 80,
-		jumpHeight: 18,
+		w: 180,
+		h: 240,
+		jumpHeight: 50,
 		jumpSpeed: 10,
 		speed: 7,
 		grav: 1,
@@ -42,8 +42,8 @@ var objectsDb = {
 			]
 	},
 	chest: {
-		w:50,
-		h:50,
+		w:150,
+		h:150,
 		anim: 
 			[
 				{name: "idle", src: "./img/chest_1.png", frames: 1}
@@ -62,8 +62,8 @@ var objectsDb = {
 
 	},
 	slime: {
-		w: 60,
-		h: 40,
+		w: 160,
+		h: 120,
 		grav : 1,
 			anim: 	
 		[

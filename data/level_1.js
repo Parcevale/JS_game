@@ -6,101 +6,20 @@ var level_1 = {
 				block: true,
 				destroy: false,
 				x: 2,
-				y: 745,
-				w: 7,
-				h: 50,
+				y: 545,
+				w: 15,
+				h: 250,
 				color: "#8b00ff",
 				action: "tp_home"
-			},
-			{
-				type: "platform1",
-				block: true,
-				destroy: false,
-				x: 0,
-				y: 685,
-				w: 150,
-				h: 5,
-				color: "#964b00"
-			},
-			{
-				type: "platform2",
-				block: true,
-				destroy: false,
-				x: 0,
-				y: 620,
-				w: 100,
-				h: 5,
-				color: "#964b00"
-			},
-			{
-				type: "platform3",
-				block: true,
-				destroy: false,
-				x: 585,
-				y: 650,
-				w: 495,
-				h: 5,
-				color: "#964b00"
-			},
-			{
-				type: "platform4",
-				block: true,
-				destroy: false,
-				x: 750,
-				y: 550,
-				w: 200,
-				h: 5,
-				color: "#964b00"
-			},
-			{
-				type: "platform5",
-				block: true,
-				destroy: false,
-				x: 1180,
-				y: 450,
-				w: 100,
-				h: 5,
-				color: "#964b00"
-			},
-			{
-				type: "platform6",
-				block: true,
-				destroy: false,
-				x: 555,
-				y: 450,
-				w: 50,
-				h: 5,
-				color: "#964b00"
-			},
-			{
-				type: "platform7",
-				block: true,
-				destroy: false,
-				x: 300,
-				y: 150,
-				w: 250,
-				h: 5,
-				color: "#964b00"
-			},
-			{
-				type: "partition1",
-				block: true,
-				destroy: false,
-				x: 550,
-				y: 0,
-				w: 5,
-				h: 550,
-				color: "#964b00"
 			},
 			{
 				type: "teleport1",
 				block: true,
 				destroy: false,
-				x: 2,
-				y: 585,
-				w: 30,
-				h: 30,
-				img:"",
+				x: 25,
+				y: 185,
+				w: 150,
+				h: 150,
 				color: "#AFEEEE",
 				action: "tp1"
 			},
@@ -108,7 +27,7 @@ var level_1 = {
 				type: "teleport2",
 				block: true,
 				destroy: false,
-				x: 330,
+				x: 1130,
 				y: 120,
 				w: 30,
 				h: 30,
@@ -119,32 +38,133 @@ var level_1 = {
 				type: "box1",
 				block: true,
 				destroy: false,
-				x: 350,
-				y: 715,
-				w: 150,
-				h: 80,
+				x: 850,
+				y: 580,
+				w: 850,
+				h: 220,
 				color: "#964b00"
 			},
 			{
 				type: "box2",
 				block: true,
 				destroy: false,
-				x: 950,
-				y: 500,
-				w: 150,
+				x: 1500,
+				y: 1200,
+				w: 1500,
+				h: 700,
+				color: "#964b00"
+			},
+			{
+				type: "box3",
+				block: true,
+				destroy: false,
+				x: 4300,
+				y: 1600,
+				w: 1100,
 				h: 300,
 				color: "#964b00"
 			},
+			{
+				type: "platform1",
+				block: true,
+				destroy: false,
+				x: 0,
+				y: 370,
+				w: 600,
+				h: 15,
+				color: "#964b00"
+			},
+			{
+				type: "platform2",
+				block: true,
+				destroy: false,
+				x: 3275,
+				y: 1600,
+				w: 300,
+				h: 15,
+				color: "#964b00"
+			},
+			{
+				type: "partition",
+				block: true,
+				destroy: false,
+				x: 3275,
+				y: 0,
+				w: 25,
+				h: 1600,
+				color: "#964b00"
+			},
+			{
+				type: "partition2",
+				block: true,
+				destroy: false,
+				x: 1100,
+				y: 1500,
+				w: 25,
+				h: 800,
+				color: "#964b00"
+			},
+			{
+				type: "edge",
+				block: true,
+				destroy: false,
+				x: 5375,
+				y: 0,
+				w: 600,
+				h: 3800,
+				color: "#964b00"
+			},
+
 			{
 				type: "floor",
 				block: true,
 				destroy: false,
 				x: 0,
 				y: 795,
-				w: 2000,
-				h: 5,
+				w: 2300,
+				h: 15,
 				color: "#964b00"
 			},
+			{
+				type: "floor2",
+				block: true,
+				destroy: false,
+				x: 2600,
+				y: 795,
+				w: 700,
+				h: 15,
+				color: "#964b00"
+			}, 
+			{
+				type: "floor3",
+				block: true,
+				destroy: false,
+				x: 0,
+				y: 1500,
+				w: 1100,
+				h: 15,
+				color: "#964b00"
+			}, 
+			{
+				type: "floor4",
+				block: true,
+				destroy: false,
+				x: 1100,
+				y: 2300,
+				w: 2500,
+				h: 15,
+				color: "#964b00"
+			}, 
+			{
+				type: "floor5",
+				block: true,
+				destroy: false,
+				x: 3775,
+				y: 1900,
+				w: 1600,
+				h: 15,
+				color: "#964b00"
+			}, 
 			{
 				type: "wall",
 				block: true,
@@ -235,7 +255,7 @@ var level_1 = {
 				action: "pickCoin"
 			},
 			{
-				type: "dead zone",
+				type: "dead_zone",
 				block: true,
 				destroy: false,
 				x: 1100,
@@ -244,6 +264,26 @@ var level_1 = {
 				h: 50,
 				color: "#ff0000",
 				action: "tp2"
+			},
+			{
+				type: "chest",
+				block: false,
+				state: "idle",
+				destroy: false,
+				x: 3100,
+				y: 670,
+				props: objectsDb.chest
+				// action: "pickCoin"
+			},
+			{
+				type: "chest",
+				block: false,
+				state: "idle",
+				destroy: false,
+				x: 5200,
+				y: 1475,
+				props: objectsDb.chest
+				// action: "pickCoin"
 			}
 
 		],
@@ -253,8 +293,38 @@ var level_1 = {
 				block: true,
 				destroy: false,
 				state:"idle",
-				x: 388,
-				y: 505,
+				x: 688,
+				y: 605,
+				props: objectsDb.slime,
+				actions: {}
+			},
+			{
+				type: "slime",
+				block: true,
+				destroy: false,
+				state: "idle",
+				x: 2900,
+				y: 605,
+				props: objectsDb.slime,
+				actions: {}
+			},
+			{
+				type: "slime",
+				block: true,
+				destroy: false,
+				state: "idle",
+				x: 2000,
+				y: 1300,
+				props: objectsDb.slime,
+				actions: {}
+			},
+			{
+				type: "slime",
+				block: true,
+				destroy: false,
+				state: "idle",
+				x: 3350,
+				y: 1400,
 				props: objectsDb.slime,
 				actions: {}
 			}
