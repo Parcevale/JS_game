@@ -46,7 +46,7 @@ var home_loc = {
 			},
 			{
 				type: "chest",
-				block: true,
+				block: false,
 				state: "idle",
 				destroy: false,
 				x: 400,
