@@ -27,10 +27,10 @@ var level_1 = {
 				type: "teleport2",
 				block: true,
 				destroy: false,
-				x: 1130,
-				y: 120,
-				w: 30,
-				h: 30,
+				x: 5000,
+				y: 2800,
+				w: 150,
+				h: 150,
 				color: "#AFEEEE",
 				action: "tp2"
 			},
@@ -65,6 +65,16 @@ var level_1 = {
 				color: "#964b00"
 			},
 			{
+				type: "box3",
+				block: true,
+				destroy: false,
+				x: 4200,
+				y: 3100,
+				w: 2100,
+				h: 300,
+				color: "#964b00"
+			},
+			{
 				type: "platform1",
 				block: true,
 				destroy: false,
@@ -85,6 +95,26 @@ var level_1 = {
 				color: "#964b00"
 			},
 			{
+				type: "platform3",
+				block: true,
+				destroy: false,
+				x: 2200,
+				y: 3100,
+				w: 600,
+				h: 15,
+				color: "#964b00"
+			},
+			{
+				type: "platform4",
+				block: true,
+				destroy: false,
+				x: 0,
+				y: 3000,
+				w: 800,
+				h: 15,
+				color: "#964b00"
+			},
+			{
 				type: "partition",
 				block: true,
 				destroy: false,
@@ -100,6 +130,16 @@ var level_1 = {
 				destroy: false,
 				x: 1100,
 				y: 1500,
+				w: 25,
+				h: 800,
+				color: "#964b00"
+			},
+			{
+				type: "partition3",
+				block: true,
+				destroy: false,
+				x: 3600,
+				y: 2300,
 				w: 25,
 				h: 800,
 				color: "#964b00"
@@ -162,6 +202,16 @@ var level_1 = {
 				x: 3775,
 				y: 1900,
 				w: 1600,
+				h: 15,
+				color: "#964b00"
+			}, 
+			{
+				type: "floor6",
+				block: true,
+				destroy: false,
+				x: 0,
+				y: 3400,
+				w: 5375,
 				h: 15,
 				color: "#964b00"
 			}, 
@@ -284,6 +334,16 @@ var level_1 = {
 				y: 1475,
 				props: objectsDb.chest
 				// action: "pickCoin"
+			},
+			{
+				type: "chest",
+				block: false,
+				state: "idle",
+				destroy: false,
+				x: 150,
+				y: 2870,
+				props: objectsDb.chest
+				// action: "pickCoin"
 			}
 
 		],
@@ -325,6 +385,16 @@ var level_1 = {
 				state: "idle",
 				x: 3350,
 				y: 1400,
+				props: objectsDb.slime,
+				actions: {}
+			},
+			{
+				type: "slime",
+				block: true,
+				destroy: false,
+				state: "idle",
+				x: 1000,
+				y: 3200,
 				props: objectsDb.slime,
 				actions: {}
 			}

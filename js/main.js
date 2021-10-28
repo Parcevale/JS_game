@@ -310,8 +310,8 @@ function pickCoin(hero, obj) {
 	obj.block = false;
 }
 function tp1(hero) {
-	hero.x = 1030;
-	hero.y = 110;
+	hero.x = 5000;
+	hero.y = 2800;
 }
 function tp2(hero) {
 	hero.x = 25;
@@ -325,8 +325,8 @@ function tp_home(hero){
 }
 function tp_level_1(hero){
 	DATA.currentLocation = "level_1";
-	hero.x = 20;
-	hero.y = 705;
+	hero.x = 150;
+	hero.y = 505;
 }
 
 function addAnim(Obj, state){
