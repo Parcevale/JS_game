@@ -170,8 +170,8 @@ function strike(Obj) {
 	var aObj = aObjects; //DATA[DATA.currentLocation].roomOne.obstacles
 	var direction = Obj.direction == "R" ? 1 : -1;
 	var strikeObj = {
-		x: Obj.x + 40 * direction,
-		y: Obj.y + 10,
+		x: Obj.x + 100 * direction,
+		y: Obj.y + 70,
 		state: "idle" + Obj.direction,
 		props: objectsDb.strike,
 		actions: {attack: true}

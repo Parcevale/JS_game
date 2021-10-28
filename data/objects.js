@@ -50,8 +50,8 @@ var objectsDb = {
 			]
 	},
 	strike: {
-		w: 60,
-		h: 60,
+		w: 140,
+		h: 140,
 		grav: 0,
 		anim: 	
 			[
