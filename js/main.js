@@ -342,7 +342,6 @@ function checkAttack(Obj) {
 	// console.log(aDots);
 	aEnemy.forEach(function(oEnemy) {
 		aDots.some(function (oDot) {// тут что то не так, проверяет остальные попадания даже если попадание было
-			// return checkDot(oDot.x, oDot.y, oEnemy.x, oEnemy.y, oEnemy.x + oEnemy.props.w, oEnemy.y + oEnemy.props.h);
 			if (checkDot(oDot.x, oDot.y, oEnemy.x, oEnemy.y, oEnemy.x + oEnemy.props.w, oEnemy.y + oEnemy.props.h)){
 				oEnemy.destroy = true;
 				console.log('hit!', oEnemy); 
@@ -350,11 +349,9 @@ function checkAttack(Obj) {
 			} return false;
 		})
 	})
-	// if (Obj.x + Obj.props.w > oObs.x && Obj.x < oObs.x + obsw && Obj.y < oObs.y){}
 
 }
 function checkDot(x, y, ax, ay,bx,cy){
-	// console.log('check hit',x, y,'-', ax, ay,bx,cy);
 	if (ax < x && x < bx && ay < y && y < cy ) return true; 
 	else return false; 
 }
@@ -367,7 +364,6 @@ function getDots(obj){
 		{x:obj.x,                  y:obj.y + obj.props.h/2},
 		{x:obj.x+obj.props.w,  y:obj.y + obj.props.h/2}
 	]
-
 	return aDots;
 
 }
