@@ -1,15 +1,15 @@
 function loadResources(sources,db, callback) {
-		console.log(sources);
+		// console.log(sources);
 
 	    var images = {};
         var loadedImages = 0;
         // var numImages = 0;
-        console.log(sources.length);
+        // console.log(sources.length);
         sources.forEach(function(item){
-        	console.log("item",item);
+        	// console.log("item",item);
         	images[item.name] = new Image();
             images[item.name].onload = function() {
-            	console.log(loadedImages,sources.length )
+            	// console.log(loadedImages,sources.length )
 	            if(++loadedImages >= sources.length) {
 	              callback(images);
 	            }
@@ -39,10 +39,10 @@ function loadResources(sources,db, callback) {
 function createSources(db) {
 	var sources = [];
 	for (var o in db) {
-		console.log(db[o].anim);
+		// console.log(db[o].anim);
 		sources = sources.concat(db[o].anim);
 		// sources.push(db[o].anim);
 	}
-	console.log(sources);
+	// console.log(sources);
 	return sources;
 }
