@@ -75,6 +75,12 @@ var mainLoop = function() {
 		if (obj.img && !obj.tst) ctx.drawImage(obj.img, obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h);
 		if (!obj.destroy && !obj.img && !obj.tst) draw(obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h, obj.color);
 
+	});
+	DATA[DATA.currentLocation].roomOne.enemy.forEach(calcObjects);
+	DATA[DATA.currentLocation].roomOne.enemy.forEach(function (obj){
+		if (obj.props.anim && !obj.destroy) {
+			drawAnimation(obj);
+		}
 	})
 
 	drawUI();
@@ -83,11 +89,12 @@ var mainLoop = function() {
 function drawAnimation(obj) {
 	var oAnim = obj.props.anim.filter(x => x.name === obj.state)[0];
 	var currentFrame = 1;
+	var speed = oAnim.speed || 5;
 	// if (oAnim.frames > 1) {// убрать просчет если всего 1 фрейм
 		var framePxls = oAnim.img.width/oAnim.frames;//количество пикселей в кадре
 		obj.frame = obj.frame || 1;//текущий кадр, если нет то первый.
-		obj.frame = obj.frame >= (oAnim.frames-1)*5 ? 1 : obj.frame + 1;//
-		currentFrame = Math.floor(obj.frame/5) * framePxls;
+		obj.frame = obj.frame >= (oAnim.frames-1)*speed ? 1 : obj.frame + 1;//
+		currentFrame = Math.floor(obj.frame/speed) * framePxls;
 	// }
 
 	// console.log('anim',framePxls, obj.frame);
@@ -110,34 +117,35 @@ function drawAnimation(obj) {
 
 function calcObjects(Obj){
 	var actions = Obj.actions;
-
+	Obj.cooldown && --Obj.cooldown;
+	// console.log(Obj.cooldown);
 	if (!actions.jump) {
 		if (checkMoveDown(Obj)) {
-			Obj.y = Obj.y + checkMoveDown(Obj);
+			Obj.y = Obj.y + checkMoveDown(Obj)*Obj.props.grav;
 		} else {
-			Obj.state = "idle" + Obj.direction;
-        }
+			addAnim(Obj, "idle");
+		}
 			
 	}
 
-	if (actions.moveRight) {
+	if (actions.moveRight && !Obj.cooldown) {
 		if (checkMoveRight(Obj))
 		Obj.x = Obj.x + checkMoveRight(Obj);
 	}
 
-	if (actions.moveLeft) {
+	if (actions.moveLeft && !Obj.cooldown) {
 		if (checkMoveLeft(Obj))
 		Obj.x = Obj.x - checkMoveLeft(Obj);
 	}
 
-	if (actions.moveUp) {
+	if (actions.moveUp && !Obj.cooldown) {
 		if (checkJump(Obj)) {
 			actions.jump = true;
 			actions.jumpTime = Obj.props.jumpHeight;
 		}
 	}
 
-	if (actions.jump) {
+	if (actions.jump && !Obj.cooldown) {
 		if (actions.jumpTime) {
 			actions.jumpTime = actions.jumpTime - 1
 			if (checkMoveUp(Obj) && actions.jumpTime > 5) {
@@ -148,7 +156,35 @@ function calcObjects(Obj){
 			actions.jump = false;
 		} 
 	}
+	if (actions.strike && !Obj.cooldown) {
+		strike(Obj)
+	}
+	if (actions.attack) {
+		checkAttack(Obj);
+	}
 }
+
+function strike(Obj) {
+	Obj.cooldown = objectsDb.strike.time;
+	var aObj = aObjects; //DATA[DATA.currentLocation].roomOne.obstacles
+	var direction = Obj.direction == "R" ? 1 : -1;
+	var strikeObj = {
+		x: Obj.x + 40 * direction,
+		y: Obj.y + 10,
+		state: "idle" + Obj.direction,
+		props: objectsDb.strike,
+		actions: {attack: true}
+	}
+	aObj.push(strikeObj);
+
+	function clearStrike() {
+		aObj.splice(aObj.indexOf(strikeObj), 1);
+
+	}
+	setTimeout(clearStrike, objectsDb.strike.time * 5);
+
+}
+
 
 function checkJump(Obj){
 	return !checkMoveDown(Obj)
@@ -191,7 +227,7 @@ function checkMoveLeft(Obj){
 function checkMoveUp(Obj) {
 	var aObs = DATA[DATA.currentLocation].roomOne.obstacles;
 	var nMove = Obj.props.jumpSpeed;
-	// console.log(nMove);
+	// console.log(nMove);d
 	Obj.state = "up" + Obj.direction;
 	aObs.every(function (oObs){
 	var obsw = oObs.props ? oObs.props.w : oObs.w;
@@ -206,7 +242,8 @@ function checkMoveUp(Obj) {
 function checkMoveDown(Obj){ 
 	var aObs = DATA[DATA.currentLocation].roomOne.obstacles;
 	var nMove = DATA.gravity;
-	Obj.state = "down" + Obj.direction;
+	addAnim(Obj, "down");
+	// Obj.state = "down" + Obj.direction;
 	aObs.every(function (oObs){
 	var obsw = oObs.props ? oObs.props.w : oObs.w;
 		if (Obj.x + Obj.props.w > oObs.x && Obj.x < oObs.x + obsw && Obj.y < oObs.y) {// проверка по x
@@ -234,6 +271,7 @@ function getInfo() {
 document.addEventListener('keydown', function (event) {
 	let hero = DATA.mainHero;
 	let actions = DATA.actions;
+	console.log(event.code);
 	let action = actions.filter(action => action.key === event.code);
 	if (action[0]){
 		hero.actions[action[0].name] = true;
@@ -289,3 +327,31 @@ function tp_level_1(hero){
 	hero.x = 20;
 	hero.y = 705;
 }
+
+function addAnim(Obj, state){
+	if (Obj.props.anim.filter(x => x.name == state + Obj.direction)[0]) {
+		Obj.state = state + Obj.direction;
+	}
+
+}
+
+function checkAttack(Obj) {
+	var aEnemy = DATA[DATA.currentLocation].roomOne.enemy;
+	var aDots = [
+		{},
+		{},
+		{},
+	]
+	aEnemy.forEach(function(oEnemy) {
+		// if () 
+	})
+	// if (Obj.x + Obj.props.w > oObs.x && Obj.x < oObs.x + obsw && Obj.y < oObs.y){}
+
+}
+function checkDot(x, y, ax, ay,bx,cy){
+	if (ax < x < bx && ay < y < cy ) return true; 
+	else return false; 
+}
+		// } else if (Obj.props.anim.filter(x => x.name == "idle" + Obj.direction)[0]) {
+		// 	Obj.state = "idle" + Obj.direction;
+  //       // }

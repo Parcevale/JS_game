@@ -16,7 +16,9 @@ var DATA = {
 	actions: [
 		{name : "moveRight", key: "KeyD"},
 		{name : "moveLeft", key: "KeyA"},
-		{name : "moveUp", key: "KeyW"}
+		{name : "moveUp", key: "KeyW"},
+		{name : "strike", key: "ControlRight"}
+
 	],
 	level_1: level_1,
 	home_loc: home_loc

@@ -5,6 +5,7 @@ var objectsDb = {
 		jumpHeight: 18,
 		jumpSpeed: 10,
 		speed: 7,
+		grav: 1,
 		anim: 
 			[ 
 				{name : "runR", src : "./img/sprite.png", frames: 8},
@@ -23,6 +24,7 @@ var objectsDb = {
 		jumpHeight: 20,
 		jumpSpeed: 10,
 		speed: 7,
+		grav: 1,
 		anim:
 			[
 				{ name: "runR", src: "./img/sprite.png", frames: 8 },
@@ -46,6 +48,30 @@ var objectsDb = {
 			[
 				{name: "idle", src: "./img/chest_1.png", frames: 1}
 			]
+	},
+	strike: {
+		w: 60,
+		h: 60,
+		grav: 0,
+		anim: 	
+			[
+				{name: "idleR", src: "./img/strike_1R.png", frames: 18, speed: 2},
+				{name: "idleL", src: "./img/strike_1L.png", frames: 18, speed: 2}
+			],
+		time: 50
+
+	},
+	slime: {
+		w: 60,
+		h: 40,
+		grav : 1,
+			anim: 	
+		[
+			{name: "idle", src: "./img/slime-2.png", frames: 4, speed: 12}
+			// {name: "idleR", src: "./img/strike_1R.png", frames: 18, speed: 2},
+			// {name: "idleL", src: "./img/strike_1L.png", frames: 18, speed: 2}
+		]
+
 	}
 
 }

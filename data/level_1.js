@@ -246,6 +246,19 @@ var level_1 = {
 				action: "tp2"
 			}
 
+		],
+		enemy: [
+			{
+				type: "slime",
+				block: true,
+				destroy: false,
+				state:"idle",
+				x: 388,
+				y: 505,
+				props: objectsDb.slime,
+				actions: {}
+			}
 		]
 	}
 }
+// x: 388, y: 635

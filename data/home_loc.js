@@ -1,5 +1,6 @@
 var home_loc = {
 	roomOne: {
+		enemy: [],
 		obstacles: [
 			{
 				type: "platform1",
