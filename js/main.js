@@ -1,5 +1,7 @@
 
-var a = [{ src: './img/backgraund.jpg' }];
+//var a = [{ src: './img/backgraund.jpg' }];
+var a = [{ src: './img/back_cave.jpg' }];
+
 
 $.when(
 	$.getScript("./data/objects.js"),
@@ -23,7 +25,8 @@ $.when(
 
 var cnv = document.getElementById('canvas');
 var ctx = cnv.getContext('2d');
-
+ctx.canvas.width = window.innerWidth;
+ctx.canvas.height = window.innerHeight;
 var aObjects = [];
 
 
@@ -40,7 +43,7 @@ function startGame() {
 
 
 var clear = function() {
-	ctx.fillStyle = "#E3E3E3";
+	//ctx.fillStyle = "#E3E3E3";
 	ctx.fillRect(0,0,DATA.windowWidth,DATA.windowHeight);
 }
 var draw = function(x,y,w,h,color) {
@@ -53,16 +56,19 @@ function getCam() {
 	var y = DATA.mainHero.y - DATA.windowHeight/2 > 1 ? DATA.mainHero.y - DATA.windowHeight/2 : 1;
 	return {x, y}
 }
-function drawUI(){
-	ctx.fillStyle = "#000000";
+function drawUI() {
+	const ptrn = ctx.createPattern(a[0].img, 'repeat');
+	ctx.fillStyle = ptrn;
 	ctx.font = "30px serif";
 	ctx.fillText(DATA.mainHero.points,  DATA.windowWidth - 40, 30);
 }
 
-var mainLoop = function() {
+var mainLoop = function () {
 	// var currentLocation = ;
 	clear();
 	// console.log(a);
+	//ctx.canvas.width = window.innerWidth;
+	//ctx.canvas.height = window.innerHeight;
 	ctx.drawImage(a[0].img, 0,0);
 	aObjects.forEach(calcObjects);
 	aObjects.forEach(function(obj){
