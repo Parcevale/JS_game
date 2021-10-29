@@ -11,14 +11,14 @@ var objectsDb = {
 		damage: 10,
 		anim: 
 			[ 
-				{name : "runR", src : "./img/sprite.png", frames: 8},
-				{name : "runL", src : "./img/sprite-revers.png", frames: 8},
-				{name : "idleR", src : "./img/sprite-costs.png", frames: 1},
-				{name : "idleL", src: "./img/sprite-costs-revers.png", frames: 1 },
-				{ name: "upR", src: "./img/sprite-up.png", frames: 1 },
-				{ name: "upL", src: "./img/sprite-up-revers.png", frames: 1 },
-				{ name: "downR", src: "./img/sprite-down.png", frames: 1 },
-				{ name: "downL", src: "./img/sprite-down-revers.png", frames: 1 }
+				{ name: "runR", src: "./img/elf_run.png", frames: 8},
+				{ name: "runL", src: "./img/elf_run_revers.png", frames: 8},
+				{ name: "idleR", src: "./img/Elf_IDLE.png", frames: 1},
+				{ name: "idleL", src: "./img/Elf_IDLE_revers.png", frames: 1 },
+				{ name: "upR", src: "./img/Elf_JUMP.png", frames: 1 },
+				{ name: "upL", src: "./img/Elf_JUMP_revers.png", frames: 1 },
+				{ name: "downR", src: "./img/Elf_IDLE.png", frames: 1 },
+				{ name: "downL", src: "./img/Elf_IDLE_revers.png", frames: 1 }
 			]
 	},
 	ninja: {
