@@ -33,7 +33,8 @@ var aObjects = [];
 function startGame() {
 	aObjects.push(DATA.mainHero);
 	//DATA.currentLocation = "home_loc";
-	DATA.currentLocation = "level_1";
+	// DATA.currentLocation = "level_1";
+	setLocation("level_1");
 	cnv.setAttribute('width', DATA.windowWidth);
 	cnv.setAttribute('height', DATA.windowHeight);
 	setInterval(mainLoop,1000/60);
@@ -60,7 +61,7 @@ function drawUI() {
 	const ptrn = ctx.createPattern(a[0].img, 'repeat');
 	ctx.fillStyle = ptrn;
 	ctx.font = "30px serif";
-	ctx.fillText(DATA.mainHero.points,  DATA.windowWidth - 40, 30);
+	ctx.fillText(DATA.mainHero.points,  40, 30);
 }
 
 var mainLoop = function () {
@@ -74,7 +75,7 @@ var mainLoop = function () {
 	aObjects.forEach(function(obj){
 		drawAnimation(obj)
 	})
-	DATA[DATA.currentLocation].roomOne.obstacles.forEach(function (obj) {
+	DATA.world.obstacles.forEach(function (obj) {
 
 		if (obj.props && obj.props.anim && !obj.destroy) {
 			drawAnimation(obj);
@@ -83,8 +84,8 @@ var mainLoop = function () {
 		if (!obj.destroy && !obj.img && !obj.tst) draw(obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h, obj.color);
 
 	});
-	DATA[DATA.currentLocation].roomOne.enemy.forEach(calcObjects);
-	DATA[DATA.currentLocation].roomOne.enemy.forEach(function (obj){
+	DATA.world.enemy.forEach(calcObjects);
+	DATA.world.enemy.forEach(function (obj){
 		if (obj.props.anim && !obj.destroy) {
 			drawAnimation(obj);
 		}
@@ -176,6 +177,7 @@ function strike(Obj) {
 	var aObj = aObjects; //DATA[DATA.currentLocation].roomOne.obstacles
 	var direction = Obj.direction == "R" ? 1 : -1;
 	var strikeObj = {
+		damage: Obj.props.damage,
 		x: Obj.x + 100 * direction,
 		y: Obj.y + 70,
 		state: "idle" + Obj.direction,
@@ -197,7 +199,7 @@ function checkJump(Obj){
 	return !checkMoveDown(Obj)
 }
 function checkMoveRight(Obj){ 
-	var aObs = DATA[DATA.currentLocation].roomOne.obstacles;
+	var aObs = DATA.world.obstacles;
 	var nMove = Obj.props.speed;
 	Obj.scale = 1;
 	Obj.state = "runR";
@@ -214,7 +216,7 @@ function checkMoveRight(Obj){
 }
 
 function checkMoveLeft(Obj){ 
-	var aObs = DATA[DATA.currentLocation].roomOne.obstacles;
+	var aObs = DATA.world.obstacles;
 	var nMove = Obj.props.speed;
 	// Obj.scale = -1;
 	Obj.state = "runL";
@@ -232,7 +234,7 @@ function checkMoveLeft(Obj){
 
 
 function checkMoveUp(Obj) {
-	var aObs = DATA[DATA.currentLocation].roomOne.obstacles;
+	var aObs = DATA.world.obstacles;
 	var nMove = Obj.props.jumpSpeed;
 	// console.log(nMove);d
 	Obj.state = "up" + Obj.direction;
@@ -247,7 +249,7 @@ function checkMoveUp(Obj) {
 }
 
 function checkMoveDown(Obj){ 
-	var aObs = DATA[DATA.currentLocation].roomOne.obstacles;
+	var aObs = DATA.world.obstacles;
 	var nMove = DATA.gravity;
 	addAnim(Obj, "down");
 	// Obj.state = "down" + Obj.direction;
@@ -343,17 +345,24 @@ function addAnim(Obj, state){
 }
 
 function checkAttack(Obj) {
-	var aEnemy = DATA[DATA.currentLocation].roomOne.enemy;
+	console.log('check attack');
+	var aEnemy = DATA.world.enemy;
 	var aDots = getDots(Obj);
+	Obj.actions.attack = false;
+	var bHit = false;
+
 	// console.log(aDots);
 	aEnemy.forEach(function(oEnemy) {
-		aDots.some(function (oDot) {// тут что то не так, проверяет остальные попадания даже если попадание было
+		// console.log('oEnemy', oEnemy);
+		if (oEnemy.destroy) return;
+		bHit = aDots.some(function (oDot) {// тут что то не так, проверяет остальные попадания даже если попадание было
 			if (checkDot(oDot.x, oDot.y, oEnemy.x, oEnemy.y, oEnemy.x + oEnemy.props.w, oEnemy.y + oEnemy.props.h)){
-				oEnemy.destroy = true;
-				console.log('hit!', oEnemy); 
+				// oEnemy.destroy = true;
+				// console.log('hit!', oEnemy); 
 				return true;
 			} return false;
 		})
+		if (bHit) hit(Obj,oEnemy);
 	})
 
 }
@@ -373,6 +382,85 @@ function getDots(obj){
 	return aDots;
 
 }
-		// } else if (Obj.props.anim.filter(x => x.name == "idle" + Obj.direction)[0]) {
-		// 	Obj.state = "idle" + Obj.direction;
-  //       // }
+function hit(source,target) {
+	var dmg = source.damage-(source.damage*(target.armor/100));
+	console.log("hit for", dmg);
+	target.hp = target.hp - dmg;
+	showHP(target);
+	if (target.hp <= 0) kill(target);
+	// victim.
+}
+
+function showHP(target){
+	var obs = DATA.world.obstacles;
+	var hp = target.hp;
+	var width = (hp*100)/target.props.hp;
+	var color = width > 30 ? "#0fed0f" : "#ed0f23";
+	var bar = 	{
+				type: "health bar",
+				block: false,
+				destroy: false,
+				x: target.x,
+				y: target.y - 10,
+				w: width ,
+				h: 5,
+				color: color
+			}
+	target.healthBar = bar;
+	
+	function clearBar() {
+		if (obs.indexOf(bar)) {
+		obs.splice(obs.indexOf(bar), 1);
+		}
+	}
+	// clearBar()
+	// if (obs.indexOf(bar)) clearBar();
+	obs.push(bar);
+	setTimeout(clearBar, 300);
+}
+
+//может x y еще добавить
+function setLocation(sName){
+	if (!DATA[sName]) return;
+	var enemy = DATA[sName].enemy; 
+	var obs = DATA[sName].obstacles; 
+
+	enemy.forEach(function(oEnemy) {
+		for(var k in oEnemy.props) oEnemy[k]=oEnemy.props[k];
+	})
+	obs.forEach(function(obs) {
+		if (obs.props) for(var k in obs.props) obs[k]=obs.props[k];
+	})
+
+	var oLocation = {
+		name: sName,
+		obstacles: obs,
+		enemy : enemy
+	}; 
+	DATA.world = oLocation;
+}
+function kill(target) {
+	var aLoot;
+	if (target.loot){
+		aLoot = target.loot.filter(function(item) {
+			// Math.floor(Math.random() * 100)
+			return item.chance > Math.floor(Math.random() * 100);
+		})
+	}
+	aLoot.forEach(function(item) {
+		var oDropItem = {
+				type: "coinMob",
+				block: true,
+				destroy: false,
+				x: target.x + target.w/2,
+				y: target.y,
+				state: "idle",
+				props: objectsDb[item.name],
+				action: "pickCoin"
+		};
+		console.log(oDropItem);
+		DATA.world.obstacles.push(oDropItem);
+	})
+	console.log(aLoot);
+	target.destroy = true;
+}

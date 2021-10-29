@@ -1,5 +1,5 @@
 var level_1 = {
-	roomOne: {
+	// roomOne: {
 		obstacles: [
 			{
 				type: "exit",
@@ -349,56 +349,61 @@ var level_1 = {
 		],
 		enemy: [
 			{
-				type: "slime",
+				type: "slime1",
 				block: true,
 				destroy: false,
 				state:"idle",
+				// hp: objectsDB.slime.hp,
 				x: 688,
 				y: 605,
 				props: objectsDb.slime,
 				actions: {}
 			},
 			{
-				type: "slime",
+				type: "slime2",
 				block: true,
 				destroy: false,
 				state: "idle",
+				// hp: objectsDB.slime.hp,
 				x: 2900,
 				y: 605,
 				props: objectsDb.slime,
 				actions: {}
 			},
 			{
-				type: "slime",
+				type: "slime3",
 				block: true,
 				destroy: false,
 				state: "idle",
+				// hp: objectsDB.slime.hp,
 				x: 2000,
 				y: 1300,
 				props: objectsDb.slime,
 				actions: {}
 			},
 			{
-				type: "slime",
+				type: "slime4",
 				block: true,
 				destroy: false,
 				state: "idle",
+				// hp: objectsDB.slime.hp,
 				x: 3350,
 				y: 1400,
 				props: objectsDb.slime,
 				actions: {}
 			},
 			{
-				type: "slime",
+				type: "slime5",
 				block: true,
 				destroy: false,
 				state: "idle",
+				// hp: objectsDB.slime.hp,
 				x: 1000,
 				y: 3200,
 				props: objectsDb.slime,
 				actions: {}
 			}
 		]
-	}
+	// }
 }
 // x: 388, y: 635

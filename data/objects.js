@@ -6,6 +6,9 @@ var objectsDb = {
 		jumpSpeed: 10,
 		speed: 7,
 		grav: 1,
+		hp:100,
+		armor: 10,
+		damage: 10,
 		anim: 
 			[ 
 				{name : "runR", src : "./img/sprite.png", frames: 8},
@@ -58,12 +61,16 @@ var objectsDb = {
 				{name: "idleR", src: "./img/strike_1R.png", frames: 18, speed: 2},
 				{name: "idleL", src: "./img/strike_1L.png", frames: 18, speed: 2}
 			],
-		time: 50
+		time: 30
 
 	},
 	slime: {
 		w: 160,
 		h: 120,
+		hp: 50,
+		armor: 10,
+		damage: 10,
+		loot: [{name: 'coin', chance: 30}, {name: 'chest', chance: 30}],
 		grav : 1,
 			anim: 	
 		[

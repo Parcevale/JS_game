@@ -1,5 +1,5 @@
 var home_loc = {
-	roomOne: {
+	// roomOne: {
 		enemy: [],
 		obstacles: [
 			{
@@ -105,5 +105,5 @@ var home_loc = {
 				// action: "pickCoin"
 			}
 		]
-	}
+	// }
 }
