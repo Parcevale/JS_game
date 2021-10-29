@@ -42,7 +42,8 @@ var level_1 = {
 				y: 580,
 				w: 850,
 				h: 220,
-				color: "#964b00"
+				color: "#964b00",
+				//props: objectsDb.chest
 			},
 			{
 				type: "box2",

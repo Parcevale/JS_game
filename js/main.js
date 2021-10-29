@@ -71,10 +71,7 @@ var mainLoop = function () {
 	//ctx.canvas.width = window.innerWidth;
 	//ctx.canvas.height = window.innerHeight;
 	ctx.drawImage(a[0].img, 0,0);
-	aObjects.forEach(calcObjects);
-	aObjects.forEach(function(obj){
-		drawAnimation(obj)
-	})
+
 	DATA.world.obstacles.forEach(function (obj) {
 
 		if (obj.props && obj.props.anim && !obj.destroy) {
@@ -90,7 +87,10 @@ var mainLoop = function () {
 			drawAnimation(obj);
 		}
 	})
-
+	aObjects.forEach(calcObjects);
+	aObjects.forEach(function (obj) {
+		drawAnimation(obj)
+	})
 	drawUI();
 }
 
