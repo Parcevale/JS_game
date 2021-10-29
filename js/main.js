@@ -479,5 +479,16 @@ function kill(target) {
 	target.destroy = true;
 }
 function calcAi(Obj) {
-	Obj.actions.moveRight = true;
+	var direction = Math.floor(Math.random() * 3); 
+	var time = Math.floor(Math.random() * 5);
+	// Obj.actions.moveRight = true;
+	var actions =  ["moveRight", "idle", "moveLeft"];
+	function clearAction() {
+		Obj.actions = {};
+	}
+	if (!Object.keys(Obj.actions)[0]){
+		Obj.actions[actions[direction]] = true;
+		setTimeout(clearAction, time * 600);
+		console.log(Obj);
+	}
 }
