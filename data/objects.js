@@ -2,9 +2,9 @@ var objectsDb = {
 	hero : {
 		w: 180,
 		h: 240,
-		jumpHeight: 50,
-		jumpSpeed: 10,
-		speed: 7,
+		jumpHeight: 22,
+		jumpSpeed: 28,
+		speed: 10,
 		grav: 1,
 		hp:100,
 		armor: 10,
@@ -70,11 +70,13 @@ var objectsDb = {
 		hp: 50,
 		armor: 10,
 		damage: 10,
+		direction: "",
 		loot: [{name: 'coin', chance: 30}, {name: 'chest', chance: 30}],
 		grav : 1,
 			anim: 	
 		[
-			{name: "idle", src: "./img/slime-2.png", frames: 4, speed: 12}
+			{name: "idle", src: "./img/slime-2.png", frames: 4, speed: 12},
+			{name: "hit", src: "./img/slime-hit.png", frames: 2, speed: 12}
 			// {name: "idleR", src: "./img/strike_1R.png", frames: 18, speed: 2},
 			// {name: "idleL", src: "./img/strike_1L.png", frames: 18, speed: 2}
 		]

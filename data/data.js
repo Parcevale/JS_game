@@ -1,5 +1,5 @@
 var DATA = {
-	gravity: 10,
+	gravity: 20,
 	windowWidth: 1800,
 	windowHeight: 1000,
 	currentLocation: "home_loc",

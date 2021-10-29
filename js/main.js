@@ -127,8 +127,8 @@ function calcObjects(Obj){
 	var actions = Obj.actions;
 	Obj.cooldown && --Obj.cooldown;
 	// console.log(Obj.cooldown);
-	if (!actions.jump) {
-		if (checkMoveDown(Obj)) {
+	if (!actions.jump && !Obj.cooldown) {
+		if (checkMoveDown(Obj)  ) {
 			Obj.y = Obj.y + checkMoveDown(Obj)*Obj.props.grav;
 		} else {
 			addAnim(Obj, "idle");
@@ -306,7 +306,7 @@ function obsActions(sName) {
 		tp_home,
 		tp_level_1
 	}
-	console.log('action', sName);
+	// console.log('action', sName);
 	return a[sName]
 }
 
@@ -338,6 +338,7 @@ function tp_level_1(hero){
 }
 
 function addAnim(Obj, state){
+	// console.log(Obj,state);
 	if (Obj.props.anim.filter(x => x.name == state + Obj.direction)[0]) {
 		Obj.state = state + Obj.direction;
 	}
@@ -384,10 +385,16 @@ function getDots(obj){
 }
 function hit(source,target) {
 	var dmg = source.damage-(source.damage*(target.armor/100));
-	console.log("hit for", dmg);
 	target.hp = target.hp - dmg;
+	console.log('hit');
+	addAnim(target, 'hit');
 	showHP(target);
 	if (target.hp <= 0) kill(target);
+	target.cooldown = 300;
+	function restoreAnim () {
+		addAnim(target, 'idle');
+	}
+	setTimeout(restoreAnim, 300);
 	// victim.
 }
 
