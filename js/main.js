@@ -321,6 +321,8 @@ function pickCoin(hero, obj) {
 	hero.points = hero.points + 1;
 	obj.destroy = true;
 	obj.block = false;
+	var Coin = new Audio('./Sounds/Coin.mp3');
+	Coin.play();
 }
 function tp1(hero) {
 	hero.x = 5000;
@@ -491,6 +493,6 @@ function calcAi(Obj) {
 	if (!Object.keys(Obj.actions)[0]){
 		Obj.actions[actions[direction]] = true;
 		setTimeout(clearAction, time * 600);
-		console.log(Obj);
+		//console.log(Obj);
 	}
 }
