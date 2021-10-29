@@ -128,6 +128,7 @@ function calcObjects(Obj){
 	var actions = Obj.actions;
 	Obj.cooldown && --Obj.cooldown;
 	// console.log(Obj.cooldown);
+	if (Obj.cooldown) return;
 	if (Obj.ai) calcAi(Obj);
 	if (!actions.jump && !Obj.cooldown) {
 		if (checkMoveDown(Obj)  ) {
@@ -427,13 +428,13 @@ function hit(source,target) {
 	addAnim(target, 'hit');
 	showHP(target);
 	if (target.hp <= 0) kill(target);
-	target.cooldown = 30;
+	target.cooldown = 20;
 	function restoreAnim () {
 		addAnim(target, 'idle');
 	}
 	var Hit = new Audio('./Sounds/Hit.mp3');
 	Hit.play();
-	setTimeout(restoreAnim, 30);
+	setTimeout(restoreAnim, 20);
 	// victim.
 }
 
@@ -512,7 +513,7 @@ function kill(target) {
 	target.destroy = true;
 }
 function calcAi(Obj) {
-
+	if (Obj.cooldown) return;
 	if (checkEnemy(Obj)) {
 		Obj.aggresive = true;
 		// console.log('check enemy',checkEnemy(Obj)); 
