@@ -327,12 +327,14 @@ function tp2(hero) {
 }
 
 function tp_home(hero){
-	DATA.currentLocation = "home_loc";
+	setLocation("home_loc");
+	// DATA.currentLocation = "home_loc";
 	hero.x = 20;
 	hero.y = 100;
 }
 function tp_level_1(hero){
-	DATA.currentLocation = "level_1";
+	setLocation("level_1");
+	// DATA.currentLocation = "level_1";
 	hero.x = 150;
 	hero.y = 505;
 }
