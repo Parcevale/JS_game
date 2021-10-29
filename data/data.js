@@ -4,6 +4,7 @@ var DATA = {
 	windowHeight: 1000,
 	currentLocation: "home_loc",
 	mainHero: {
+		playable: true,
 		points: 0,
 		x: 200,
 		y: 520,

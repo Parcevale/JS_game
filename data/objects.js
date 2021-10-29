@@ -68,6 +68,8 @@ var objectsDb = {
 		w: 160,
 		h: 120,
 		hp: 50,
+		ai: true,
+		speed: 3,
 		armor: 10,
 		damage: 10,
 		direction: "",

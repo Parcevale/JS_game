@@ -127,6 +127,7 @@ function calcObjects(Obj){
 	var actions = Obj.actions;
 	Obj.cooldown && --Obj.cooldown;
 	// console.log(Obj.cooldown);
+	if (Obj.ai) calcAi(Obj);
 	if (!actions.jump && !Obj.cooldown) {
 		if (checkMoveDown(Obj)  ) {
 			Obj.y = Obj.y + checkMoveDown(Obj)*Obj.props.grav;
@@ -203,8 +204,9 @@ function checkMoveRight(Obj){
 	var aObs = DATA.world.obstacles;
 	var nMove = Obj.props.speed;
 	Obj.scale = 1;
-	Obj.state = "runR";
 	Obj.direction = "R";
+	addAnim(Obj, "run");
+	// Obj.state = "runR";
 	// var obsw = oObs.props ? oObs.props.w : oObs.w;
 	aObs.every(function (oObs){
 	var obsh = oObs.props ? oObs.props.h : oObs.h;
@@ -220,8 +222,9 @@ function checkMoveLeft(Obj){
 	var aObs = DATA.world.obstacles;
 	var nMove = Obj.props.speed;
 	// Obj.scale = -1;
-	Obj.state = "runL";
 	Obj.direction = "L";
+	addAnim(Obj, "run");
+	// Obj.state = "runL";
 	aObs.every(function (oObs){
 	var obsh = oObs.props ? oObs.props.h : oObs.h;
 	var obsw = oObs.props ? oObs.props.w : oObs.w;
@@ -238,6 +241,7 @@ function checkMoveUp(Obj) {
 	var aObs = DATA.world.obstacles;
 	var nMove = Obj.props.jumpSpeed;
 	// console.log(nMove);d
+
 	Obj.state = "up" + Obj.direction;
 	aObs.every(function (oObs){
 	var obsw = oObs.props ? oObs.props.w : oObs.w;
@@ -473,4 +477,7 @@ function kill(target) {
 	})
 	console.log(aLoot);
 	target.destroy = true;
+}
+function calcAi(Obj) {
+	Obj.actions.moveRight = true;
 }
