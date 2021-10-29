@@ -11,8 +11,8 @@ var objectsDb = {
 		damage: 10,
 		anim: 
 			[ 
-				{ name: "runR", src: "./img/elf_run.png", frames: 8},
-				{ name: "runL", src: "./img/elf_run_revers.png", frames: 8},
+				{ name: "runR", src: "./img/elf_run.png", frames: 9},
+				{ name: "runL", src: "./img/elf_run_revers.png", frames: 9},
 				{ name: "idleR", src: "./img/Elf_IDLE.png", frames: 1},
 				{ name: "idleL", src: "./img/Elf_IDLE_revers.png", frames: 1 },
 				{ name: "upR", src: "./img/Elf_JUMP.png", frames: 1 },
