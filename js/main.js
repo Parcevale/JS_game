@@ -401,6 +401,8 @@ function hit(source,target) {
 	function restoreAnim () {
 		addAnim(target, 'idle');
 	}
+	var Hit = new Audio('./Sounds/Hit.mp3');
+	Hit.play();
 	setTimeout(restoreAnim, 300);
 	// victim.
 }

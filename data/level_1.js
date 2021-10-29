@@ -40,10 +40,10 @@ var level_1 = {
 				destroy: false,
 				x: 850,
 				y: 580,
-				w: 850,
-				h: 220,
+				//w: 850,
+				//h: 220,
 				color: "#964b00",
-				//props: objectsDb.chest
+				props: objectsDb.cave_texture
 			},
 			{
 				type: "box2",
