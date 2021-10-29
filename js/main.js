@@ -80,8 +80,8 @@ var mainLoop = function () {
 		if (obj.props && obj.props.anim && !obj.destroy) {
 			drawAnimation(obj);
 		}
-		if (obj.img && !obj.tst) ctx.drawImage(obj.img, obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h);
-		if (!obj.destroy && !obj.img && !obj.tst) draw(obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h, obj.color);
+		// if (obj.img && !obj.tst) ctx.drawImage(obj.img, obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h);
+		if (!obj.destroy && !obj.img && !obj.props) draw(obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h, obj.color);
 
 	});
 	DATA.world.enemy.forEach(calcObjects);
@@ -144,6 +144,7 @@ function calcObjects(Obj){
 	if (actions.moveLeft && !Obj.cooldown) {
 		if (checkMoveLeft(Obj))
 		Obj.x = Obj.x - checkMoveLeft(Obj);
+
 	}
 
 	if (actions.moveUp && !Obj.cooldown) {
