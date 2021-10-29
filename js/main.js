@@ -124,6 +124,7 @@ function drawAnimation(obj) {
 
 
 function calcObjects(Obj){
+	if (Obj.destroy) return;
 	var actions = Obj.actions;
 	Obj.cooldown && --Obj.cooldown;
 	// console.log(Obj.cooldown);
@@ -169,13 +170,16 @@ function calcObjects(Obj){
 	if (actions.strike && !Obj.cooldown) {
 		strike(Obj)
 	}
+	if (actions.mobStrike && !Obj.cooldown) {
+		mobStrike(Obj)
+	}
 	if (actions.attack) {
 		checkAttack(Obj);
 	}
 }
 
 function strike(Obj) {
-	Obj.cooldown = objectsDb.strike.time;
+	Obj.cooldown = objectsDb.strike.time + Obj.attackSpeed;
 	var aObj = aObjects; //DATA[DATA.currentLocation].roomOne.obstacles
 	var direction = Obj.direction == "R" ? 1 : -1;
 	var strikeObj = {
@@ -184,6 +188,29 @@ function strike(Obj) {
 		y: Obj.y + 70,
 		state: "idle" + Obj.direction,
 		props: objectsDb.strike,
+		actions: {attack: true}
+	}
+	aObj.push(strikeObj);
+
+	function clearStrike() {
+		aObj.splice(aObj.indexOf(strikeObj), 1);
+
+	}
+	setTimeout(clearStrike, objectsDb.strike.time * 5);
+
+}
+
+function mobStrike(Obj) {
+	Obj.cooldown = objectsDb.strike.time + Obj.attackSpeed;
+	var aObj = DATA.world.enemy;
+	var direction = Obj.direction == "R" ? 1 : -1;
+	var strikeObj = {
+		damage: Obj.props.damage,
+		x: Obj.x + 100 * direction,
+		y: Obj.y + 10,
+		state: "idle" + Obj.direction,
+		props: objectsDb.strike,
+		mob: true,
 		actions: {attack: true}
 	}
 	aObj.push(strikeObj);
@@ -356,7 +383,8 @@ function addAnim(Obj, state){
 
 function checkAttack(Obj) {
 	console.log('check attack');
-	var aEnemy = DATA.world.enemy;
+	var aEnemy = Obj.mob ? aObjects : DATA.world.enemy;
+	// console.log()
 	var aDots = getDots(Obj);
 	Obj.actions.attack = false;
 	var bHit = false;
@@ -368,7 +396,7 @@ function checkAttack(Obj) {
 		bHit = aDots.some(function (oDot) {// тут что то не так, проверяет остальные попадания даже если попадание было
 			if (checkDot(oDot.x, oDot.y, oEnemy.x, oEnemy.y, oEnemy.x + oEnemy.props.w, oEnemy.y + oEnemy.props.h)){
 				// oEnemy.destroy = true;
-				// console.log('hit!', oEnemy); 
+				console.log('hit!', oEnemy); 
 				return true;
 			} return false;
 		})
@@ -399,19 +427,20 @@ function hit(source,target) {
 	addAnim(target, 'hit');
 	showHP(target);
 	if (target.hp <= 0) kill(target);
-	target.cooldown = 300;
+	target.cooldown = 30;
 	function restoreAnim () {
 		addAnim(target, 'idle');
 	}
 	var Hit = new Audio('./Sounds/Hit.mp3');
 	Hit.play();
-	setTimeout(restoreAnim, 300);
+	setTimeout(restoreAnim, 30);
 	// victim.
 }
 
 function showHP(target){
 	var obs = DATA.world.obstacles;
 	var hp = target.hp;
+	console.log("hp", hp);
 	var width = (hp*100)/target.props.hp;
 	var color = width > 30 ? "#0fed0f" : "#ed0f23";
 	var bar = 	{
@@ -434,7 +463,7 @@ function showHP(target){
 	// clearBar()
 	// if (obs.indexOf(bar)) clearBar();
 	obs.push(bar);
-	setTimeout(clearBar, 300);
+	setTimeout(clearBar, 600);
 }
 
 //может x y еще добавить
@@ -486,7 +515,7 @@ function calcAi(Obj) {
 
 	if (checkEnemy(Obj)) {
 		Obj.aggresive = true;
-		console.log('check enemy',checkEnemy(Obj));
+		// console.log('check enemy',checkEnemy(Obj)); 
 		Obj.actions = {};
 		Obj.actions[checkEnemy(Obj)] = true;
 		return;
@@ -507,7 +536,7 @@ function calcAi(Obj) {
 
 
 	if (!Object.keys(Obj.actions)[0]){
-		console.log('set action',actions[direction], (time * 1000)/1000)
+		// console.log('set action',actions[direction], (time * 1000)/1000)
 		Obj.actions[actions[direction]] = true;
 		setTimeout(clearAction, time * 1000);
 	}
@@ -518,7 +547,7 @@ function checkEnemy(Obj) {
 	var yDistance = Obj.y - hero.y;
 	if (yDistance > 250) return false;
 	var distance = Obj.x - hero.x;
-	if (Math.abs(distance) <150 ) return "strike";
+	if (Math.abs(distance) <150 ) return "mobStrike";
 	if (Math.abs(distance) < 500 ) return distance > 0 ? "moveLeft" : "moveRight";
 	// console.log("distance", distance);
 }

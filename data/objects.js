@@ -81,6 +81,7 @@ var objectsDb = {
 		speed: 3,
 		armor: 10,
 		damage: 10,
+		attackSpeed: 50,
 		direction: "",
 		loot: [{name: 'coin', chance: 30}, {name: 'chest', chance: 70}],
 		grav : 1,
