@@ -481,16 +481,43 @@ function kill(target) {
 	target.destroy = true;
 }
 function calcAi(Obj) {
+
+	if (checkEnemy(Obj)) {
+		Obj.aggresive = true;
+		console.log('check enemy',checkEnemy(Obj));
+		Obj.actions = {};
+		Obj.actions[checkEnemy(Obj)] = true;
+		return;
+	} 
+	if (Obj.aggresive) {
+		Obj.actions = {};
+		Obj.aggresive = false;
+	}	
+	
 	var direction = Math.floor(Math.random() * 3); 
 	var time = Math.floor(Math.random() * 5);
-	// Obj.actions.moveRight = true;
+
 	var actions =  ["moveRight", "idle", "moveLeft"];
+
 	function clearAction() {
 		Obj.actions = {};
 	}
+
+
 	if (!Object.keys(Obj.actions)[0]){
+		console.log('set action',actions[direction], (time * 1000)/1000)
 		Obj.actions[actions[direction]] = true;
-		setTimeout(clearAction, time * 600);
-		console.log(Obj);
+		setTimeout(clearAction, time * 1000);
+		// console.log(Obj);
 	}
+}
+//справа минус
+function checkEnemy(Obj) {
+	var hero = aObjects[0];
+	var yDistance = Obj.y - hero.y;
+	if (yDistance > 250) return false;
+	var distance = Obj.x - hero.x;
+	if (Math.abs(distance) <150 ) return "strike";
+	if (Math.abs(distance) < 500 ) return distance > 0 ? "moveLeft" : "moveRight";
+	// console.log("distance", distance);
 }
