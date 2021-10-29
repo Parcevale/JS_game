@@ -43,7 +43,7 @@ var level_1 = {
 				w: 850,
 				h: 220,
 				color: "#964b00",
-				//props: objectsDb.chest
+				//props: objectsDb.cave_texture
 			},
 			{
 				type: "box2",

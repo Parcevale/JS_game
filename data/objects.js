@@ -36,6 +36,14 @@ var objectsDb = {
 				{ name: "idleL", src: "./img/sprite-costs-revers.png", frames: 1 }
 			]
 	},
+	cave_texture: {
+		w: 850,
+		h: 220,
+		anim:
+			[
+				{ name: "idle", src: "./img/cave_texture.png", frames: 1 }
+			]
+	},
 	coin: {
 		w:20,
 		h:20,
