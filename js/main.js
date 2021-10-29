@@ -1,11 +1,13 @@
 
 //var a = [{ src: './img/backgraund.jpg' }];
 var a = [{ src: './img/back_cave.jpg' }];
+// var a = [{ src: './img/platforms/Ground-Additional_07.png' }];
 
 
 $.when(
 	$.getScript("./data/objects.js"),
 	$.getScript("./data/level_1.js"),
+	$.getScript("./data/level_2.js"),
 	$.getScript("./data/home_loc.js"),
 	$.getScript("./data/data.js"),
 	$.getScript("./data/utils.js"),
@@ -337,7 +339,8 @@ function obsActions(sName) {
 		tp1,
 		tp2,
 		tp_home,
-		tp_level_1
+		tp_level_1,
+		tp_level_2
 	}
 	// console.log('action', sName);
 	return a[sName]
@@ -373,6 +376,12 @@ function tp_level_1(hero){
 	hero.x = 150;
 	hero.y = 505;
 }
+function tp_level_2(hero){
+	setLocation("level_2");
+	hero.x = 100;
+	hero.y = 10;
+}
+
 
 function addAnim(Obj, state){
 	// console.log(Obj,state);
@@ -472,14 +481,25 @@ function setLocation(sName){
 	if (!DATA[sName]) return;
 	var enemy = DATA[sName].enemy; 
 	var obs = DATA[sName].obstacles; 
+	var aMap = DATA[sName].map;
 
 	enemy.forEach(function(oEnemy) {
 		for(var k in oEnemy.props) oEnemy[k]=oEnemy.props[k];
 	})
+	// obs.forEach(function(obs) {
+	// 	if (obs.props) for(var k in obs.props) obs[k]=obs.props[k];
+	// })
+	if (aMap){
+		aMap.forEach(function(row, rowIndx) {
+			row.forEach(function(cell, ind){
+				if (cell) obs.push({x: 100 * ind,y: 100 * rowIndx, props: objectsDb[cell]})
+			})
+		})
+	}
 	obs.forEach(function(obs) {
 		if (obs.props) for(var k in obs.props) obs[k]=obs.props[k];
 	})
-
+	console.log(obs);
 	var oLocation = {
 		name: sName,
 		obstacles: obs,

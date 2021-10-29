@@ -12,8 +12,8 @@ var objectsDb = {
 		anim: 
 			[ 
 
-				//{ name: "runR", src: "./img/elf_run.png", frames: 9 },
-				{ name: "runR", src: "./img/warrior_run.png", frames: 8 },
+				{ name: "runR", src: "./img/elf_run.png", frames: 9 },
+				// { name: "runR", src: "./img/warrior_run.png", frames: 8 },
 
 				{ name: "runL", src: "./img/elf_run_revers.png", frames: 9},
 				{ name: "idleR", src: "./img/Elf_IDLE.png", frames: 1},
@@ -97,6 +97,133 @@ var objectsDb = {
 			// {name: "idleL", src: "./img/strike_1L.png", frames: 18, speed: 2}
 		]
 
+	},
+	ground_m: {
+		w: 100,
+		h: 100,
+		block: true,
+		state: "idle",
+		anim:
+			[
+				{ name: "idle", src: "./img/platforms/Ground_11.png", frames: 1 }
+			]
+	},
+	ground_r: {
+		w: 100,
+		h: 100,
+		destroy: false,
+		block: true,
+		state: "idle",
+		anim:
+			[
+				{ name: "idle", src: "./img/platforms/Ground_12.png", frames: 1 }
+			]
+	},
+	barrel: {
+		w: 100,
+		h: 100,
+		destroy: false,
+		block: true,
+		state: "idle",
+		anim:
+			[
+				{ name: "idle", src: "./img/platforms/Wooden_Barrel.png", frames: 1 }
+			]
+	},
+	bubble: {
+		w: 100,
+		h: 100,
+		destroy: false,
+		block: true,
+		state: "idle",
+		anim:
+			[
+				{ name: "idle", src: "./img/platforms/Bubble.png", frames: 1 }
+			]
+	},
+	1: {
+		name:'left_wall', 
+		w: 100,
+		h: 100,
+		destroy: false,
+		block: true,
+		state: "idle",
+		anim:
+			[
+				{ name: "idle", src: "./img/platforms/Ground_13.png", frames: 1 }
+			]
+	},
+	2: {
+		name:'floor_m', 
+		w: 100,
+		h: 100,
+		destroy: false,
+		block: true,
+		state: "idle",
+		anim:
+			[
+				{ name: "idle", src: "./img/platforms/Ground_11.png", frames: 1 }
+			]
+	},
+	3: {
+		name:'right_wall', 
+		w: 100,
+		h: 100,
+		destroy: false,
+		block: true,
+		state: "idle",
+		anim:
+			[
+				{ name: "idle", src: "./img/platforms/Ground-Additional_01.png", frames: 1 }
+			]
+	},
+	7: {
+		name:'floor_right', 
+		w: 100,
+		h: 100,
+		destroy: false,
+		block: true,
+		state: "idle",
+		anim:
+			[
+				{ name: "idle", src: "./img/platforms/Ground_12.png", frames: 1 }
+			]
+	},
+	4: {
+		name:'floor_left', 
+		w: 100,
+		h: 100,
+		destroy: false,
+		block: true,
+		state: "idle",
+		anim:
+			[
+				{ name: "idle", src: "./img/platforms/Ground_10.png", frames: 1 }
+			]
+	},
+	5: {
+		name:'floor_left_corner', 
+		w: 100,
+		h: 100,
+		destroy: false,
+		block: true,
+		state: "idle",
+		anim:
+			[
+				{ name: "idle", src: "./img/platforms/Ground_07.png", frames: 1 }
+			]
+	},
+	6: {
+		name:'full_block', 
+		w: 100,
+		h: 100,
+		destroy: false,
+		block: true,
+		state: "idle",
+		anim:
+			[
+				{ name: "idle", src: "./img/platforms/Ground_06.png", frames: 1 }
+			]
 	}
 
 }

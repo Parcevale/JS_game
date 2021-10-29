@@ -64,14 +64,27 @@ var home_loc = {
 			},
 			{
 				type: "tp_level_1",
-				block: true,
-				destroy: false,
+				// block: true,
+				// destroy: false,
 				x: 50,
 				y: 800,
-				w: 150,
-				h: 150,
-				color: "#AFEEEE",
+				// w: 150,
+				// h: 150,
+				props: objectsDb.bubble,
+				// color: "#AFEEEE",
 				action: "tp_level_1"
+			},
+						{
+				type: "tp_level_2",
+				// block: true,
+				// destroy: false,
+				x: 1667,
+				y: 760,
+				// w: 150,
+				// h: 150,
+				props: objectsDb.bubble,
+				// color: "#AFEEEE",
+				action: "tp_level_2"
 			},
 			{
 				type: "coin1",
@@ -102,8 +115,6 @@ var home_loc = {
 				x: 50,
 				y: 375,
 				props: objectsDb.chest
-				// tst: true
-				// action: "pickCoin"
 			}
 		]
 	// }
