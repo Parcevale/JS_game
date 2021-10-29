@@ -39,6 +39,7 @@ var objectsDb = {
 	cave_texture: {
 		w: 850,
 		h: 220,
+		state: "idle",
 		anim:
 			[
 				{ name: "idle", src: "./img/cave_texture.png", frames: 1 }
