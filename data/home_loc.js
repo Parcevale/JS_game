@@ -102,6 +102,7 @@ var home_loc = {
 				x: 50,
 				y: 375,
 				props: objectsDb.chest
+				// tst: true
 				// action: "pickCoin"
 			}
 		]

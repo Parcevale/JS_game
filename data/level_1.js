@@ -355,8 +355,8 @@ var level_1 = {
 				destroy: false,
 				state:"idle",
 				// hp: objectsDB.slime.hp,
-				x: 688,
-				y: 605,
+				x: 860,
+				y: 340,
 				props: objectsDb.slime,
 				actions: {}
 			},
