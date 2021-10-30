@@ -7,7 +7,7 @@ var DATA = {
 		playable: true,
 		points: 0,
 		x: 1007, y: 260,
-		attackSpeed: 10,
+		attackSpeed: 5,
 		hp: 100,
 		armor: 10,
 		state: "idleR",

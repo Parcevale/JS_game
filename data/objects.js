@@ -14,7 +14,7 @@ var objectsDb = {
 
 				{ name: "runR", src: "./img/elf_run.png", frames: 9 },
 				// { name: "runR", src: "./img/warrior_run.png", frames: 8 },
-
+				{ name: "strikeR", src: "./img/Elf-attack-r.png", frames: 10, speed: 5 },
 				{ name: "runL", src: "./img/elf_run_revers.png", frames: 9},
 				{ name: "idleR", src: "./img/Elf_IDLE.png", frames: 1},
 				{ name: "idleL", src: "./img/Elf_IDLE_revers.png", frames: 1 },
@@ -25,6 +25,20 @@ var objectsDb = {
 			]
 
 	},
+	arrow: {
+		w: 90,
+		h: 14,
+		grav: 0.02,
+		speed:30,
+		anim: 	
+			[
+				{name: "idleR", src: "./img/arrowR.png", frames: 1},
+				{name: "idleL", src: "./img/arrowL.png", frames: 1}
+			]
+		// time: 30
+
+	},
+	// strike: 
 	ninja: {
 		w: 60,
 		h: 80,
@@ -115,7 +129,12 @@ var objectsDb = {
 			anim: 	
 		[
 			{name: "idle", src: "./img/slime-2.png", frames: 4, speed: 12},
-			{name: "hit", src: "./img/slime-hit.png", frames: 2, speed: 12}
+			{name: "hit", src: "./img/slime-hit.png", frames: 2, speed: 12},
+			{name: "strikeR", src: "./img/slime-strike.png", frames: 5, speed: 12},
+			{name: "strikeL", src: "./img/slime-strike.png", frames: 5, speed: 12},
+			{name: "strike", src: "./img/slime-strike.png", frames: 5, speed: 12}
+
+
 			// {name: "idleR", src: "./img/strike_1R.png", frames: 18, speed: 2},
 			// {name: "idleL", src: "./img/strike_1L.png", frames: 18, speed: 2}
 		]
@@ -129,7 +148,7 @@ var objectsDb = {
 		speed: 3,
 		armor: 10,
 		damage: 10,
-		attackSpeed: 50,
+		attackSpeed: 100,
 		state: "idle",
 		direction: "",
 		actions: {},
@@ -138,9 +157,10 @@ var objectsDb = {
 			anim: 	
 		[
 			{name: "idle", src: "./img/slime-2.png", frames: 4, speed: 12},
-			{name: "hit", src: "./img/slime-hit.png", frames: 2, speed: 12}
-			// {name: "idleR", src: "./img/strike_1R.png", frames: 18, speed: 2},
-			// {name: "idleL", src: "./img/strike_1L.png", frames: 18, speed: 2}
+			{name: "hit", src: "./img/slime-hit.png", frames: 2, speed: 12},
+			{name: "strikeR", src: "./img/slime-strike.png", frames: 5, speed: 12},
+			{name: "strikeL", src: "./img/slime-strike.png", frames: 5, speed: 12},
+			{name: "strike", src: "./img/slime-strike.png", frames: 5, speed: 12}
 		]
 
 	},

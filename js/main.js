@@ -64,18 +64,22 @@ function drawUI() {
 	ctx.fillStyle = ptrn;
 	ctx.font = "30px serif";
 	ctx.fillText(DATA.mainHero.points,  40, 30);
+	ctx.strokeText(DATA.mainHero.points,  40, 30);
+	ctx.strokeStyle = "blue";
+	// ctx.fillStyle = 'white';
 }
 
 var mainLoop = function () {
 	// var currentLocation = ;
 	clear();
+
 	// console.log(a);
 	//ctx.canvas.width = window.innerWidth;
 	//ctx.canvas.height = window.innerHeight;
 	ctx.drawImage(a[0].img, 0,0);
 
-	DATA.world.obstacles.forEach(function (obj) {
-
+	DATA.world.obstacles.forEach(function (obj,n,array) {
+		if (obj.destroy) clearArray(array, obj);
 		if (obj.props && obj.props.anim && !obj.destroy) {
 			drawAnimation(obj);
 		}
@@ -83,17 +87,32 @@ var mainLoop = function () {
 		if (!obj.destroy && !obj.img && !obj.props) draw(obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h, obj.color);
 
 	});
+	DATA.world.enemy.forEach(function(obj,n,array) {
+		if (obj.destroy) clearArray(array, obj);
+	});
 	DATA.world.enemy.forEach(calcObjects);
 	DATA.world.enemy.forEach(function (obj){
 		if (obj.props.anim && !obj.destroy) {
 			drawAnimation(obj);
 		}
 	})
+	aObjects.forEach(function(obj,n,array) {
+		// if (obj.destroy) clearArray(array, obj);//походу героя удаляет при убийстве моба
+	});
 	aObjects.forEach(calcObjects);
 	aObjects.forEach(function (obj) {
-		drawAnimation(obj)
+		if (!obj.destroy) {
+			drawAnimation(obj);
+		}
+		// drawAnimation(obj)
 	})
 	drawUI();
+}
+function clearArray(array, object){
+	if (~array.indexOf(object)) {
+		console.log('нашел', object);
+		array.splice(array.indexOf(object), 1);
+	}
 }
 
 function drawAnimation(obj) {
@@ -144,18 +163,20 @@ function calcObjects(Obj){
 	}
 
 	if (actions.moveRight && !Obj.cooldown) {
+		// console.log('check move right');
 		if (checkMoveRight(Obj))
 		Obj.x = Obj.x + checkMoveRight(Obj);
 	}
 
 	if (actions.moveLeft && !Obj.cooldown) {
+		// console.log('check move left');
 		if (checkMoveLeft(Obj))
 		Obj.x = Obj.x - checkMoveLeft(Obj);
 
 	}
 
 	if (actions.moveUp && !Obj.cooldown) {
-		console.log("checkJump", actions.jump);
+		// console.log("checkJump", actions.jump);
 		if ( actions.jump != 2) {//checkJump(Obj) &&
 			actions.jump = actions.jump ? actions.jump + 1 : 1;
 			actions.jumpTime = Obj.props.jumpHeight;
@@ -174,35 +195,57 @@ function calcObjects(Obj){
 		} 
 	}
 	if (actions.strike && !Obj.cooldown) {
+
 		strike(Obj)
 	}
 	if (actions.mobStrike && !Obj.cooldown) {
 		mobStrike(Obj)
 	}
 	if (actions.attack) {
+		// console.log('check attack');
 		checkAttack(Obj);
 	}
 }
 
 function strike(Obj) {
 	Obj.cooldown = objectsDb.strike.time + Obj.attackSpeed;
+	addAnim(Obj, "strike");
 	var aObj = aObjects; //DATA[DATA.currentLocation].roomOne.obstacles
 	var direction = Obj.direction == "R" ? 1 : -1;
 	var strikeObj = {
 		damage: Obj.props.damage,
 		x: Obj.x + 100 * direction,
-		y: Obj.y + 70,
+		y: Obj.y + 120,
 		state: "idle" + Obj.direction,
-		props: objectsDb.strike,
+		// grav: 0.3,
+		props: objectsDb.arrow,
+		projectile: true,
 		actions: {attack: true}
 	}
-	aObj.push(strikeObj);
+	if (Obj.direction == "R") {
+		strikeObj.actions.moveRight = true;
+	} else strikeObj.actions.moveLeft = true;
+	// strikeObj.actions = Obj.direction == "R" ? 1 : -1;
+	for(var k in strikeObj.props) strikeObj[k]=strikeObj.props[k];
+	// var strikeObj = {
+	// 	damage: Obj.props.damage,
+	// 	x: Obj.x + 100 * direction,
+	// 	y: Obj.y + 70,
+	// 	state: "idle" + Obj.direction,
+	// 	props: objectsDb.strike,
+	// 	actions: {attack: true}
+	// }
+	// aObj.push(strikeObj);
+	function performStrike() {
+		aObj.push(strikeObj);
+}	
 
 	function clearStrike() {
 		aObj.splice(aObj.indexOf(strikeObj), 1);
 
 	}
-	setTimeout(clearStrike, objectsDb.strike.time * 5);
+	setTimeout(performStrike, Obj.attackSpeed*70);
+	setTimeout(clearStrike, 5000);
 
 }
 
@@ -210,6 +253,8 @@ function mobStrike(Obj) {
 	Obj.cooldown = objectsDb.strike.time + Obj.attackSpeed;
 	var aObj = DATA.world.enemy;
 	var direction = Obj.direction == "R" ? 1 : -1;
+	addAnim(Obj, "strike");
+	console.log(Obj, "strike");
 	var strikeObj = {
 		damage: Obj.props.damage,
 		x: Obj.x + 100 * direction,
@@ -237,7 +282,7 @@ function checkJump(Obj){
 function checkMoveRight(Obj){ 
 	var aObs = DATA.world.obstacles;
 	var nMove = Obj.props.speed;
-	Obj.scale = 1;
+	// Obj.scale = 1;
 	Obj.direction = "R";
 	addAnim(Obj, "run");
 	// Obj.state = "runR";
@@ -332,7 +377,7 @@ document.addEventListener('keyup', function (event) {
 	let action = actions.filter(action => action.key === event.code);
 	if (action[0]){
 		hero.actions[action[0].name] = false;
-		hero.state = "idle" + hero.direction;
+		// hero.state = "idle" + hero.direction;
 	}
 }.bind(this));
 
@@ -390,19 +435,19 @@ function tp_level_2(hero){
 
 
 function addAnim(Obj, state){
-	// console.log(Obj,state);
 	if (Obj.props.anim.filter(x => x.name == state + Obj.direction)[0]) {
 		Obj.state = state + Obj.direction;
+		return;
+	}
+	if (Obj.props.anim.filter(x => x.name == state)[0]) {
+		Obj.state = state;
 	}
 
 }
 
 function checkAttack(Obj) {
-	console.log('check attack');
 	var aEnemy = Obj.mob ? aObjects : DATA.world.enemy;
-	// console.log()
 	var aDots = getDots(Obj);
-	Obj.actions.attack = false;
 	var bHit = false;
 
 	// console.log(aDots);
@@ -416,7 +461,12 @@ function checkAttack(Obj) {
 				return true;
 			} return false;
 		})
-		if (bHit) hit(Obj,oEnemy);
+		if (bHit) {
+			hit(Obj,oEnemy);
+			if (Obj.projectile) Obj.destroy = true;
+			Obj.destroy = true;
+		}
+
 	})
 
 }
@@ -443,13 +493,14 @@ function hit(source,target) {
 	addAnim(target, 'hit');
 	showHP(target);
 	if (target.hp <= 0) kill(target);
-	target.cooldown = 20;
+	console.log("target",target);
+	target.cooldown = 100;
 	function restoreAnim () {
 		addAnim(target, 'idle');
 	}
 	var Hit = new Audio('./Sounds/Hit.mp3');
 	Hit.play();
-	setTimeout(restoreAnim, 20);
+	setTimeout(restoreAnim, 200);
 	// victim.
 }
 
@@ -520,6 +571,10 @@ function setLocation(sName){
 	DATA.world = oLocation;
 }
 function kill(target) {
+	if (!target.ai) {
+		tp_home(target);
+		return;
+	}
 	var aLoot;
 	if (target.loot){
 		aLoot = target.loot.filter(function(item) {
@@ -545,18 +600,23 @@ function kill(target) {
 	target.destroy = true;
 }
 function calcAi(Obj) {
-	if (Obj.cooldown) return;
-	if (checkEnemy(Obj)) {
-		Obj.aggresive = true;
-		// console.log('check enemy',checkEnemy(Obj)); 
-		Obj.actions = {};
-		Obj.actions[checkEnemy(Obj)] = true;
-		return;
-	} 
-	if (Obj.aggresive) {
-		Obj.actions = {};
-		Obj.aggresive = false;
-	}	
+	if (Obj.cooldown) console.log('cd', Obj.cooldown);
+	// console.log(Obj.cooldown)
+	if (!Obj.cooldown) {
+		// console.log(Obj.cooldown);
+		if (checkEnemy(Obj)) {
+			Obj.aggresive = true;
+			// console.log('check enemy',checkEnemy(Obj)); 
+			Obj.actions = {};
+			Obj.actions[checkEnemy(Obj)] = true;
+			return;
+		} 
+		if (Obj.aggresive) {
+			Obj.actions = {};
+			Obj.aggresive = false;
+		}	
+
+	}
 	
 	var direction = Math.floor(Math.random() * 3); 
 	var time = Math.floor(Math.random() * 5);
@@ -577,6 +637,7 @@ function calcAi(Obj) {
 //справа минус
 function checkEnemy(Obj) {
 	var hero = aObjects[0];
+
 	var yDistance = Obj.y - hero.y;
 	if (yDistance > 250) return false;
 	var distance = Obj.x - hero.x;
