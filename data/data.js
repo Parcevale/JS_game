@@ -6,8 +6,7 @@ var DATA = {
 	mainHero: {
 		playable: true,
 		points: 0,
-		x: 200,
-		y: 520,
+		x: 1007, y: 260,
 		attackSpeed: 10,
 		hp: 100,
 		armor: 10,
@@ -21,6 +20,7 @@ var DATA = {
 		{name : "moveRight", key: "KeyD"},
 		{name : "moveLeft", key: "KeyA"},
 		{name : "moveUp", key: "KeyW"},
+		{name : "moveUp", key: "Space"},
 		{name : "strike", key: "ControlRight"}
 
 	],
@@ -30,4 +30,4 @@ var DATA = {
 	
 }
 
-// 1100, y: 755
+// 1100, y: 755 x: 1007, y: 260

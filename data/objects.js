@@ -57,9 +57,32 @@ var objectsDb = {
 				{name: "idle", src: "./img/coin_4.png", frames: 5}
 			]
 	},
-	chest: {
+	20: {
+		w:20,
+		h:20,
+		state: "idle",
+		block: true,
+		action: "pickCoin",
+		anim: 
+			[
+				{name: "idle", src: "./img/coin_4.png", frames: 5}
+			]
+	},
+	// 30: {
+	// 	w:150,
+	// 	h:150,
+	// 	state: "idle",
+	// 	anim: 
+	// 		[
+	// 			{name: "idle", src: "./img/chest_1.png", frames: 1}
+	// 		]
+	// },
+	21: {
 		w:150,
 		h:150,
+		state: "idle",
+		block: true,
+		action: "pickCoin",
 		anim: 
 			[
 				{name: "idle", src: "./img/chest_1.png", frames: 1}
@@ -87,6 +110,29 @@ var objectsDb = {
 		damage: 10,
 		attackSpeed: 50,
 		direction: "",
+		loot: [{name: 'coin', chance: 30}, {name: 'chest', chance: 70}],
+		grav : 1,
+			anim: 	
+		[
+			{name: "idle", src: "./img/slime-2.png", frames: 4, speed: 12},
+			{name: "hit", src: "./img/slime-hit.png", frames: 2, speed: 12}
+			// {name: "idleR", src: "./img/strike_1R.png", frames: 18, speed: 2},
+			// {name: "idleL", src: "./img/strike_1L.png", frames: 18, speed: 2}
+		]
+
+	},
+		30: {
+		w: 160,
+		h: 120,
+		hp: 50,
+		ai: true,
+		speed: 3,
+		armor: 10,
+		damage: 10,
+		attackSpeed: 50,
+		state: "idle",
+		direction: "",
+		actions: {},
 		loot: [{name: 'coin', chance: 30}, {name: 'chest', chance: 70}],
 		grav : 1,
 			anim: 	

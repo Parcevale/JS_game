@@ -36,7 +36,7 @@ function startGame() {
 	aObjects.push(DATA.mainHero);
 	//DATA.currentLocation = "home_loc";
 	// DATA.currentLocation = "level_1";
-	setLocation("level_1");
+	setLocation("home_loc");
 	cnv.setAttribute('width', DATA.windowWidth);
 	cnv.setAttribute('height', DATA.windowHeight);
 	setInterval(mainLoop,1000/60);
@@ -132,11 +132,13 @@ function calcObjects(Obj){
 	// console.log(Obj.cooldown);
 	if (Obj.cooldown) return;
 	if (Obj.ai) calcAi(Obj);
+
 	if (!actions.jump && !Obj.cooldown) {
 		if (checkMoveDown(Obj)  ) {
 			Obj.y = Obj.y + checkMoveDown(Obj)*Obj.props.grav;
 		} else {
 			addAnim(Obj, "idle");
+			// actions.jump = false;
 		}
 			
 	}
@@ -153,8 +155,9 @@ function calcObjects(Obj){
 	}
 
 	if (actions.moveUp && !Obj.cooldown) {
-		if (checkJump(Obj)) {
-			actions.jump = true;
+		console.log("checkJump", actions.jump);
+		if ( actions.jump != 2) {//checkJump(Obj) &&
+			actions.jump = actions.jump ? actions.jump + 1 : 1;
 			actions.jumpTime = Obj.props.jumpHeight;
 		}
 	}
@@ -228,7 +231,8 @@ function mobStrike(Obj) {
 
 
 function checkJump(Obj){
-	return !checkMoveDown(Obj)
+	// return !checkMoveDown(Obj)
+	false;
 }
 function checkMoveRight(Obj){ 
 	var aObs = DATA.world.obstacles;
@@ -349,6 +353,7 @@ function obsActions(sName) {
 // mainLoop();
 //может события в отдельный файлик? 
 function pickCoin(hero, obj) {
+	console.log('pickCoin');
 	hero.points = hero.points + 1;
 	obj.destroy = true;
 	obj.block = false;
@@ -378,8 +383,9 @@ function tp_level_1(hero){
 }
 function tp_level_2(hero){
 	setLocation("level_2");
-	hero.x = 100;
-	hero.y = 10;
+	hero.x = 140;
+	hero.y = 1160;
+	
 }
 
 
@@ -492,14 +498,20 @@ function setLocation(sName){
 	if (aMap){
 		aMap.forEach(function(row, rowIndx) {
 			row.forEach(function(cell, ind){
-				if (cell) obs.push({x: 100 * ind,y: 100 * rowIndx, props: objectsDb[cell]})
+				if (cell && !objectsDb[cell].ai) obs.push({x: 100 * ind,y: 100 * rowIndx, props: objectsDb[cell]});
+				if (cell && objectsDb[cell].ai) enemy.push({x: 100 * ind,y: (100 * rowIndx) -60, props: objectsDb[cell]});
 			})
 		})
 	}
+	enemy.forEach(function(enemy) {
+		if (enemy.props) for(var k in enemy.props) enemy[k]=enemy.props[k];
+	})
 	obs.forEach(function(obs) {
 		if (obs.props) for(var k in obs.props) obs[k]=obs.props[k];
 	})
-	console.log(obs);
+
+
+	// console.log(obs);
 	var oLocation = {
 		name: sName,
 		obstacles: obs,
