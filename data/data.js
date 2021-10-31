@@ -12,16 +12,22 @@ var DATA = {
 		armor: 10,
 		state: "idleR",
 		direction: "R",
+		exp: 0,
+		level: 1,
 		props: objectsDb.hero,
 		color :"#0979db",
-		actions: {}
+		actions: {},
+		inventary: false,
+		equipment: false,
 	},
 	actions: [
 		{name : "moveRight", key: "KeyD"},
 		{name : "moveLeft", key: "KeyA"},
 		{name : "moveUp", key: "KeyW"},
 		{name : "moveUp", key: "Space"},
-		{name : "strike", key: "ControlRight"}
+		{name : "strike", key: "ControlRight"},
+		{name : "inventary", key: "KeyI"},
+		{name : "equipment", key: "KeyO"},
 
 	],
 	level_1: level_1,

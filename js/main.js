@@ -1,6 +1,6 @@
 
 //var a = [{ src: './img/backgraund.jpg' }];
-var a = [{ src: './img/back_cave.jpg' }];
+var a = [{ src: './img/cave-background-2.jpg' }];
 // var a = [{ src: './img/platforms/Ground-Additional_07.png' }];
 
 
@@ -61,22 +61,47 @@ function getCam() {
 }
 function drawUI() {
 	const ptrn = ctx.createPattern(a[0].img, 'repeat');
+
 	ctx.fillStyle = ptrn;
-	ctx.font = "30px serif";
-	ctx.fillText(DATA.mainHero.points,  40, 30);
-	ctx.strokeText(DATA.mainHero.points,  40, 30);
+	ctx.font = "15px serif";
+	// ctx.fillText(DATA.mainHero.points,  40, 30);
+	// ctx.strokeText(DATA.mainHero.points,  40, 30);
+	
+	//draw stats
 	ctx.strokeStyle = "blue";
-	// ctx.fillStyle = 'white';
+	ctx.strokeRect(30, 30, 300, 200);
+	ctx.fillStyle = 'white';
+	ctx.fillRect(31, 31, 298, 198);
+	ctx.fillStyle = 'black';
+	ctx.fillText('Level ' + DATA.mainHero.level,  50, 50);
+	ctx.fillText('HP ' + DATA.mainHero.hp,  50, 70);
+	ctx.fillText('Exp ' + DATA.mainHero.exp,  50, 90);
+	ctx.fillText('Money ' + DATA.mainHero.points,  50, 110);
+
+	//inventary;
+	if (DATA.mainHero.inventary) {
+		ctx.strokeStyle = "blue";
+		ctx.strokeRect(530, 30, 300, 200);
+		ctx.fillStyle = 'white';
+		ctx.fillRect(531, 31, 298, 198);
+	}
+		if (DATA.mainHero.equipment) {
+		ctx.strokeStyle = "blue";
+		ctx.strokeRect(930, 30, 300, 200);
+		ctx.fillStyle = 'white';
+		ctx.fillRect(930, 31, 298, 198);
+	}
 }
 
 var mainLoop = function () {
 	// var currentLocation = ;
 	clear();
+	ctx.drawImage(a[0].img,-getCam().x/15,0,DATA.windowWidth*2, DATA.windowHeight);
 
 	// console.log(a);
 	//ctx.canvas.width = window.innerWidth;
 	//ctx.canvas.height = window.innerHeight;
-	ctx.drawImage(a[0].img, 0,0);
+	// ctx.drawImage(a[0].img, 0,0);
 
 	DATA.world.obstacles.forEach(function (obj,n,array) {
 		if (obj.destroy) clearArray(array, obj);
@@ -149,6 +174,14 @@ function calcObjects(Obj){
 	var actions = Obj.actions;
 	Obj.cooldown && --Obj.cooldown;
 	// console.log(Obj.cooldown);
+	if (actions.inventary) {
+		actions.inventary = false;
+		Obj.inventary = !Obj.inventary;
+	}
+		if (actions.equipment) {
+		actions.equipment = false;
+		Obj.equipment = !Obj.equipment;
+	}
 	if (Obj.cooldown) return;
 	if (Obj.ai) calcAi(Obj);
 
@@ -398,7 +431,8 @@ function obsActions(sName) {
 // mainLoop();
 //может события в отдельный файлик? 
 function pickCoin(hero, obj) {
-	console.log('pickCoin');
+	// console.log('pickCoin');
+	if (!hero.playable) return;
 	hero.points = hero.points + 1;
 	obj.destroy = true;
 	obj.block = false;
@@ -575,6 +609,7 @@ function kill(target) {
 		tp_home(target);
 		return;
 	}
+	DATA.mainHero.exp += target.exp;
 	var aLoot;
 	if (target.loot){
 		aLoot = target.loot.filter(function(item) {

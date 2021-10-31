@@ -11,7 +11,6 @@ var objectsDb = {
 		damage: 10,
 		anim: 
 			[ 
-
 				{ name: "runR", src: "./img/elf_run.png", frames: 9 },
 				// { name: "runR", src: "./img/warrior_run.png", frames: 8 },
 				{ name: "strikeR", src: "./img/Elf-attack-r.png", frames: 10, speed: 5 },
@@ -151,6 +150,7 @@ var objectsDb = {
 		attackSpeed: 100,
 		state: "idle",
 		direction: "",
+		exp:5,
 		actions: {},
 		loot: [{name: 'coin', chance: 30}, {name: 'chest', chance: 70}],
 		grav : 1,
