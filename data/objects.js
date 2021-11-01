@@ -130,7 +130,7 @@ var objectsDb = {
 		h:150,
 		state: "idle",
 		block: true,
-		action: "pickCoin",
+		action: "OpenInventory",
 		anim: 
 			[
 				{name: "idle", src: "./img/chest_1.png", frames: 1}

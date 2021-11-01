@@ -27,7 +27,8 @@ var DATA = {
 		{name : "moveUp", key: "Space"},
 		{name : "strike", key: "ControlRight"},
 		{name : "inventary", key: "KeyI"},
-		{name : "equipment", key: "KeyO"},
+		{ name: "equipment", key: "KeyO" },
+		{ name: "inspect", key: "KeyF" },
 
 	],
 	level_1: level_1,

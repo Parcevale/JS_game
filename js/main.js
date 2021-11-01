@@ -30,6 +30,7 @@ var ctx = cnv.getContext('2d');
 ctx.canvas.width = window.innerWidth;
 ctx.canvas.height = window.innerHeight;
 var aObjects = [];
+var bOpenInventory = false;
 
 
 function startGame() {
@@ -418,6 +419,7 @@ document.addEventListener('keyup', function (event) {
 function obsActions(sName) {
 	var a = {
 		pickCoin,
+		OpenInventory,
 		tp1,
 		tp2,
 		tp_home,
@@ -438,6 +440,14 @@ function pickCoin(hero, obj) {
 	obj.block = false;
 	var Coin = new Audio('./Sounds/Coin.mp3');
 	Coin.play();
+}
+function OpenInventory(hero, obj) {
+	// console.log('pickCoin');
+	if (!hero.playable) return;
+	obj.block = false;
+	bOpenInventory = true
+	var chest = new Audio('./Sounds/Coin.mp3');
+	chest.play();
 }
 function tp1(hero) {
 	hero.x = 5000;
