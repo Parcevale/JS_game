@@ -133,6 +133,32 @@ var objectsDb = {
 				{name: "idle", src: "./img/chest_1.png", frames: 1}
 			]
 	},
+	22: {
+		w:30,
+		h:30,
+		shift_y:70,
+		name: "apple",
+		state: "idle",
+		block: false,
+		action: "showPickIcon",
+		anim: 
+			[
+				{name: "idle", src: "./img/apple.png", frames: 1}
+			]
+	},
+	23: {
+		w:20,
+		h:20,
+		// shift_y:70,
+		name: "pick_icon",
+		state: "idle",
+		block: false,
+		// action: "pickItem",
+		anim: 
+			[
+				{name: "idle", src: "./img/e.png", frames: 1}
+			]
+	},
 	strike: {
 		w: 140,
 		h: 140,

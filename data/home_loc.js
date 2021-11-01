@@ -125,6 +125,7 @@ var home_loc = {
 				y: 300,
 				props: objectsDb.torch
 			}
+			
 		]
 	// }
 }

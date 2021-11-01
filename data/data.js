@@ -19,6 +19,7 @@ var DATA = {
 		actions: {},
 		inventary: false,
 		equipment: false,
+		items: []
 	},
 	actions: [
 		{name : "moveRight", key: "KeyD"},
@@ -28,12 +29,12 @@ var DATA = {
 		{name : "strike", key: "ControlRight"},
 		{name : "inventary", key: "KeyI"},
 		{name : "equipment", key: "KeyO"},
+		{name : "pickItem", key: "KeyE"},
 
 	],
 	level_1: level_1,
 	home_loc: home_loc,
-	level_2 : level_2
+	level_2 : level_2,
+	expTable: [0,20,100,550,900,1500,2200,3200,3800,4200,4550,5000,5500]
 	
 }
-
-// 1100, y: 755 x: 1007, y: 260
