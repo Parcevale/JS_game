@@ -535,6 +535,9 @@ function hit(source,target) {
 	var Hit = new Audio('./Sounds/Hit.mp3');
 	Hit.play();
 	setTimeout(restoreAnim, 200);
+	//show dmg.
+
+
 	// victim.
 }
 
