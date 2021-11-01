@@ -1,5 +1,5 @@
 var objectsDb = {
-	hero : {
+	hero1 : {
 		w: 180,
 		h: 240,
 		jumpHeight: 22,
@@ -12,7 +12,6 @@ var objectsDb = {
 		anim: 
 			[ 
 				{ name: "runR", src: "./img/elf_run.png", frames: 9 },
-				// { name: "runR", src: "./img/warrior_run.png", frames: 8 },
 				{ name: "strikeR", src: "./img/Elf-attack-r.png", frames: 10, speed: 5 },
 				{ name: "runL", src: "./img/elf_run_revers.png", frames: 9},
 				{ name: "idleR", src: "./img/Elf_IDLE.png", frames: 1},
@@ -21,6 +20,30 @@ var objectsDb = {
 				{ name: "upL", src: "./img/Elf_JUMP_revers.png", frames: 1 },
 				{ name: "downR", src: "./img/Elf_IDLE.png", frames: 1 },
 				{ name: "downL", src: "./img/Elf_IDLE_revers.png", frames: 1 }
+			]
+
+	},
+	hero: {
+		w: 180,
+		h: 240,
+		jumpHeight: 22,
+		jumpSpeed: 28,
+		speed: 10,
+		grav: 1,
+		hp: 100,
+		armor: 10,
+		damage: 10,
+		anim:
+			[
+				{ name: "runR", src: "./img/Knight_run.png", frames: 8 },
+				{ name: "strikeR", src: "./img/Knight_attack.png", frames: 10, speed: 5 },
+				{ name: "runL", src: "./img/Knight_run_revers.png", frames: 8 },
+				{ name: "idleR", src: "./img/Knight_idle.png", frames: 1 },
+				{ name: "idleL", src: "./img/Knight_idle_revers.png", frames: 1 },
+				{ name: "upR", src: "./img/Knight_jump.png", frames: 1 },
+				{ name: "upL", src: "./img/Knight_jump_revers.png", frames: 1 },
+				{ name: "downR", src: "./img/Knight_idle.png", frames: 1 },
+				{ name: "downL", src: "./img/Knight_idle_revers.png", frames: 1 }
 			]
 
 	},
