@@ -59,7 +59,7 @@ var objectsDb = {
 	arrow: {
 		w: 90,
 		h: 14,
-		grav: 0.02,
+		grav: 0.05,
 		speed:30,
 		anim: 	
 			[
