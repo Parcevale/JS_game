@@ -47,6 +47,15 @@ var objectsDb = {
 			]
 
 	},
+	torch: {
+		w: 60,
+		h: 100,
+		speed: 10,
+		anim:
+			[
+				{ name: "idle", src: "./img/torch.png", frames: 5 }
+			]
+	},
 	arrow: {
 		w: 90,
 		h: 14,

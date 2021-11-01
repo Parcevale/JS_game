@@ -115,6 +115,15 @@ var home_loc = {
 				x: 50,
 				y: 375,
 				props: objectsDb.chest
+			},
+			{
+				type: "torch",
+				block: false,
+				state: "idle",
+				destroy: false,
+				x: 150,
+				y: 300,
+				props: objectsDb.torch
 			}
 		]
 	// }
