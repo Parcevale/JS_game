@@ -76,7 +76,7 @@ function drawUI() {
 	ctx.fillStyle = 'black';
 	ctx.fillText('Level ' + DATA.mainHero.level,  50, 50);
 	ctx.fillText('HP ' + DATA.mainHero.hp,  50, 70);
-	ctx.fillText('Exp ' + DATA.mainHero.exp,  50, 90);
+	ctx.fillText('Exp ' + DATA.mainHero.exp + " \\ " + DATA.expTable[DATA.mainHero.level],  50, 90);
 	ctx.fillText('Money ' + DATA.mainHero.points,  50, 110);
 
 	//inventary;
@@ -85,6 +85,10 @@ function drawUI() {
 		ctx.strokeRect(530, 30, 300, 200);
 		ctx.fillStyle = 'white';
 		ctx.fillRect(531, 31, 298, 198);
+		DATA.mainHero.items.forEach(function(oItem, idx) {
+			ctx.fillStyle = 'black';
+			ctx.fillText(oItem.name,  540, 50 + idx*20);
+		})
 	}
 		if (DATA.mainHero.equipment) {
 		ctx.strokeStyle = "blue";
@@ -239,6 +243,10 @@ function calcObjects(Obj){
 		// console.log('check attack');
 		checkAttack(Obj);
 	}
+	if (actions.pickItem) {
+		// console.log('check attack');
+		pickItem(Obj);
+	}
 }
 
 function strike(Obj) {
@@ -373,8 +381,10 @@ function checkMoveDown(Obj){
 	// Obj.state = "down" + Obj.direction;
 	aObs.every(function (oObs){
 	var obsw = oObs.props ? oObs.props.w : oObs.w;
-		if (Obj.x + Obj.props.w > oObs.x && Obj.x < oObs.x + obsw && Obj.y < oObs.y) {// проверка по x
-			nMove = checkCollision(Obj.y,Obj.props.h,oObs.y, Obj,oObs, nMove);
+	var objw = Obj.props ? Obj.props.w : Obj.w;
+	var objh = Obj.props ? Obj.props.h : Obj.h;
+		if (Obj.x + objw > oObs.x && Obj.x < oObs.x + obsw && Obj.y < oObs.y) {// проверка по x
+			nMove = checkCollision(Obj.y,objh,oObs.y, Obj,oObs, nMove);
 			// console.log(nMove);
 			return nMove;
 		} else return true
@@ -385,7 +395,7 @@ function checkMoveDown(Obj){
 function checkCollision(a1,a2,b1, obj,obs, nMove) {
 	temp = Math.abs((a1 + a2) - b1); 
 	nMove = obs.block ? Math.min(nMove,temp) : nMove;
-	if (!nMove && obs.action && !obs.destroy) {
+	if (temp < 20 && obs.action && !obs.destroy) {
 		obsActions(obs.action)(obj,obs);
 	}
 	return  nMove
@@ -424,7 +434,9 @@ function obsActions(sName) {
 		tp2,
 		tp_home,
 		tp_level_1,
-		tp_level_2
+		tp_level_2,
+		showPickIcon,
+		pickItem
 	}
 	// console.log('action', sName);
 	return a[sName]
@@ -476,9 +488,40 @@ function tp_level_2(hero){
 	hero.y = 1160;
 	
 }
+function showPickIcon(hero, obj) {
+	console.log("showPickIcon",hero, obj);
+	var obs = DATA.world.obstacles;
+	var pick_icon = {
+				block: false,
+				destroy: false,
+				x: obj.x,
+				y: obj.y - 20,
+				state:"idle",
+				props: objectsDb[23]
+	}
 
+	function clearPick_icon() {
+		if (obs.indexOf(pick_icon)) {
+		obs.splice(obs.indexOf(pick_icon), 1);
+		hero.pickItem = null;
+		}
+	}
+	hero.pickItem =  obj;
+	// clearpick_icon()
+	// if (obs.indexOf(pick_icon)) clearpick_icon();
+	obs.push(pick_icon);
+	setTimeout(clearPick_icon, 1000);
+}
+function pickItem(hero) {
+	console.log('pickItem');
+	if (!hero.pickItem || hero.pickItem.destroy) return;
+	var temp = Object.assign({}, hero.pickItem);
+	hero.pickItem.destroy = true;
+	hero.items.push(temp);
+}
 
 function addAnim(Obj, state){
+	if (!Obj.props) return;
 	if (Obj.props.anim.filter(x => x.name == state + Obj.direction)[0]) {
 		Obj.state = state + Obj.direction;
 		return;
@@ -596,8 +639,11 @@ function setLocation(sName){
 	if (aMap){
 		aMap.forEach(function(row, rowIndx) {
 			row.forEach(function(cell, ind){
-				if (cell && !objectsDb[cell].ai) obs.push({x: 100 * ind,y: 100 * rowIndx, props: objectsDb[cell]});
-				if (cell && objectsDb[cell].ai) enemy.push({x: 100 * ind,y: (100 * rowIndx) -60, props: objectsDb[cell]});
+				if (!cell) return; 
+				var ix = objectsDb[cell].x || 0;
+				var shift_y =  objectsDb[cell].shift_y || 0;
+				if (!objectsDb[cell].ai) obs.push({x: (100 * ind) + ix,y: (100 * rowIndx) + shift_y, props: objectsDb[cell]});
+				if (objectsDb[cell].ai) enemy.push({x: 100 * ind ,y: (100 * rowIndx) -60, props: objectsDb[cell]});
 			})
 		})
 	}
@@ -617,12 +663,22 @@ function setLocation(sName){
 	}; 
 	DATA.world = oLocation;
 }
+function addExp(exp) {
+	DATA.mainHero.exp += exp;
+	if (DATA.mainHero.exp >= DATA.expTable[DATA.mainHero.level]) {
+		DATA.mainHero.level += 1;
+		//play some sound
+		//add stats
+	}
+}
 function kill(target) {
 	if (!target.ai) {
 		tp_home(target);
 		return;
 	}
-	DATA.mainHero.exp += target.exp;
+	addExp(target.exp);
+	// DATA.mainHero.exp += target.exp;
+
 	var aLoot;
 	if (target.loot){
 		aLoot = target.loot.filter(function(item) {
@@ -654,7 +710,7 @@ function calcAi(Obj) {
 		// console.log(Obj.cooldown);
 		if (checkEnemy(Obj)) {
 			Obj.aggresive = true;
-			// console.log('check enemy',checkEnemy(Obj)); 
+			console.log('check enemy',checkEnemy(Obj)); 
 			Obj.actions = {};
 			Obj.actions[checkEnemy(Obj)] = true;
 			return;
@@ -674,20 +730,34 @@ function calcAi(Obj) {
 	function clearAction() {
 		Obj.actions = {};
 	}
-
-
+	var tempDirection = Obj.actions.moveRight ? Obj.w : Obj.actions.moveLeft ? -Obj.w : 0;
+	//проверка падения
 	if (!Object.keys(Obj.actions)[0]){
-		// console.log('set action',actions[direction], (time * 1000)/1000)
-		Obj.actions[actions[direction]] = true;
-		setTimeout(clearAction, time * 1000);
+			// console.log('set action',actions[direction], (time * 1000)/1000)
+			Obj.actions[actions[direction]] = true;
+			setTimeout(clearAction, time * 1000);
 	}
+
+	if (checkMoveDown(
+		{
+			x:Obj.x + tempDirection,
+			y:Obj.y,
+			w:Obj.w,
+			h:Obj.h
+		}
+	)) {
+		Obj.actions = {};
+		// console.log('gonna fall');
+		clearAction();
+	}
+	
 }
 //справа минус
 function checkEnemy(Obj) {
 	var hero = aObjects[0];
 
 	var yDistance = Obj.y - hero.y;
-	if (yDistance > 250) return false;
+	if (Math.abs(yDistance) > 200) return false;
 	var distance = Obj.x - hero.x;
 	if (Math.abs(distance) <150 ) return "mobStrike";
 	if (Math.abs(distance) < 500 ) return distance > 0 ? "moveLeft" : "moveRight";
