@@ -37,26 +37,31 @@ var objectsDb = {
 			[
 				{ name: "runR", src: "./img/Knight_run.png", frames: 8 },
 				{ name: "strikeR", src: "./img/Knight_attack.png", frames: 10, speed: 5 },
+				{ name: "strikeL", src: "./img/Knight_attack_revers.png", frames: 10, speed: 5 },
 				{ name: "runL", src: "./img/Knight_run_revers.png", frames: 8 },
-				{ name: "idleR", src: "./img/Knight_idle.png", frames: 1 },
-				{ name: "idleL", src: "./img/Knight_idle_revers.png", frames: 1 },
+				{ name: "idleR", src: "./img/Knight_idle.png", frames: 10 },
+				{ name: "idleL", src: "./img/Knight_idle_revers.png", frames: 10 },
 				{ name: "upR", src: "./img/Knight_jump.png", frames: 1 },
 				{ name: "upL", src: "./img/Knight_jump_revers.png", frames: 1 },
-				{ name: "downR", src: "./img/Knight_idle.png", frames: 1 },
-				{ name: "downL", src: "./img/Knight_idle_revers.png", frames: 1 }
+				{ name: "downR", src: "./img/Knight_idle.png", frames: 10 },
+				{ name: "downL", src: "./img/Knight_idle_revers.png", frames: 10 },
+				{ name: "hitR", src: "./img/Knight_hurt.png", frames: 10 },
+				{ name: "hitL", src: "./img/Knight_hurt_revers.png", frames: 10 }
 			]
 
 	},
-	torch: {
+	23: {
+		name:"torch",
 		w: 60,
 		h: 100,
-		speed: 10,
+		state: "idle",
+		speed: 50,
 		anim:
 			[
 				{ name: "idle", src: "./img/torch.png", frames: 5 }
 			]
 	},
-	arrow: {
+	arrow1: {
 		w: 90,
 		h: 14,
 		grav: 0.05,
@@ -69,21 +74,19 @@ var objectsDb = {
 		// time: 30
 
 	},
-	// strike: 
-	ninja: {
-		w: 60,
-		h: 80,
-		jumpHeight: 20,
-		jumpSpeed: 10,
-		speed: 7,
-		grav: 1,
+	//spear: {
+	arrow: {
+		w: 90,
+		h: 14,
+		grav: 0.1,
+		speed: 30,
 		anim:
 			[
-				{ name: "runR", src: "./img/sprite.png", frames: 8 },
-				{ name: "runL", src: "./img/sprite-revers.png", frames: 8 },
-				{ name: "idleR", src: "./img/sprite-costs.png", frames: 1 },
-				{ name: "idleL", src: "./img/sprite-costs-revers.png", frames: 1 }
+				{ name: "idleR", src: "./img/spear.png", frames: 1 },
+				{ name: "idleL", src: "./img/spear_revers.png", frames: 1 }
 			]
+		// time: 30
+
 	},
 	cave_texture: {
 		w: 850,
