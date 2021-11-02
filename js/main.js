@@ -33,7 +33,10 @@ var aObjects = [];
 
 
 function startGame() {
-	aObjects.push(DATA.mainHero);
+	var hero = DATA.mainHero;
+	for(var k in hero.props) hero[k]=hero.props[k];
+	
+	aObjects.push(hero);
 	//DATA.currentLocation = "home_loc";
 	// DATA.currentLocation = "level_1";
 	setLocation("home_loc");
@@ -156,11 +159,11 @@ var mainLoop = function () {
 function calcText(oText){
 	oText.x += 3;
 	oText.y -= 3;
-	console.log('text',oText);
+	// console.log('text',oText);
 }
 function clearArray(array, object){
 	if (~array.indexOf(object)) {
-		console.log('нашел', object);
+		// console.log('нашел', object);
 		array.splice(array.indexOf(object), 1);
 	}
 }
@@ -282,6 +285,7 @@ function strike(Obj) {
 		// grav: 0.3,
 		props: objectsDb.arrow,
 		projectile: true,
+		source: Obj,
 		actions: {attack: true}
 	}
 	if (Obj.direction == "R") {
@@ -324,6 +328,7 @@ function mobStrike(Obj) {
 		state: "idle" + Obj.direction,
 		props: objectsDb.strike,
 		mob: true,
+		source: Obj,
 		actions: {attack: true}
 	}
 	aObj.push(strikeObj);
@@ -580,7 +585,7 @@ function checkAttack(Obj) {
 		bHit = aDots.some(function (oDot) {// тут что то не так, проверяет остальные попадания даже если попадание было
 			if (checkDot(oDot.x, oDot.y, oEnemy.x, oEnemy.y, oEnemy.x + oEnemy.props.w, oEnemy.y + oEnemy.props.h)){
 				// oEnemy.destroy = true;
-				console.log('hit!', oEnemy); 
+				// console.log('hit!', oEnemy); 
 				return true;
 			} return false;
 		})
@@ -610,13 +615,14 @@ function getDots(obj){
 
 }
 function hit(source,target) {
-	var dmg = source.damage-(source.damage*(target.armor/100));
+	// var dmg = source.damage-(source.damage*(target.armor/100));
+	var dmg = calcDmg(source.source, target);
 	target.hp = target.hp - dmg;
-	console.log('hit');
+	// console.log('hit');
 	addAnim(target, 'hit');
 	showHP(target, dmg);
 	if (target.hp <= 0) kill(target);
-	console.log("target",target);
+	// console.log("target",target);
 	target.cooldown = 100;
 	function restoreAnim () {
 		addAnim(target, 'idle');
@@ -632,12 +638,38 @@ function hit(source,target) {
 
 	// victim.
 }
+//k случайный коэффициент по псевдонормальному распределению
+//
+function calcDmg(source, target) {
+	var K = 0;
+	for (var i = 0; i <= 10; i++) {
+		K += Math.floor(Math.random() * 10)
+	}
+	K = K -50;
+	var str = source.stats.filter(x => x.name === "Strength")[0].number;
+	var damage = source.damage + str + Math.floor(Math.floor(str/10)* Math.floor(str/10));
+// stats: [
+// 			{ number: 1, name: "Strength" },// урон в ближнем бою, обьем выносливости
+// 			{ number: 1, name: "Reaction" },//Снижение урона, скорость атаки
+// 			{ number: 1, name: "Concentration" },//Увеличение урона, скорость каста, увеличение урона в дальнем бою. 
+// 			{ number: 1, name: "Sensibility" },//Количество маны, скорость регена, защита от магии
+// 			{ number: 1, name: "Constitution" },//увеличение хп,реген хп и выносливости. 
+// 			{ number: 1, name: "Will" },//увеличение магического урона, снижение стоимости скилов по воле.
+// 		],
+	var dmgK = (target.level + target.stats.filter(x => x.name === "Concentration")[0].number) - (source.level + source.stats.filter(x => x.name === "Reaction")[0].number);
+	fK = K - dmgK;//fK по идеи должен быть от -50 до 50. добавить проверку. 
+	console.log("fK", fK, 'урон от модификатора', source.damage*(fK/100), 'модификатор брони', source.damage*(target.armor/100)*(fK/100));
+	// (source.damage*(target.armor/100));
+	var finalDmg = Math.floor(damage + damage*(fK/100)- damage*(target.armor/100)*(fK/100));
+	console.log("finalDmg", finalDmg);
+	return finalDmg;
+}
 
 function showHP(target, dmg){
 	var obs = DATA.world.obstacles;
 	var txt = DATA.world.text;
 	var hp = target.hp;
-	console.log("hp", hp);
+	// console.log("hp", hp);
 	var width = (hp*100)/target.props.hp;
 	var color = width > 30 ? "#0fed0f" : "#ed0f23";
 	var bar = 	{
@@ -670,8 +702,10 @@ function showHP(target, dmg){
 		if (obs.indexOf(bar)) {
 		obs.splice(obs.indexOf(bar), 1);
 		}
+		oText.destroy = true;
 		if (txt.indexOf(oText)) {
 		txt.splice(txt.indexOf(oText), 1);
+		console.log('found Text');
 		}
 	}
 	// clearBar()

@@ -36,14 +36,17 @@ var objectsDb = {
 		jumpSpeed: 28,
 		speed: 10,
 		grav: 1,
-		hp: 100,
+		maxHp: 100,
 		armor: 10,
 		damage: 10,
 		freeStat: 10,
 		stats: [
-			{ number: 10, name: "strength" },
-			{ number: 10, name: "dexterity" },
-			{ number: 10, name: "vitality" }
+			{ number: 1, name: "Strength" },// урон в ближнем бою, обьем выносливости
+			{ number: 1, name: "Reaction" },//Снижение урона, скорость атаки
+			{ number: 1, name: "Concentration" },//Увеличение урона, скорость каста, увеличение урона в дальнем бою. 
+			{ number: 1, name: "Sensibility" },//Количество маны, скорость регена, защита от магии
+			{ number: 1, name: "Constitution" },//увеличение хп,реген хп и выносливости. 
+			{ number: 1, name: "Will" },//увеличение магического урона, снижение стоимости скилов по воле.
 		],
 		anim:
 			[
@@ -197,6 +200,7 @@ var objectsDb = {
 		w: 160,
 		h: 120,
 		hp: 50,
+		// hp: 9999999,
 		ai: true,
 		speed: 3,
 		armor: 10,
@@ -222,12 +226,22 @@ var objectsDb = {
 		30: {
 		w: 160,
 		h: 120,
-		hp: 50,
+		// hp: 50,
+		hp: 9999999,
 		ai: true,
 		speed: 3,
 		armor: 10,
 		damage: 10,
 		attackSpeed: 100,
+		level: 2,
+		stats: [
+			{ number: 1, name: "Strength" },// урон в ближнем бою, обьем выносливости
+			{ number: 1, name: "Reaction" },//Снижение урона, скорость атаки
+			{ number: 1, name: "Concentration" },//Увеличение урона, скорость каста, увеличение урона в дальнем бою. 
+			{ number: 1, name: "Sensibility" },//Количество маны, скорость регена, защита от магии
+			{ number: 1, name: "Constitution" },//увеличение хп,реген хп и выносливости. 
+			{ number: 1, name: "Will" },//увеличение магического урона, снижение стоимости скилов по воле.
+		],
 		state: "idle",
 		direction: "",
 		exp:5,
