@@ -242,9 +242,9 @@ function calcObjects(Obj){
 		// console.log('check attack');
 		checkAttack(Obj);
 	}
-	if (actions.pickItem) {
+	if (actions.useItem) {
 		// console.log('check attack');
-		pickItem(Obj);
+		useItem(Obj);
 	}
 }
 
@@ -434,8 +434,8 @@ function obsActions(sName) {
 		tp_home,
 		tp_level_1,
 		tp_level_2,
-		showPickIcon,
-		pickItem
+		showUseIcon,
+		useItem
 	}
 	// console.log('action', sName);
 	return a[sName]
@@ -455,6 +455,13 @@ function pickCoin(hero, obj) {
 function openChest(hero, obj) {
 	// console.log('pickCoin');
 	if (!hero.playable) return;
+
+	addAnim(obj, "Open");
+	// function openedChest () {
+	// 	addAnim(obj, "idleOpen");
+	// }
+	// setTimeout(clearPick_icon, 1000);
+	setTimeout(function() {addAnim(obj, "idleOpen");}, 300);
 	obj.block = false;
 	var openChest = new Audio('./Sounds/openChest.mp3');
 	openChest.play();
@@ -487,8 +494,8 @@ function tp_level_2(hero){
 	hero.y = 1160;
 	
 }
-function showPickIcon(hero, obj) {
-	console.log("showPickIcon",hero, obj);
+function showUseIcon(hero, obj) {
+	// console.log("showUseIcon",hero, obj);
 	var obs = DATA.world.obstacles;
 	var pick_icon = {
 				block: false,
@@ -496,27 +503,35 @@ function showPickIcon(hero, obj) {
 				x: obj.x,
 				y: obj.y - 20,
 				state:"idle",
-				props: objectsDb[23]
+				props: objectsDb[24]
 	}
 
 	function clearPick_icon() {
 		if (obs.indexOf(pick_icon)) {
 		obs.splice(obs.indexOf(pick_icon), 1);
-		hero.pickItem = null;
+		hero.useItem = null;
 		}
 	}
-	hero.pickItem =  obj;
+	hero.useItem =  obj;
 	// clearpick_icon()
 	// if (obs.indexOf(pick_icon)) clearpick_icon();
 	obs.push(pick_icon);
 	setTimeout(clearPick_icon, 1000);
 }
-function pickItem(hero) {
-	console.log('pickItem');
-	if (!hero.pickItem || hero.pickItem.destroy) return;
-	var temp = Object.assign({}, hero.pickItem);
-	hero.pickItem.destroy = true;
-	hero.items.push(temp);
+function useItem(hero) {
+	console.log('useItem');
+	var obj = hero.useItem;
+	if (!obj || obj.destroy) return;
+	console.log('type', obj.type);
+	if (obj.type == "item") {
+		var temp = Object.assign({},obj);
+		hero.useItem.destroy = true;
+		hero.items.push(temp);
+	} else if (obj.type = "container") {
+
+		// obj.
+		openChest(hero, obj);
+	}
 }
 
 function addAnim(Obj, state){

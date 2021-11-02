@@ -129,13 +129,16 @@ var objectsDb = {
 		w:150,
 		h: 150,
 		shift_y: -50,
+		name: "chest",
 		state: "idle",
 		block: true,
-		action: "showPickIcon",
+		action: "showUseIcon",
+		type: "container",
 		anim: 
 			[
 				{ name: "idle", src: "./img/chest_1.png", frames: 1 },
-				{ name: "idleOpen", src: "./img/chest_open.png", frames: 6 }
+				{ name: "Open", src: "./img/chest_open.png", frames: 6 },
+				{ name: "idleOpen", src: "./img/chest_idle_open.png", frames: 1 }
 			]
 	},
 	22: {
@@ -145,13 +148,14 @@ var objectsDb = {
 		name: "apple",
 		state: "idle",
 		block: false,
-		action: "showPickIcon",
+		action: "showUseIcon",
+		type: "item",
 		anim: 
 			[
 				{name: "idle", src: "./img/apple.png", frames: 1}
 			]
 	},
-	23: {
+	24: {
 		w:20,
 		h:20,
 		// shift_y:70,
