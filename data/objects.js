@@ -127,7 +127,8 @@ var objectsDb = {
 	// },
 	21: {
 		w:150,
-		h:150,
+		h: 150,
+		shift_y: -50,
 		state: "idle",
 		block: true,
 		action: "showPickIcon",
