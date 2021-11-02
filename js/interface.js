@@ -21,17 +21,27 @@ var appHome = new Vue({
         dataHero: [],
         date: new Date().getFullYear()
     },
-    // до полной загрузки document
+
     created: function () {
     },
-    // после полной загрузки document
+
     mounted: function () {
-        console.log('123123')
     },
-    // список функций
+
     methods: {
         getBlocksSevices() {
 
+        },
+        onAddStat(e) {
+            var dataHero = appHome.$data.dataHero.mainHero;
+            if (!dataHero.props.freeStat) return;
+            var sStat = e.target.dataset.bind;
+            appHome.$data.dataHero.mainHero.props.stats.forEach(function (el) {
+                if (el.name == sStat) {
+                    appHome.$data.dataHero.mainHero.props.freeStat--;
+                    el.number++
+                }
+            })
         }
     }
 });

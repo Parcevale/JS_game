@@ -12,8 +12,12 @@ body {
     background: black;
 }
 
+/* equipment */
+/* equipment LEFT*/
+
 .equipment {
     display: none;
+    justify-content: space-around;
     width: 70rem;
     height: 35rem;
     padding: 1rem;
@@ -25,7 +29,7 @@ body {
 }
 
 .equipment-on-off {
-    display: block;
+    display: flex;
 }
 
 .character-page {
@@ -57,4 +61,44 @@ body {
     height: 100%;
     background: burlywood;
     border-radius: 6px;
+}
+
+/* equipment RIGHT */
+
+.stats-page {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 40%;
+    height: 100%;
+    background: burlywood;
+    border-radius: 6px;
+}
+.stats-block {
+    width: 26rem;
+    height: 26rem;
+    background: bisque;
+    border-radius: 6px;
+    margin: 14px auto;
+}
+.change-stats {
+
+}
+.change-stats-item {
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+}
+.info-stats {
+
+}
+.active-stats {
+    width: 26rem;
+    height: 5rem;
+    background: bisque;
+    border-radius: 6px;
+    margin: 14px auto;
+}
+.active-stats h1 {
+    padding: 20px;
 }

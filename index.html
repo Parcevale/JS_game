@@ -21,13 +21,26 @@
 					<div id="gloves" class="item-of-clothing">перчатки</div>
 					<div id="pants" class="item-of-clothing">штаны</div>
 					<div id="boots" class="item-of-clothing">обувь</div>
-					<div id="necklace" class="item-of-clothing">ожирелье</div>
+					<div id="necklace" class="item-of-clothing">оЖИРелье</div>
 					<div id="ringOne" class="item-of-clothing">кольцо(1)</div>
 					<div id="ringTwo" class="item-of-clothing">кольцо(2)</div>
 				</div>
 				<div class="character-image"></div>
 			</div>
-			<div id="stats_Page"></div>
+			<div id="stats_Page" class="stats-page">
+				<div class="stats-block">
+					<div class="change-stats">
+						<div v-for="item in dataHero.mainHero.props.stats" :key="item.message" class="change-stats-item">
+							<h1>{{ item.name }} {{ item.number }}</h1>
+                            <button v-on:click="onAddStat" data-bind="{{ item.name }}">+</button>
+						</div>
+					</div>
+					<div class="info-stats"></div>
+				</div>
+                <div class="active-stats">
+					<h1>Свободные очки: {{ dataHero.mainHero.props.freeStat }}</h1>
+				</div>
+			</div>
 		</div>
 	</div>
 	<button onclick="onStartGame()">Start</button>

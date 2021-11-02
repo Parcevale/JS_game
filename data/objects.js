@@ -9,6 +9,12 @@ var objectsDb = {
 		hp:100,
 		armor: 10,
 		damage: 10,
+		freeStat: 10,
+		stats: [
+			{ number: 10, name: "strength" },
+			{ number: 10, name: "dexterity" },
+			{ number: 10, name: "vitality"}
+		],
 		anim: 
 			[ 
 				{ name: "runR", src: "./img/elf_run.png", frames: 9 },
@@ -33,6 +39,12 @@ var objectsDb = {
 		hp: 100,
 		armor: 10,
 		damage: 10,
+		freeStat: 10,
+		stats: [
+			{ number: 10, name: "strength" },
+			{ number: 10, name: "dexterity" },
+			{ number: 10, name: "vitality" }
+		],
 		anim:
 			[
 				{ name: "runR", src: "./img/Knight_run.png", frames: 8 },
