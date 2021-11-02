@@ -29,7 +29,7 @@ var DATA = {
 		{name : "strike", key: "ControlRight"},
 		{name : "inventary", key: "KeyI"},
 		{name : "equipment", key: "KeyO"},
-		{name : "pickItem", key: "KeyE"},
+		{ name: "pickItem", key: "KeyE" },
 
 	],
 	level_1: level_1,

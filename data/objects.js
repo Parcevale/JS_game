@@ -127,13 +127,15 @@ var objectsDb = {
 	// },
 	21: {
 		w:150,
-		h:150,
+		h: 150,
+		shift_y: -50,
 		state: "idle",
 		block: true,
-		action: "pickCoin",
+		action: "showPickIcon",
 		anim: 
 			[
-				{name: "idle", src: "./img/chest_1.png", frames: 1}
+				{ name: "idle", src: "./img/chest_1.png", frames: 1 },
+				{ name: "idleOpen", src: "./img/chest_open.png", frames: 6 }
 			]
 	},
 	22: {

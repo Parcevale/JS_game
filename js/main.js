@@ -428,6 +428,7 @@ document.addEventListener('keyup', function (event) {
 function obsActions(sName) {
 	var a = {
 		pickCoin,
+		openChest,
 		tp1,
 		tp2,
 		tp_home,
@@ -450,6 +451,14 @@ function pickCoin(hero, obj) {
 	obj.block = false;
 	var Coin = new Audio('./Sounds/Coin.mp3');
 	Coin.play();
+}
+function openChest(hero, obj) {
+	// console.log('pickCoin');
+	if (!hero.playable) return;
+	obj.block = false;
+	var openChest = new Audio('./Sounds/openChest.mp3');
+	openChest.play();
+
 }
 function tp1(hero) {
 	hero.x = 5000;
