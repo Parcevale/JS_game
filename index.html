@@ -25,7 +25,13 @@
 					<div id="ringOne" class="item-of-clothing">кольцо(1)</div>
 					<div id="ringTwo" class="item-of-clothing">кольцо(2)</div>
 				</div>
-				<div class="character-image"></div>
+				<div class="character-image">
+					<div class="info-stats">
+						<h1>Уровень: {{ dataHero.mainHero.level }}</h1>
+						<h1>Здоровье: {{ dataHero.mainHero.hp }}</h1>
+						<h1>Опыт: {{ dataHero.mainHero.exp }}</h1>
+					</div>
+				</div>
 			</div>
 			<div id="stats_Page" class="stats-page">
 				<div class="stats-block">
@@ -35,7 +41,6 @@
                             <button v-on:click="onAddStat" data-bind="{{ item.name }}">+</button>
 						</div>
 					</div>
-					<div class="info-stats"></div>
 				</div>
                 <div class="active-stats">
 					<h1>Свободные очки: {{ dataHero.mainHero.props.freeStat }}</h1>

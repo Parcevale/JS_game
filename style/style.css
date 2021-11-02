@@ -90,7 +90,12 @@ body {
     margin: 1rem;
 }
 .info-stats {
-
+    background: bisque;
+    width: 100%;
+    width: 19rem;
+    border-radius: 6px;
+    height: auto;
+    margin: 1rem auto;
 }
 .active-stats {
     width: 26rem;
