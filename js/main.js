@@ -125,6 +125,22 @@ var mainLoop = function () {
 			drawAnimation(obj);
 		}
 	})
+
+
+	DATA.world.text.forEach(function(obj,n,array) {
+		if (obj.destroy) clearArray(array, obj);
+	});
+	DATA.world.text.forEach(calcText);
+	// ctx.fillText("test text",  300, 800);
+	DATA.world.text.forEach(function (obj){
+		// obj
+		ctx.fillStyle = 'white';
+		ctx.font = "40px serif";
+		ctx.fillText(obj.text,  obj.x  - getCam().x, obj.y  - getCam().y);
+		// if (obj.props.anim && !obj.destroy) {
+			// drawAnimation(obj);
+		// }
+	})
 	aObjects.forEach(function(obj,n,array) {
 		// if (obj.destroy) clearArray(array, obj);//походу героя удаляет при убийстве моба
 	});
@@ -136,6 +152,11 @@ var mainLoop = function () {
 		// drawAnimation(obj)
 	})
 	drawUI();
+}
+function calcText(oText){
+	oText.x += 3;
+	oText.y -= 3;
+	console.log('text',oText);
 }
 function clearArray(array, object){
 	if (~array.indexOf(object)) {
@@ -593,7 +614,7 @@ function hit(source,target) {
 	target.hp = target.hp - dmg;
 	console.log('hit');
 	addAnim(target, 'hit');
-	showHP(target);
+	showHP(target, dmg);
 	if (target.hp <= 0) kill(target);
 	console.log("target",target);
 	target.cooldown = 100;
@@ -603,14 +624,18 @@ function hit(source,target) {
 	var Hit = new Audio('./Sounds/Hit.mp3');
 	Hit.play();
 	setTimeout(restoreAnim, 200);
+
+
+	
 	//show dmg.
 
 
 	// victim.
 }
 
-function showHP(target){
+function showHP(target, dmg){
 	var obs = DATA.world.obstacles;
+	var txt = DATA.world.text;
 	var hp = target.hp;
 	console.log("hp", hp);
 	var width = (hp*100)/target.props.hp;
@@ -626,10 +651,27 @@ function showHP(target){
 				color: color
 			}
 	target.healthBar = bar;
-	
+
+	var oText = {
+		destroy: false,
+		text: dmg,
+		x: target.x + target.w/2,
+		y: target.y - 20
+	}
+
+	txt.push(oText);
+
+	// setTimeout(function() { oText.destroy = true}, 10000);
+
+
+
+
 	function clearBar() {
 		if (obs.indexOf(bar)) {
 		obs.splice(obs.indexOf(bar), 1);
+		}
+		if (txt.indexOf(oText)) {
+		txt.splice(txt.indexOf(oText), 1);
 		}
 	}
 	// clearBar()
@@ -673,7 +715,8 @@ function setLocation(sName){
 	var oLocation = {
 		name: sName,
 		obstacles: obs,
-		enemy : enemy
+		enemy : enemy,
+		text: []
 	}; 
 	DATA.world = oLocation;
 }
