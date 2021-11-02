@@ -131,9 +131,10 @@ var objectsDb = {
 		shift_y: -50,
 		name: "chest",
 		state: "idle",
-		block: true,
+		block: false,
 		action: "showUseIcon",
 		type: "container",
+		loot: [{name: 20, chance: 100}, {name: 22, chance: 70}],
 		anim: 
 			[
 				{ name: "idle", src: "./img/chest_1.png", frames: 1 },
@@ -190,7 +191,7 @@ var objectsDb = {
 		damage: 10,
 		attackSpeed: 50,
 		direction: "",
-		loot: [{name: 'coin', chance: 30}, {name: 'chest', chance: 70}],
+		loot: [{name: 20, chance: 100}, {name: 'chest', chance: 70}],
 		grav : 1,
 			anim: 	
 		[
@@ -219,7 +220,7 @@ var objectsDb = {
 		direction: "",
 		exp:5,
 		actions: {},
-		loot: [{name: 'coin', chance: 30}, {name: 'chest', chance: 70}],
+		loot: [{name: 20, chance: 100}, {name: 'chest', chance: 70}],
 		grav : 1,
 			anim: 	
 		[

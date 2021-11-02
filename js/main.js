@@ -455,13 +455,13 @@ function pickCoin(hero, obj) {
 function openChest(hero, obj) {
 	// console.log('pickCoin');
 	if (!hero.playable) return;
-
+	if (obj.state === "idleOpen") return;
+	obj.action = null;
 	addAnim(obj, "Open");
-	// function openedChest () {
-	// 	addAnim(obj, "idleOpen");
-	// }
-	// setTimeout(clearPick_icon, 1000);
-	setTimeout(function() {addAnim(obj, "idleOpen");}, 300);
+	setTimeout(function() {
+		addAnim(obj, "idleOpen");
+		dropLoot(obj);
+	}, 300);
 	obj.block = false;
 	var openChest = new Audio('./Sounds/openChest.mp3');
 	openChest.play();
@@ -496,6 +496,7 @@ function tp_level_2(hero){
 }
 function showUseIcon(hero, obj) {
 	// console.log("showUseIcon",hero, obj);
+	if (!hero.playable) return;
 	var obs = DATA.world.obstacles;
 	var pick_icon = {
 				block: false,
@@ -647,15 +648,14 @@ function setLocation(sName){
 	enemy.forEach(function(oEnemy) {
 		for(var k in oEnemy.props) oEnemy[k]=oEnemy.props[k];
 	})
-	// obs.forEach(function(obs) {
-	// 	if (obs.props) for(var k in obs.props) obs[k]=obs.props[k];
-	// })
+
 	if (aMap){
 		aMap.forEach(function(row, rowIndx) {
 			row.forEach(function(cell, ind){
 				if (!cell) return; 
 				var ix = objectsDb[cell].x || 0;
 				var shift_y =  objectsDb[cell].shift_y || 0;
+				// if ()
 				if (!objectsDb[cell].ai) obs.push({x: (100 * ind) + ix,y: (100 * rowIndx) + shift_y, props: objectsDb[cell]});
 				if (objectsDb[cell].ai) enemy.push({x: 100 * ind ,y: (100 * rowIndx) -60, props: objectsDb[cell]});
 			})
@@ -691,7 +691,6 @@ function kill(target) {
 		return;
 	}
 	addExp(target.exp);
-	// DATA.mainHero.exp += target.exp;
 
 	var aLoot;
 	if (target.loot){
@@ -700,22 +699,25 @@ function kill(target) {
 			return item.chance > Math.floor(Math.random() * 100);
 		})
 	}
-	aLoot.forEach(function(item) {
+	dropLoot(target);
+
+	target.destroy = true;
+}
+function dropLoot(source) {
+		aLoot = source.loot.filter(function(item) {
+			return item.chance > Math.floor(Math.random() * 100);
+		})
+		aLoot.forEach(function(oDropItem, idx) {
+		
 		var oDropItem = {
-				type: "coinMob",
-				block: true,
-				destroy: false,
-				x: target.x + target.w/2,
-				y: target.y,
-				state: "idle",
-				props: objectsDb[item.name],
-				action: "pickCoin"
+				x: source.x + source.w/2 + idx*5,
+				y: source.y + source.h-30,
+				props: objectsDb[oDropItem.name]
 		};
-		console.log(oDropItem);
+		for(var k in oDropItem.props) oDropItem[k]=oDropItem.props[k];
 		DATA.world.obstacles.push(oDropItem);
 	})
-	console.log(aLoot);
-	target.destroy = true;
+	
 }
 function calcAi(Obj) {
 	if (Obj.cooldown) console.log('cd', Obj.cooldown);
