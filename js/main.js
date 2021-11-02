@@ -89,11 +89,11 @@ function drawUI() {
 			ctx.fillText(oItem.name,  540, 50 + idx*20);
 		})
 	}
-		if (DATA.mainHero.equipment) {
-		ctx.strokeStyle = "blue";
+	if (DATA.mainHero.equipment) {
+		/*ctx.strokeStyle = "blue";
 		ctx.strokeRect(930, 30, 300, 200);
 		ctx.fillStyle = 'white';
-		ctx.fillRect(930, 31, 298, 198);
+		ctx.fillRect(930, 31, 298, 198);*/
 	}
 }
 

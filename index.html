@@ -4,15 +4,38 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="./style/style.css">
-	<script src="./jQuery/jquery-3.6.0.min.js"></script>
+	<script src="./libs/jquery-3.6.0.min.js"></script>
+	<script src="./libs/vue.min.js"></script>
 </head>
 
 <body class="sapUiBody" id="content">
 	<canvas id="canvas"></canvas>
+	<div id="appInterface">
+		<div id="equipment" class="equipment">
+			<div id="character_Page" class="character-page">
+				<div class="put-on-inventory">
+					<div id="helmet" class="item-of-clothing">голова</div>
+					<div id="armor" class="item-of-clothing">броня</div>
+					<div id="mainWeapon" class="item-of-clothing">оружие</div>
+					<div id="spareWeapon" class="item-of-clothing">доп.оружие</div>
+					<div id="gloves" class="item-of-clothing">перчатки</div>
+					<div id="pants" class="item-of-clothing">штаны</div>
+					<div id="boots" class="item-of-clothing">обувь</div>
+					<div id="necklace" class="item-of-clothing">ожирелье</div>
+					<div id="ringOne" class="item-of-clothing">кольцо(1)</div>
+					<div id="ringTwo" class="item-of-clothing">кольцо(2)</div>
+				</div>
+				<div class="character-image"></div>
+			</div>
+			<div id="stats_Page"></div>
+		</div>
+	</div>
 	<button onclick="onStartGame()">Start</button>
 	<button onclick="getInfo()">Get info</button>
 	<!-- <script type="text/javascript" src="data/data.js"></script> -->
 	<!-- <script type="text/javascript" src="libs/require.js"></script> -->
+	<script type="text/javascript" src="js/interface.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+
 </body>
 	</html>
