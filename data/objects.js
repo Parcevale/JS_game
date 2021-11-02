@@ -149,7 +149,7 @@ var objectsDb = {
 				{name: "idle", src: "./img/apple.png", frames: 1}
 			]
 	},
-	23: {
+	24: {
 		w:20,
 		h:20,
 		// shift_y:70,

@@ -487,7 +487,7 @@ function showPickIcon(hero, obj) {
 				x: obj.x,
 				y: obj.y - 20,
 				state:"idle",
-				props: objectsDb[23]
+				props: objectsDb[24]
 	}
 
 	function clearPick_icon() {
