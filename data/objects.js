@@ -226,8 +226,8 @@ var objectsDb = {
 		30: {
 		w: 160,
 		h: 120,
-		// hp: 50,
-		hp: 9999999,
+		hp: 50,
+		// hp: 9999999,
 		ai: true,
 		speed: 3,
 		armor: 10,
