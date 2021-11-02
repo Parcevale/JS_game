@@ -80,14 +80,14 @@ function drawUI() {
 
 	//inventary;
 	if (DATA.mainHero.inventary) {
-		ctx.strokeStyle = "blue";
+		/*ctx.strokeStyle = "blue";
 		ctx.strokeRect(530, 30, 300, 200);
 		ctx.fillStyle = 'white';
 		ctx.fillRect(531, 31, 298, 198);
 		DATA.mainHero.items.forEach(function(oItem, idx) {
 			ctx.fillStyle = 'black';
 			ctx.fillText(oItem.name,  540, 50 + idx*20);
-		})
+		})*/
 	}
 	if (DATA.mainHero.equipment) {
 		/*ctx.strokeStyle = "blue";

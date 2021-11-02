@@ -38,12 +38,20 @@
 					<div class="change-stats">
 						<div v-for="item in dataHero.mainHero.props.stats" :key="item.message" class="change-stats-item">
 							<h1>{{ item.name }} {{ item.number }}</h1>
-                            <button v-on:click="onAddStat" data-bind="{{ item.name }}">+</button>
+							<button v-on:click="onAddStat" data-bind="{{ item.name }}">+</button>
 						</div>
 					</div>
 				</div>
-                <div class="active-stats">
+				<div class="active-stats">
 					<h1>Свободные очки: {{ dataHero.mainHero.props.freeStat }}</h1>
+				</div>
+			</div>
+		</div>
+		<div id="inventory" class="inventory">
+			<div id="inventory_Page" class="inventory-page">
+				<div v-for="item in dataHero.mainHero.items" :key="item.message" class="inventory-item">
+					<h1>{{ item.name }} {{ item.frame }}</h1>
+					<button v-on:click="onAddStat" data-bind="{{ item.name }}">...</button>
 				</div>
 			</div>
 		</div>
