@@ -130,10 +130,11 @@ var objectsDb = {
 		h:150,
 		state: "idle",
 		block: true,
-		action: "OpenInventory",
+		action: "showPickIcon",
 		anim: 
 			[
-				{name: "idle", src: "./img/chest_1.png", frames: 1}
+				{ name: "idle", src: "./img/chest_1.png", frames: 1 },
+				{ name: "idleOpen", src: "./img/chest_open.png", frames: 6 }
 			]
 	},
 	22: {
