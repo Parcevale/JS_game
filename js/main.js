@@ -5,6 +5,7 @@ var a = [{ src: './img/cave-background-2.jpg' }];
 
 
 $.when(
+	$.getScript("./data/level_3.js"),
 	$.getScript("./data/objects.js"),
 	$.getScript("./data/level_1.js"),
 	$.getScript("./data/level_2.js"),
@@ -460,6 +461,7 @@ function obsActions(sName) {
 		tp_home,
 		tp_level_1,
 		tp_level_2,
+		tp_level_3,
 		showUseIcon,
 		useItem
 	}
@@ -519,6 +521,11 @@ function tp_level_2(hero){
 	hero.x = 140;
 	hero.y = 1160;
 	
+}
+function tp_level_3(hero){
+	setLocation("level_3");
+	hero.x = 300;
+	hero.y = 2660;
 }
 function showUseIcon(hero, obj) {
 	// console.log("showUseIcon",hero, obj);

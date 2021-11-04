@@ -87,6 +87,18 @@ var home_loc = {
 				action: "tp_level_2"
 			},
 			{
+				type: "tp_level_3",
+				// block: true,
+				// destroy: false,
+				x: 2390,
+				y: 760,
+				// w: 150,
+				// h: 150,
+				props: objectsDb.bubble,
+				// color: "#AFEEEE",
+				action: "tp_level_3"
+			},
+			{
 				type: "coin1",
 				block: true,
 				destroy: false,
@@ -125,7 +137,7 @@ var home_loc = {
 				y: 300,
 				props: objectsDb.torch
 			}
-			
+
 		]
 	// }
 }

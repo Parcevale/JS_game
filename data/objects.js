@@ -258,6 +258,111 @@ var objectsDb = {
 		]
 
 	},
+		31: {
+		w: 160,
+		h: 120,
+		hp: 50,
+		// hp: 9999999,
+		ai: true,
+		speed: 3,
+		armor: 10,
+		damage: 10,
+		attackSpeed: 100,
+		level: 2,
+		stats: [
+			{ number: 1, name: "Strength" },// урон в ближнем бою, обьем выносливости
+			{ number: 1, name: "Reaction" },//Снижение урона, скорость атаки
+			{ number: 1, name: "Concentration" },//Увеличение урона, скорость каста, увеличение урона в дальнем бою. 
+			{ number: 1, name: "Sensibility" },//Количество маны, скорость регена, защита от магии
+			{ number: 1, name: "Constitution" },//увеличение хп,реген хп и выносливости. 
+			{ number: 1, name: "Will" },//увеличение магического урона, снижение стоимости скилов по воле.
+		],
+		state: "idle",
+		direction: "",
+		exp:5,
+		actions: {},
+		loot: [{name: 20, chance: 100}, {name: 'chest', chance: 70}],
+		grav : 1,
+			anim: 	
+		[
+			{name: "idle", src: "./img/slime-green.png", frames: 4, speed: 12},
+			{name: "hit", src: "./img/slime-hit.png", frames: 2, speed: 12},
+			{name: "strikeR", src: "./img/slime-strike.png", frames: 5, speed: 12},
+			{name: "strikeL", src: "./img/slime-strike.png", frames: 5, speed: 12},
+			{name: "strike", src: "./img/slime-strike.png", frames: 5, speed: 12}
+		]
+
+	},
+	32: {
+		w: 160,
+		h: 120,
+		hp: 50,
+		// hp: 9999999,
+		ai: true,
+		speed: 3,
+		armor: 10,
+		damage: 10,
+		attackSpeed: 100,
+		level: 2,
+		stats: [
+			{ number: 1, name: "Strength" },// урон в ближнем бою, обьем выносливости
+			{ number: 1, name: "Reaction" },//Снижение урона, скорость атаки
+			{ number: 1, name: "Concentration" },//Увеличение урона, скорость каста, увеличение урона в дальнем бою. 
+			{ number: 1, name: "Sensibility" },//Количество маны, скорость регена, защита от магии
+			{ number: 1, name: "Constitution" },//увеличение хп,реген хп и выносливости. 
+			{ number: 1, name: "Will" },//увеличение магического урона, снижение стоимости скилов по воле.
+		],
+		state: "idle",
+		direction: "",
+		exp:5,
+		actions: {},
+		loot: [{name: 20, chance: 100}, {name: 'chest', chance: 70}],
+		grav : 1,
+			anim: 	
+		[
+			{name: "idle", src: "./img/slime-yellow.png", frames: 4, speed: 12},
+			{name: "hit", src: "./img/slime-hit.png", frames: 2, speed: 12},
+			{name: "strikeR", src: "./img/slime-strike.png", frames: 5, speed: 12},
+			{name: "strikeL", src: "./img/slime-strike.png", frames: 5, speed: 12},
+			{name: "strike", src: "./img/slime-strike.png", frames: 5, speed: 12}
+		]
+
+	},
+	33: {
+		w: 320,
+		h: 240,
+		hp: 50,
+		// hp: 9999999,
+		ai: true,
+		speed: 3,
+		armor: 10,
+		damage: 10,
+		attackSpeed: 100,
+		level: 2,
+		stats: [
+			{ number: 1, name: "Strength" },// урон в ближнем бою, обьем выносливости
+			{ number: 1, name: "Reaction" },//Снижение урона, скорость атаки
+			{ number: 1, name: "Concentration" },//Увеличение урона, скорость каста, увеличение урона в дальнем бою. 
+			{ number: 1, name: "Sensibility" },//Количество маны, скорость регена, защита от магии
+			{ number: 1, name: "Constitution" },//увеличение хп,реген хп и выносливости. 
+			{ number: 1, name: "Will" },//увеличение магического урона, снижение стоимости скилов по воле.
+		],
+		state: "idle",
+		direction: "",
+		exp:5,
+		actions: {},
+		loot: [{name: 20, chance: 100}, {name: 'chest', chance: 70}],
+		grav : 1,
+			anim: 	
+		[
+			{name: "idle", src: "./img/slime-red.png", frames: 4, speed: 12},
+			{name: "hit", src: "./img/slime-hit.png", frames: 2, speed: 12},
+			{name: "strikeR", src: "./img/slime-strike.png", frames: 5, speed: 12},
+			{name: "strikeL", src: "./img/slime-strike.png", frames: 5, speed: 12},
+			{name: "strike", src: "./img/slime-strike.png", frames: 5, speed: 12}
+		]
+
+	},
 	ground_m: {
 		w: 100,
 		h: 100,

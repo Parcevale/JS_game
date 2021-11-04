@@ -10,31 +10,7 @@ var level_2 = {
 				props: objectsDb.bubble,
 				action: "tp_home"
 			}
-			// {x: 0,y: 500,	type: "platform", props: objectsDb.ground_m},
-			// {x: 100,y: 500,	type: "platform", props: objectsDb.ground_m},
-			// {x: 200,y: 500,	type: "platform", props: objectsDb.ground_m},
-			// {x: 300,y: 500,	type: "platform", props: objectsDb.ground_m},
-			// {x: 400,y: 500,	type: "platform", props: objectsDb.ground_m},
-			// {x: 500,y: 500,	type: "platform", props: objectsDb.ground_m},
-			// {x: 600,y: 500,	type: "platform", props: objectsDb.ground_m},
-			// {x: 700,y: 500,	type: "platform", props: objectsDb.ground_r},
-			// {x: 600,y: 400,	type: "barrel", props: objectsDb.barrel, action: "pickCoin"},
-			// // barrel
-			// {
-			// 	type: "exit",
-			// 	block: true,
-			// 	destroy: false,
-			// 	x: 2,
-			// 	y: 150,
-			// 	w: 150,
-			// 	h: 250,
-			// 	color: "#8b00ff",
-			// 	action: "tp_home"
-			// }
-
 		],
-		// enemy: [
-		// ],
 		map: [
 [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
@@ -75,43 +51,8 @@ var level_2 = {
 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
 [1,0,0,0,0,30,0,0,0,30,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,21,0,3],
 [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
-
-// x: 1920, y: 460
 		],
 		enemy: [
-			// {
-			// 	type: "slime1",
-			// 	block: true,
-			// 	destroy: false,
-			// 	state:"idle",
-			// 	// hp: objectsDB.slime.hp,
-			// 	x: 1920,
-			// 	y: 460,
-			// 	props: objectsDb[30],
-			// 	actions: {}
-			// },
-			// {
-			// 	type: "slime1",
-			// 	block: true,
-			// 	destroy: false,
-			// 	state:"idle",
-			// 	// hp: objectsDB.slime.hp,
-			// 	x: 1920,
-			// 	y: 460,
-			// 	props: objectsDb[30],
-			// 	actions: {}
-			// },
-			// {
-			// 	type: "slime1",
-			// 	block: true,
-			// 	destroy: false,
-			// 	state:"idle",
-			// 	// hp: objectsDB.slime.hp,
-			// 	x: 1920,
-			// 	y: 460,
-			// 	props: objectsDb[30],
-			// 	actions: {}
-			// }
 		]
 }
 

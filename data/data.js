@@ -35,6 +35,7 @@ var DATA = {
 	level_1: level_1,
 	home_loc: home_loc,
 	level_2 : level_2,
+	level_3 : level_3,
 	expTable: [0,20,100,550,900,1500,2200,3200,3800,4200,4550,5000,5500]
 	
 }
