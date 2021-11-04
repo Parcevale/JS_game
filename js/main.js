@@ -100,20 +100,25 @@ function drawUI() {
 		ctx.fillRect(930, 31, 298, 198);*/
 	}
 }
-
+function isDraw(obj) {
+	if (Math.abs(obj.x - getCam().x) > DATA.windowWidth) return false;
+	if (Math.abs(obj.y - getCam().y) > DATA.windowHeight) return false;
+	return true;
+}
+ // Math.abs((a1 + a2) - b1);
 var mainLoop = function () {
 	// var currentLocation = ;
 	clear();
 	ctx.drawImage(a[0].img,-getCam().x/15,0,DATA.windowWidth*2, DATA.windowHeight);
 
-	// console.log(a);
-	//ctx.canvas.width = window.innerWidth;
-	//ctx.canvas.height = window.innerHeight;
-	// ctx.drawImage(a[0].img, 0,0);
+
+// windowWidth: 1800,
+// 	windowHeight: 1000,
+
 
 	DATA.world.obstacles.forEach(function (obj,n,array) {
 		if (obj.destroy) clearArray(array, obj);
-		if (obj.props && obj.props.anim && !obj.destroy) {
+		if (obj.props && obj.props.anim && !obj.destroy && isDraw(obj)) {
 			drawAnimation(obj);
 		}
 		// if (obj.img && !obj.tst) ctx.drawImage(obj.img, obj.x - getCam().x, obj.y - getCam().y, obj.w, obj.h);
@@ -123,9 +128,10 @@ var mainLoop = function () {
 	DATA.world.enemy.forEach(function(obj,n,array) {
 		if (obj.destroy) clearArray(array, obj);
 	});
-	DATA.world.enemy.forEach(calcObjects);
+	// DATA.world.enemy.forEach(calcObjects);
 	DATA.world.enemy.forEach(function (obj){
-		if (obj.props.anim && !obj.destroy) {
+		if (obj.props.anim && !obj.destroy  && isDraw(obj)) {
+			calcObjects(obj);
 			drawAnimation(obj);
 		}
 	})
@@ -138,6 +144,7 @@ var mainLoop = function () {
 	// ctx.fillText("test text",  300, 800);
 	DATA.world.text.forEach(function (obj){
 		// obj
+
 		ctx.fillStyle = 'white';
 		ctx.font = "40px serif";
 		ctx.fillText(obj.text,  obj.x  - getCam().x, obj.y  - getCam().y);
@@ -148,9 +155,10 @@ var mainLoop = function () {
 	aObjects.forEach(function(obj,n,array) {
 		// if (obj.destroy) clearArray(array, obj);//походу героя удаляет при убийстве моба
 	});
-	aObjects.forEach(calcObjects);
+	// aObjects.forEach(calcObjects);
 	aObjects.forEach(function (obj) {
-		if (!obj.destroy) {
+		if (!obj.destroy && isDraw(obj)) {
+			calcObjects(obj);
 			drawAnimation(obj);
 		}
 		// drawAnimation(obj)
