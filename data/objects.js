@@ -223,9 +223,49 @@ var objectsDb = {
 		]
 
 	},
-		30: {
+	40: {
 		w: 160,
 		h: 120,
+		hp: 150,
+		// hp: 9999999,
+		ai: true,
+		speed: 4,
+		armor: 15,
+		damage: 20,
+		attackSpeed: 50,
+		level: 2,
+
+		stats: [
+			{ number: 1, name: "Strength" },// урон в ближнем бою, обьем выносливости
+			{ number: 1, name: "Reaction" },//Снижение урона, скорость атаки
+			{ number: 1, name: "Concentration" },//Увеличение урона, скорость каста, увеличение урона в дальнем бою. 
+			{ number: 1, name: "Sensibility" },//Количество маны, скорость регена, защита от магии
+			{ number: 1, name: "Constitution" },//увеличение хп,реген хп и выносливости. 
+			{ number: 1, name: "Will" },//увеличение магического урона, снижение стоимости скилов по воле.
+		],
+		state: "idle",
+		direction: "",
+		exp: 15,
+		actions: {},
+		loot: [{ name: 20, chance: 100 }, { name: 'chest', chance: 70 }],
+		grav: 1,
+		anim:
+			[
+				{ name: "idle", src: "./img/mobs/Skeleton/Skeleton_Idle.png", frames: 4, speed: 12 },
+				{ name: "hit", src: "./img/mobs/Skeleton/Skeleton_Hit.png", frames: 4, speed: 12 },
+				{ name: "strikeR", src: "./img/mobs/Skeleton/Skeleton_AttackR.png", frames: 8, speed: 12 },
+				{ name: "strikeL", src: "./img/mobs/Skeleton/Skeleton_AttackL.png", frames: 8, speed: 12 },
+				{ name: "strike", src: "./img/mobs/Skeleton/Skeleton_Attack.png", frames: 8, speed: 12 }
+
+
+				// {name: "idleR", src: "./img/strike_1R.png", frames: 18, speed: 2},
+				// {name: "idleL", src: "./img/strike_1L.png", frames: 18, speed: 2}
+			]
+
+	}, 
+		30: {
+		w: 260,
+		h: 420,
 		hp: 50,
 		// hp: 9999999,
 		ai: true,
@@ -242,13 +282,13 @@ var objectsDb = {
 			{ number: 1, name: "Constitution" },//увеличение хп,реген хп и выносливости. 
 			{ number: 1, name: "Will" },//увеличение магического урона, снижение стоимости скилов по воле.
 		],
-		state: "idle",
+		
 		direction: "",
 		exp:5,
 		actions: {},
 		loot: [{name: 20, chance: 100}, {name: 'chest', chance: 70}],
 		grav : 1,
-			anim: 	
+		anim: 	
 		[
 			{name: "idle", src: "./img/slime-2.png", frames: 4, speed: 12},
 			{name: "hit", src: "./img/slime-hit.png", frames: 2, speed: 12},
