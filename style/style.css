@@ -127,7 +127,6 @@ body {
 }
 .inventory-page {
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
     width: 100%;
     height: 35rem;
@@ -139,7 +138,7 @@ body {
 }
 .inventory-item {
     width: 26rem;
-    height: 5rem;
+    height: 2rem;
     background: bisque;
     border-radius: 6px;
     margin: 2px auto;

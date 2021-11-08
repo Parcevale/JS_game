@@ -50,6 +50,7 @@
 		<div id="inventory" class="inventory">
 			<div id="inventory_Page" class="inventory-page">
 				<div v-for="item in dataHero.mainHero.items" :key="item.message" class="inventory-item">
+                    <img src="{{ item.anim[0].src }}" alt="apple" width="30">
 					<h1>{{ item.name }} {{ item.frame }}</h1>
 					<button v-on:click="onAddStat" data-bind="{{ item.name }}">...</button>
 				</div>
